@@ -105,6 +105,7 @@ d3sparql.graph = function(json, config) {
 
 	  var head = json.head.vars
 	  var data = json.results.bindings
+	  console.log(head);
 
 	  var opts = {
 	    "key1":   config.key1   || head[0] || "key1",
@@ -140,7 +141,6 @@ d3sparql.graph = function(json, config) {
 	    graph.links.push({"source": check.get(key1), "target": check.get(key2)})
 	  }
 	  if (d3sparql.debug) { console.log(JSON.stringify(graph)) }
-	  console.log(graph);
 	  return graph
 	}
 

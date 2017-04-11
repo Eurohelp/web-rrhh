@@ -12,6 +12,13 @@ var d3sparql = {
   debug: false  // set to true for showing debug information
 }
 
+d3sparql.ocultarFormulario = function() {
+	var frm=document.form;
+	if(frm.style.display=="block"){frm.style.display="none"}
+	else
+	if(frm.style.display=="none"){frm.style.display="block"}
+	}
+
 /*
   Execute a SPARQL query and pass the result to a given callback function
 
@@ -102,7 +109,6 @@ d3sparql.query = function(endpoint, sparql, callback) {
 */
 d3sparql.graph = function(json, config) {
   config = config || {}
-
   var head = json.head.vars
   var data = json.results.bindings
 
@@ -139,7 +145,9 @@ d3sparql.graph = function(json, config) {
     }
     graph.links.push({"source": check.get(key1), "target": check.get(key2)})
   }
-  if (d3sparql.debug) { console.log(JSON.stringify(graph)) }
+  if (d3sparql.debug) { 
+	  console.log("los cabeceras" + head);
+}
   return graph
 }
 

@@ -4,12 +4,12 @@ function perri(json, config){
     var linkDistance=200;
     var colors = d3.scale.category10();
     config = {
-    	      "key1":   "s",       // SPARQL variable name for node1 (optional; default is the 1st variable)
-    	      "key2":   "o",       // SPARQL variable name for node2 (optional; default is the 2nd varibale)
+    	      "key1":   "s",  // SPARQL variable name for node1 (optional; default is the 1st variable)
+    	      "key2":   "o",  // SPARQL variable name for node2 (optional; default is the 2nd varibale)
     	      "label1": "s",  // SPARQL variable name for the label of node1 (optional; default is the 3rd variable)
     	      "label2": "o",  // SPARQL variable name for the label of node2 (optional; default is the 4th variable)
     	      "value1": "p",
-    	    "value2":"p"
+    	      "value2": "p"
     	    }
     var json ={
     		  "head" : {
@@ -137,7 +137,6 @@ function perri(json, config){
     			  }
     			};
     var graph = (json.head && json.results) ? d3sparql.graph(json, config) : json
-
  
     var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
 
@@ -168,7 +167,6 @@ function perri(json, config){
       .attr({"r":15})
       .style("fill",function(d,i){return colors(i);})
       .call(force.drag)
-
 
     var nodelabels = svg.selectAll(".nodelabel") 
        .data(graph.nodes)
