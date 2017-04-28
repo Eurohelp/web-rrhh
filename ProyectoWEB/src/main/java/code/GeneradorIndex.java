@@ -42,7 +42,7 @@ public class GeneradorIndex {
 		html=html.substring(0,inicio+"<table border>\n".length())+cabecera+html.substring(inicio+"<table border>\n".length(), html.length());
 			for (int j=pLista.get(i).size()-2;j>-1;j--) {
 			inicio=html.indexOf("</TD>\n");
-			aAnadir	=aAnadir.substring(0, aAnadir.length())+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(i).get(j)+"\">" + pLista.get(i).get(j)  ;
+			aAnadir	=aAnadir.substring(0, aAnadir.length())+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(i).get(pLista.get(i).size()-1)+"\" value=\""+pLista.get(i).get(j)+ "\">" + pLista.get(i).get(j)  ;
 		}
 		html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir +  "</TD>\n"+ html.substring(inicio+"</TD>\n".length(), html.length());
 		aAnadir="\n<TD>";

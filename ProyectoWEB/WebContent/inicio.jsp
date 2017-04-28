@@ -7,7 +7,7 @@
 <title>Pruebas varias</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-    $.get('ServQuery', function(data) {
+    $.post('ServGetJson', function(data) {
         alert(data);
     });
 </script>

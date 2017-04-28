@@ -1,0 +1,107 @@
+{
+  "head" : {
+    "vars" : [
+      "persona",
+      "tipo",
+      "prefPersona",
+      "Categoria",
+      "id",
+      "nombreCategoria",
+      "prefPuesto",
+      "prefExperiencia",
+      "Experiencia",
+      "nombreExperiencia",
+      "habilidades",
+      "lenguajeProg",
+      "nombreLenguajeProg",
+      "prefCertif",
+      "certificacion",
+      "nombreCertificacion",
+      "prefIdioma",
+      "idioma",
+      "nombreIdioma"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "persona" : {
+          "type" : "uri",
+          "value" : "http://opendata.eurohelp.es/LeireBardaji"
+        },
+        "tipo" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        },
+        "prefPersona" : {
+          "type" : "uri",
+          "value" : "http://schema.org/Person"
+        },
+        "Categoria" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/ProjectManager"
+        },
+        "id" : {
+          "type" : "uri",
+          "value" : "http://schema.org/name"
+        },
+        "nombreCategoria" : {
+          "type" : "literal",
+          "value" : "Jefe de proyecto"
+        },
+        "prefPuesto" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/puesto"
+        },
+        "prefExperiencia" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/experience"
+        },
+        "Experiencia" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/eurohelp"
+        },
+        "nombreExperiencia" : {
+          "type" : "literal",
+          "value" : "Eurohelp Consulting"
+        },
+        "habilidades" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/skill"
+        },
+        "lenguajeProg" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/html"
+        },
+        "nombreLenguajeProg" : {
+          "type" : "literal",
+          "value" : "HTML"
+        },
+        "prefCertif" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/certification"
+        },
+        "certificacion" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/ISTQB"
+        },
+        "nombreCertificacion" : {
+          "type" : "literal",
+          "value" : "ISTQB"
+        },
+        "prefIdioma" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/idioma"
+        },
+        "idioma" : {
+          "type" : "uri",
+          "value" : "http://opendata.euskadi.eus/es"
+        },
+        "nombreIdioma" : {
+          "type" : "literal",
+          "value" : "Spanish"
+        }
+      }
+    ]
+  }
+}
