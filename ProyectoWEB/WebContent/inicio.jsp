@@ -7,8 +7,8 @@
 <title>Pruebas varias</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-    $.post('ServGetJson', function(data) {
-        alert(data);
+    $.post('ServGeneradorIndex', function(data) {
+        
     });
 </script>
 </head>
