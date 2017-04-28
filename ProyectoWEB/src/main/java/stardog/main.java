@@ -1,6 +1,5 @@
 package stardog;
 
-
 import org.openrdf.repository.RepositoryException;
 
 import code.GeneradorIndex;
@@ -15,8 +14,6 @@ public class main {
 		String[] pCertificaciones ={"ISTQB"};
 		String[] pIdiomas ={"Spanish"};
 		String[] pUniversidad ={"UPV-EHU"};
-
-		st.getGraphData(pCategoria, pExperiencia, pHabilidades, pCertificaciones, pIdiomas, pUniversidad);
-	
+		st.getGraphData(pCategoria, pExperiencia, pHabilidades, pCertificaciones, pIdiomas, pUniversidad);	
 	}
 }

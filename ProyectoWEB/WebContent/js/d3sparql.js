@@ -14,7 +14,6 @@ var d3sparql = {
 
 /*
   Execute a SPARQL query and pass the result to a given callback function
-
   Synopsis:
     <!DOCTYPE html>
     <meta charset="utf-8">
@@ -77,7 +76,6 @@ d3sparql.query = function(endpoint, sparql, callback) {
 /*
   Convert sparql-results+json object into a JSON graph in the {"nodes": [], "links": []} form.
   Suitable for d3.layout.force(), d3.layout.sankey() etc.
-
   Options:
     config = {
       "key1":   "node1",       // SPARQL variable name for node1 (optional; default is the 1st variable)
@@ -87,16 +85,13 @@ d3sparql.query = function(endpoint, sparql, callback) {
       "value1": "node1value",  // SPARQL variable name for the value of node1 (optional; default is the 5th variable)
       "value2": "node2value"   // SPARQL variable name for the value of node2 (optional; default is the 6th variable)
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.forcegraph(json, config)
       d3sparql.sankey(json, config)
     }
-
   TODO:
     Should follow the convention in the miserables.json https://gist.github.com/mbostock/4062045 to contain group for nodes and value for edges.
 */
@@ -105,7 +100,6 @@ d3sparql.graph = function(json, config) {
 
 	  var head = json.head.vars
 	  var data = json.results.bindings
-	  console.log(head);
 
 	  var opts = {
 	    "key1":   config.key1   || head[0] || "key1",
@@ -141,19 +135,18 @@ d3sparql.graph = function(json, config) {
 	    graph.links.push({"source": check.get(key1), "target": check.get(key2)})
 	  }
 	  if (d3sparql.debug) { console.log(JSON.stringify(graph)) }
+	  console.log(graph);
 	  return graph
 	}
 
 /*
   Convert sparql-results+json object into a JSON tree of {"name": name, "value": size, "children": []} format like in the flare.json file.
-
   Suitable for d3.layout.hierarchy() family
     * cluster:    d3sparql.dendrogram()
     * pack:       d3sparql.circlepack()
     * partition:  d3sparql.sunburst()
     * tree:       d3sparql.roundtree()
     * treemap:    d3sparql.treemap(), d3sparql.treemapzoom()
-
   Options:
     config = {
       "root":   "root_name",    // SPARQL variable name for root node (optional; default is the 1st variable)
@@ -161,10 +154,8 @@ d3sparql.graph = function(json, config) {
       "child":  "child_name",   // SPARQL variable name for child node (ptional; default is the 3rd variable)
       "value":  "value_name"    // SPARQL variable name for numerical value of the child node (optional; default is the 4th variable or "value")
     }
-
   Synopsis:
     d3sparql.sparql(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.roundtree(json, config)
@@ -228,20 +219,16 @@ d3sparql.tree = function(json, config) {
 
 /*
   Rendering sparql-results+json object containing multiple rows into a HTML table
-
   Options:
     config = {
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.htmltable(json, config)
     }
-
   CSS:
     <style>
     table {
@@ -300,20 +287,16 @@ d3sparql.htmltable = function(json, config) {
 
 /*
   Rendering sparql-results+json object containing one row into a HTML table
-
   Options:
     config = {
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.htmlhash(json, config)
     }
-
   CSS:
     <style>
     table {
@@ -364,11 +347,9 @@ d3sparql.htmlhash = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a bar chart
-
   References:
     http://bl.ocks.org/mbostock/3885304
     http://bl.ocks.org/mbostock/4403522
-
   Options:
     config = {
       "label_x":  "Prefecture",  // label for x-axis (optional; default is same as var_x)
@@ -380,15 +361,12 @@ d3sparql.htmlhash = function(json, config) {
       "margin":   40,            // canvas margin (optional)
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.barchart(json, config)
     }
-
   CSS/SVG:
     <style>
     .bar {
@@ -504,11 +482,9 @@ d3sparql.barchart = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a pie chart
-
   References:
     http://bl.ocks.org/mbostock/3887235 Pie chart
     http://bl.ocks.org/mbostock/3887193 Donut chart
-
   Options:
     config = {
       "label":    "pref",    // SPARQL variable name for slice label (optional; default is the 1st variable)
@@ -519,15 +495,12 @@ d3sparql.barchart = function(json, config) {
       "hole":     50,        // radius size of a center hole (optional; 0 for pie, r > 0 for doughnut)
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.piechart(json, config)
     }
-
   CSS/SVG:
     <style>
     .label {
@@ -602,10 +575,8 @@ d3sparql.piechart = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a scatter plot
-
   References:
     http://bl.ocks.org/mbostock/3244058
-
   Options:
     config = {
       "label_x":  "Size",    // label for x-axis (optional; default is same as var_x)
@@ -621,15 +592,12 @@ d3sparql.piechart = function(json, config) {
       "margin_y": 40,        // canvas margin y (optional)
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.scatterplot(json, config)
     }
-
   CSS/SVG:
     <style>
     .label {
@@ -731,10 +699,8 @@ d3sparql.scatterplot = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a force graph
-
   References:
     http://bl.ocks.org/mbostock/4062045
-
   Options:
     config = {
       "radius":   12,        // static value or a function to calculate radius of nodes (optional)
@@ -746,15 +712,12 @@ d3sparql.scatterplot = function(json, config) {
       "selector": "#result"
       // options for d3sparql.graph() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.forcegraph(json, config)
     }
-
   CSS/SVG:
     <style>
     .link {
@@ -773,7 +736,6 @@ d3sparql.scatterplot = function(json, config) {
       font-size: 8px;
     }
     </style>
-
   TODO:
     Try other d3.layout.force options.
 */
@@ -852,11 +814,9 @@ d3sparql.forcegraph = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a sanky  
-
   References:
     https://github.com/d3/d3-plugins/tree/master/sankey
     http://bost.ocks.org/mike/sankey/
-
   Options:
     config = {
       "width":    1000,      // canvas width (optional)
@@ -865,15 +825,12 @@ d3sparql.forcegraph = function(json, config) {
       "selector": "#result"
       // options for d3sparql.graph() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.sankey(json, config)
     }
-
   CSS/SVG:
     <style>
     .node rect {
@@ -894,7 +851,6 @@ d3sparql.forcegraph = function(json, config) {
       stroke-opacity: .5;
     }
     </style>
-
   Dependencies:
     * sankey.js
       * Download from https://github.com/d3/d3-plugins/tree/master/sankey
@@ -983,10 +939,8 @@ d3sparql.sankey = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a round tree
-
   References:
     http://bl.ocks.org/4063550  Reingold-Tilford Tree
-
   Options:
     config = {
       "diameter": 800,       // canvas diameter (optional)
@@ -996,15 +950,12 @@ d3sparql.sankey = function(json, config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.roundtree(json, config)
     }
-
   CSS/SVG:
     <style>
     .link {
@@ -1089,10 +1040,8 @@ d3sparql.roundtree = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a dendrogram
-
   References:
     http://bl.ocks.org/4063570  Cluster Dendrogram
-
   Options:
     config = {
       "width":    900,       // canvas width (optional)
@@ -1102,15 +1051,12 @@ d3sparql.roundtree = function(json, config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.dendrogram(json, config)
     }
-
   CSS/SVG:
     <style>
     .link {
@@ -1249,11 +1195,9 @@ d3sparql.dendrogram = function(json,config) {
 
 /*
   Rendering sparql-results+json object into a sunburst
-
   References:
     http://bl.ocks.org/4348373  Zoomable Sunburst
     http://www.jasondavies.com/coffee-wheel/  Coffee Flavour Wheel
-
   Options:
     config = {
       "width":    1000,      // canvas width (optional)
@@ -1262,15 +1206,12 @@ d3sparql.dendrogram = function(json,config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.sunburst(json, config)
     }
-
   CSS/SVG:
     <style>
     .node text {
@@ -1392,10 +1333,8 @@ d3sparql.sunburst = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a circle pack
-
   References:
     http://mbostock.github.com/d3/talk/20111116/pack-hierarchy.html  Circle Packing
-
   Options:
     config = {
       "width":    800,       // canvas width (optional)
@@ -1404,15 +1343,12 @@ d3sparql.sunburst = function(json, config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.circlepack(json, config)
     }
-
   CSS/SVG:
     <style>
     text {
@@ -1440,7 +1376,6 @@ d3sparql.sunburst = function(json, config) {
       pointer-events: none;
     }
     </style>
-
   TODO:
     Fix rotation angle for each text to avoid string collision
 */
@@ -1533,10 +1468,8 @@ d3sparql.circlepack = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a treemap
-
   References:
     http://bl.ocks.org/4063582  Treemap
-
   Options:
     config = {
       "width":    800,       // canvas width (optional)
@@ -1545,15 +1478,12 @@ d3sparql.circlepack = function(json, config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.treemap(json, config)
     }
-
   CSS/SVG:
     <style>
     .node {
@@ -1631,11 +1561,9 @@ d3sparql.treemap = function(json, config) {
 
 /*
   Rendering sparql-results+json object into a zoomable treemap
-
   References:
     http://bost.ocks.org/mike/treemap/  Zoomable Treemaps
     http://bl.ocks.org/zanarmstrong/76d263bd36f312cb0f9f
-
   Options:
     config = {
       "width":    800,       // canvas width (optional)
@@ -1644,15 +1572,12 @@ d3sparql.treemap = function(json, config) {
       "selector": "#result"
       // options for d3sparql.tree() can be added here ...
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       var config = { ... }
       d3sparql.treemapzoom(json, config)
     }
-
   CSS/SVG:
     <style>
     rect {
@@ -1852,7 +1777,6 @@ d3sparql.treemapzoom = function(json, config) {
 
 /*
   World Map spotted by coordinations (longitude and latitude)
-
   Options:
     config = {
       "var_lat":  "lat",     // SPARQL variable name for latitude (optional; default is the 1st variable)
@@ -1864,14 +1788,11 @@ d3sparql.treemapzoom = function(json, config) {
       "topojson": "path/to/world-50m.json",  // TopoJSON file
       "selector": "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       d3sparql.coordmap(json, config = {})
     }
-
   Dependencies:
     * topojson.js
       * Download from http://d3js.org/topojson.v1.min.js
@@ -1952,7 +1873,6 @@ d3sparql.coordmap = function(json,config) {
 
 /*
   World Map colored by location names defined in a TopoJSON file
-
   Options:
     config = {
       "label":       "name",    // SPARQL variable name for location names (optional; default is the 1st variable)
@@ -1970,14 +1890,11 @@ d3sparql.coordmap = function(json,config) {
       "scale":       10000,     // scale of rendering (optional)
       "selector":    "#result"
     }
-
   Synopsis:
     d3sparql.query(endpoint, sparql, render)
-
     function render(json) {
       d3sparql.namedmap(json, config = {})
     }
-
   Dependencies:
     * topojson.js
       * Download from http://d3js.org/topojson.v1.min.js

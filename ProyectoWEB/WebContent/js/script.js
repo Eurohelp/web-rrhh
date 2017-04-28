@@ -1,255 +1,173 @@
-function perrito(){
-	var json ={
-  "head" : {
-    "vars" : [
-      "persona",
-      "tipo",
-      "prefPersona",
-      "Categoria",
-      "id",
-      "nombreCategoria",
-      "prefPuesto",
-      "prefExperiencia",
-      "Experiencia",
-      "nombreExperiencia",
-      "habilidades",
-      "lenguajeProg",
-      "nombreLenguajeProg",
-      "prefCertif",
-      "certificacion",
-      "nombreCertificacion",
-      "prefIdioma",
-      "idioma",
-      "nombreIdioma"
-    ]
-  },
-  "results" : {
-    "bindings" : [
-      {
-        "persona" : {
-          "type" : "uri",
-          "value" : "http://opendata.eurohelp.es/LeireBardaji"
-        },
-        "tipo" : {
-          "type" : "uri",
-          "value" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        },
-        "prefPersona" : {
-          "type" : "uri",
-          "value" : "http://schema.org/Person"
-        },
-        "Categoria" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/ProjectManager"
-        },
-        "id" : {
-          "type" : "uri",
-          "value" : "http://schema.org/name"
-        },
-        "nombreCategoria" : {
-          "type" : "literal",
-          "value" : "Jefe de proyecto"
-        },
-        "prefPuesto" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/puesto"
-        },
-        "prefExperiencia" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/experience"
-        },
-        "Experiencia" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/eurohelp"
-        },
-        "nombreExperiencia" : {
-          "type" : "literal",
-          "value" : "Eurohelp Consulting"
-        },
-        "habilidades" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/skill"
-        },
-        "lenguajeProg" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/html"
-        },
-        "nombreLenguajeProg" : {
-          "type" : "literal",
-          "value" : "HTML"
-        },
-        "prefCertif" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/certification"
-        },
-        "certificacion" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/ISTQB"
-        },
-        "nombreCertificacion" : {
-          "type" : "literal",
-          "value" : "ISTQB"
-        },
-        "prefIdioma" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/idioma"
-        },
-        "idioma" : {
-          "type" : "uri",
-          "value" : "http://opendata.euskadi.eus/es"
-        },
-        "nombreIdioma" : {
-          "type" : "literal",
-          "value" : "Spanish"
-        }
-      }
-    ]
-  }
-};
-	var jr= d3.json("archivoJSON.json");
-}
-
-function perri(json, config){
+function perri(){
 	var w = 1000;
     var h = 600;
     var linkDistance=200;
     var colors = d3.scale.category10();
     config = {
-    		"key1":   "s",  // SPARQL variable name for node1 (optional; default is the 1st variable)
-  	      "key2":   "o",  // SPARQL variable name for node2 (optional; default is the 2nd varibale)
-  	      "label1": "s",  // SPARQL variable name for the label of node1 (optional; default is the 3rd variable)
-  	      "label2": "o",  // SPARQL variable name for the label of node2 (optional; default is the 4th variable)
+    	  "key1":   "s",  // SPARQL variable name for node1 (optional; default
+							// is the 1st variable)
+  	      "key2":   "o",  // SPARQL variable name for node2 (optional; default
+							// is the 2nd varibale)
+  	      "label1": "s",  // SPARQL variable name for the label of node1
+							// (optional; default is the 3rd variable)
+  	      "label2": "o",  // SPARQL variable name for the label of node2
+							// (optional; default is the 4th variable)
   	      "value1": "p",
   	      "value2": "p"
     	    }
     var json ={
-    		"head": {
-    			"vars": ["s", "p", "o"]
-    		},
-    		"results": {
-    			"bindings": [{
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/es"
-    				},
-    				"p": {
-    					"value": "http://schema.org/name"
-    				},
-    				"o": {
-    					"value": "Spanish"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://opendata.euskadi.eus/idioma"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/es"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/ISTQB"
-    				},
-    				"p": {
-    					"value": "http://schema.org/name"
-    				},
-    				"o": {
-    					"value": "ISTQB"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://opendata.euskadi.eus/certification"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/ISTQB"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/html"
-    				},
-    				"p": {
-    					"value": "http://schema.org/name"
-    				},
-    				"o": {
-    					"value": "HTML"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://opendata.euskadi.eus/skill"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/html"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/eurohelp"
-    				},
-    				"p": {
-    					"value": "http://schema.org/name"
-    				},
-    				"o": {
-    					"value": "EurohelpConsulting"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://opendata.euskadi.eus/experience"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/eurohelp"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/ProjectManager"
-    				},
-    				"p": {
-    					"value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/puesto"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.euskadi.eus/ProjectManager"
-    				},
-    				"p": {
-    					"value": "http://schema.org/name"
-    				},
-    				"o": {
-    					"value": "Jefedeproyecto"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-    				},
-    				"o": {
-    					"value": "http://opendata.euskadi.eus/ProjectManager"
-    				}
-    			}, {
-    				"s": {
-    					"value": "http://opendata.eurohelp.es/LeireBardaji"
-    				},
-    				"p": {
-    					"value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-    				},
-    				"o": {
-    					"value": "http://schema.org/Person"
-    				}
-    			}]
-    		}
-    	};
+    	    "head": {
+    	        "vars": [
+    	            "s",
+    	            "p",
+    	            "o"
+    	        ]
+    	    },
+    	    "results": {
+    	        "bindings": [
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.eurohelp.es/LeireBardaji"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/ProjectManager"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/ProjectManager"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://schema.org/name"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "Jefedeproyecto"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.eurohelp.es/LeireBardaji"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/experience"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/eurohelp"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/eurohelp"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://schema.org/name"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "EurohelpConsulting"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.eurohelp.es/LeireBardaji"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/skill"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/html"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/html"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://schema.org/name"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "HTML"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.eurohelp.es/LeireBardaji"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/certification"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/ISTQB"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/ISTQB"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://schema.org/name"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "ISTQB"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.eurohelp.es/LeireBardaji"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/idioma"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/es"
+    	                }
+    	            },
+    	            {
+    	                "s": {
+    	                    "type": "uri",
+    	                    "value": "http://opendata.euskadi.eus/es"
+    	                },
+    	                "p": {
+    	                    "type": "uri",
+    	                    "value": "http://schema.org/name"
+    	                },
+    	                "o": {
+    	                    "type": "uri",
+    	                    "value": "Spanish"
+    	                }
+    	            }
+    	        ]
+    	    }
+    	} ;
     var graph = (json.head && json.results) ? d3sparql.graph(json, config) : json
  
     var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
@@ -292,7 +210,7 @@ function perri(json, config){
               'font-size':10,
               })
        .text(function(d){return d.key;});
-    //se refiere las aristas del grafo
+    // se refiere las aristas del grafo
     var edgepaths = svg.selectAll(".edgepath")
         .data(graph.links)
         .enter()
@@ -317,7 +235,7 @@ function perri(json, config){
                'dy':0,
                'font-size':7,
                'fill':'black'});
-    //VALOR DE LOS NODOS EN D.
+    // VALOR DE LOS NODOS EN D.
     edgelabels.append('textPath')
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
@@ -328,7 +246,7 @@ function perri(json, config){
                'viewBox':'-0 -5 10 10',
                'refX':25,
                'refY':0,
-               //'markerUnits':'strokeWidth',
+               // 'markerUnits':'strokeWidth',
                'orient':'auto',
                'markerWidth':10,
                'markerHeight':10,
@@ -355,7 +273,7 @@ function perri(json, config){
                   .attr("y", function(d) { return d.y; });
 
         edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
-                                           //console.log(d)
+                                           // console.log(d)
                                            return path});       
 
         edgelabels.attr('transform',function(d,i){

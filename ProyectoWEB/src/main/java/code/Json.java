@@ -39,15 +39,15 @@ public class Json {
 	public String parsearJSON() {
 		String result = "{\"head\" : {\"vars\" : [ \"s\", \"p\", \"o\" ]},\"results\" : {\"bindings\" : [{";
 		String[] filas = obtenerFilas();
-		for (int i = 0; i < filas.length; i++) {
+		for (int i = filas.length-1; i > -1 ; i--) {
 			String[] porElemento = filas[i].split(",");
-			if (i ==0) {
-				result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"o\" : { \"value\":\"" + porElemento[2] + "\" }}]}}");
+			if (i ==filas.length-1) {
+				result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"o\" : {\"type\" : \"uri\", \"value\":\"" + porElemento[2] + "\" }}]}}");
 			} else {
-				result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"o\" : { \"value\":\"" + porElemento[2] + "\" }},{");
+				result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"o\" : {\"type\" : \"uri\", \"value\":\"" + porElemento[2] + "\" }},{");
 			}
-			result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"p\" : { \"value\":\"" + porElemento[1] + "\" },");
-			result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"s\" : { \"value\":\"" + porElemento[0] + "\" },");
+			result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"p\" : {\"type\" : \"uri\", \"value\":\"" + porElemento[1] + "\" },");
+			result = result.replace("{\"bindings\" : [{", "{\"bindings\" : [{\"s\" : {\"type\" : \"uri\", \"value\":\"" + porElemento[0] + "\" },");
 		}
 		return result;
 	}

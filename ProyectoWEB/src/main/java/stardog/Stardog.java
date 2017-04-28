@@ -113,10 +113,8 @@ public class Stardog {
 	// Universidad
 	public String getGraphData(String[] pCategoria, String[] pExperiencia, String[] pHabilidades,
 			String[] pCertificaciones, String[] pIdiomas, String[] pUniversidad) {
-		String result="";
-		String query = "CONSTRUCT{" + "?persona ?tipo ?prefPersona. "
-				+ "?persona ?tipo ?Categoria."
-				+ "?Categoria ?id ?nombreCategoria. ?Categoria ?tipo ?prefPuesto."
+		String result = "";
+		String query = "CONSTRUCT{" + "?persona ?tipo ?Categoria." + "?Categoria ?id ?nombreCategoria."
 				+ "?persona ?prefExperiencia ?Experiencia. " + "?Experiencia ?id ?nombreExperiencia."
 				+ "?persona ?habilidades ?lenguajeProg. " + "?lenguajeProg ?id ?nombreLenguajeProg."
 				+ "?persona ?prefCertif ?certificacion. " + "?certificacion ?id ?nombreCertificacion."
@@ -149,15 +147,15 @@ public class Stardog {
 			OutputStream os = new FileOutputStream(file);
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
-//			N3Writer  nWritter = new N3Writer(os);
-//			nWritter.startRDF();
-//			while (results.hasNext()) {
-//				nWritter.handleStatement(results.next());
-//			}
-//			nWritter.endRDF();
-			while (results.hasNext()){	
-			result=result+results.next();
-			result=result.replace(" ","");
+			// N3Writer nWritter = new N3Writer(os);
+			// nWritter.startRDF();
+			// while (results.hasNext()) {
+			// nWritter.handleStatement(results.next());
+			// }
+			// nWritter.endRDF();
+			while (results.hasNext()) {
+				result = result + results.next();
+				result = result.replace(" ", "");
 			}
 			System.out.println(result);
 			results.close();
@@ -165,7 +163,7 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Json json = new Json(result); 
+		Json json = new Json(result);
 		result = json.parsearJSON();
 		System.out.println(result);
 		return result;
