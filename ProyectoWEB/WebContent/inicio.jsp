@@ -12,12 +12,12 @@
 	});
 </script>
 <script>
-	$('#ajaxbtn').on('click', function() {
+	function mishelle() {
 		$.get("ServGetJson", function(data) {
 			console.log(data);
 			$('#result').html(data);
 		})
-	})
+	}
 </script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3sparql.js"></script>

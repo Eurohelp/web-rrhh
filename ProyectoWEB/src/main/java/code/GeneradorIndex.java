@@ -14,7 +14,7 @@ public class GeneradorIndex {
 			+ "<TR>"
 			+"<TH>Pulse aquí:</TH>\n"
 			+"<TD ALIGN=CENTER>\n"
-			+" <input type=\"button\" name=\"b1\" id=\"ajaxbtn\" value=\" CLICK TO CONECT TO SERVER\">"
+	        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
 			+"<input type=\"reset\" onclick=\"d3sparql.ocultarFormulario()\" value=\"Ocultar tabla\">\n"
 			+"<input type=\"submit\" value=\"Buscar\"></TD>\n"
 			+"</table>\n"
