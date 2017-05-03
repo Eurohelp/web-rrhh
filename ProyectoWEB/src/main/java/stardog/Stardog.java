@@ -25,6 +25,7 @@ import org.openrdf.rio.ntriples.NTriplesWriter;
 import com.complexible.stardog.api.ConnectionConfiguration;
 import com.complexible.stardog.sesame.StardogRepository;
 
+import code.GeneradorIndex;
 import code.Json;
 
 public class Stardog {
@@ -73,7 +74,7 @@ public class Stardog {
 	}
 
 	// Categoria, Experiencia, Habilidades, Certificaciones,Idiomas, Universidad
-	public ArrayList<ArrayList<String>> getPageData() {
+	public String getPageData() {
 		String[] querys = new String[6];
 		querys[0] = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		querys[1] = "select distinct ?Experiencia { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?persona <http://opendata.euskadi.eus/experience> ?s.?s <http://schema.org/name> ?Experiencia}}";
@@ -106,11 +107,21 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return resultadosTotales;
+		String resultado = new GeneradorIndex().generarIndex(resultadosTotales);
+		return resultado;
 	}
 
-	// Categoria, Experiencia, Habilidades, Certificaciones, Idiomas,
-	// Universidad
+	/**
+	 * Metodo que a partir de las caracteristicas de los elementos que se le pasen por parametro obtiene 
+	 * el JSON adecuado de la base de datos y lo adecua al formato correcto
+	 * @param pCategoria
+	 * @param pExperiencia
+	 * @param pHabilidades
+	 * @param pCertificaciones
+	 * @param pIdiomas
+	 * @param pUniversidad
+	 * @return
+	 */
 	public String getGraphData(String[] pCategoria, String[] pExperiencia, String[] pHabilidades,
 			String[] pCertificaciones, String[] pIdiomas, String[] pUniversidad) {
 		String result = "";
@@ -141,25 +152,15 @@ public class Stardog {
 		query = completarFila("?nombreCertificacion IN (", pCertificaciones, query);
 		query = completarFila("?nombreIdioma IN (", pIdiomas, query);
 		System.out.println(query);
-		File file = null;
 		try {
-			file = new File("./JSON/archivoJSON.json");
-			OutputStream os = new FileOutputStream(file);
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
-			// N3Writer nWritter = new N3Writer(os);
-			// nWritter.startRDF();
-			// while (results.hasNext()) {
-			// nWritter.handleStatement(results.next());
-			// }
-			// nWritter.endRDF();
 			while (results.hasNext()) {
 				result = result + results.next();
 				result = result.replace(" ", "");
 			}
 			System.out.println(result);
 			results.close();
-			file.deleteOnExit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
