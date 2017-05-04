@@ -35,13 +35,6 @@ public class ServGeneradorIndex extends HttpServlet {
 		response.getWriter().print(datos);
 	}
 
-	private void response(HttpServletResponse response, String datos) throws IOException {
-		PrintWriter out = response.getWriter();
-		out.println(datos);
-		System.out.println(datos);
-		out.close();
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

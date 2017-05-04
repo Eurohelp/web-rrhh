@@ -8,19 +8,17 @@ public class GeneradorIndex {
 	public String generarIndex(ArrayList<ArrayList<String>> pLista){
 
 		String html=
-			"<form name=\"form\" >\n"
+			"<form name=\"form\" id=\"form\" method=\"post\" >\n"
 			+"<center>\n"
 			+"<table border>\n"
 			+ "<TR>"
 			+"<TH>Pulse aquí:</TH>\n"
 			+"<TD ALIGN=CENTER>\n"
 	        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
-			+"<input type=\"reset\" onclick=\"d3sparql.ocultarFormulario()\" value=\"Ocultar tabla\">\n"
-			+"<input type=\"submit\" value=\"Buscar\"></TD>\n"
 			+"</table>\n"
 			+"</center>\n"
 			+"</form>\n"
-			+"<div id=\"result\"></div>\n";
+			+"<div id=\"result\" align=center></div>\n";
 		String aAnadir="\n<TD>";
 		for (int i=pLista.size()-1;i>-1;i--) {
 		int inicio=html.indexOf("<table border>\n");
