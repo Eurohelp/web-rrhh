@@ -73,6 +73,37 @@ public class Stardog {
 		}
 	}
 
+	/**
+	 * Metodo obtiene las categorias disponibles en los datos existentes
+	 * 
+	 * @return
+	 */
+	public String getDatosCategoria() {
+		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
+		ArrayList<String> resultadosParciales = new ArrayList<String>();
+		String resultado="";
+		try {
+			TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, queryCat);
+			TupleQueryResult resultadoQuery = query.evaluate();
+			String identificador = "";
+			while (resultadoQuery.hasNext()) {
+				resultado = resultadoQuery.next().toString();
+				resultado = resultado.replace("\"", "");
+				resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
+				resultado = resultado.replace("[", "");
+				resultado = resultado.replace("]", "");
+				String[] result = resultado.toString().split("=");
+				identificador = result[0];
+				resultadosParciales.add(result[1]);
+			}
+			resultadosParciales.add(identificador);
+			resultado = new GeneradorIndex().generarIndex2(resultadosParciales);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+
 	// Categoria, Experiencia, Habilidades, Certificaciones,Idiomas, Universidad
 	public String getPageData() {
 		String[] querys = new String[6];
@@ -112,8 +143,10 @@ public class Stardog {
 	}
 
 	/**
-	 * Metodo que a partir de las caracteristicas de los elementos que se le pasen por parametro obtiene 
-	 * el JSON adecuado de la base de datos y lo adecua al formato correcto
+	 * Metodo que a partir de las caracteristicas de los elementos que se le
+	 * pasen por parametro obtiene el JSON adecuado de la base de datos y lo
+	 * adecua al formato correcto
+	 * 
 	 * @param pCategoria
 	 * @param pExperiencia
 	 * @param pHabilidades
@@ -170,6 +203,45 @@ public class Stardog {
 		return result;
 	}
 
+
+
+	/**
+	 * Obtiene las habilidades y certificaciones asociadas a la categoria
+	 * 
+	 * @param pCategoria
+	 * @return
+	 */
+	public String getCategoriaCalCert(String[] pCategoria) {
+		String query = "CONSTRUCT  {" + "?uriCategoria ?nombre ?nomCategoria."
+				+ "?uriCategoria ?habilidades ?uriHabilidad." + " ?uriHabilidad ?nombre ?nomHabilidad."
+				+ " ?uriCategoria ?certificaciones ?uriCertificacion." + " ?uriCertificacion ?nombre ?nomCertificacion."
+				+ "}WHERE" + "	{" + "GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {"
+				+ " ?uriCategoria ?tipo ?puesto." + "?uriCategoria ?nombre ?nomCategoria."
+				+ "?uriCategoria ?habilidades ?uriHabilidad." + "?uriHabilidad ?nombre ?nomHabilidad."
+				+ "?uriCategoria ?certificaciones ?uriCertificacion." + "?uriCertificacion ?nombre ?nomCertificacion."
+				+ "FILTER(?" + "nomCategoria IN ())" + "FILTER (?puesto = <http://opendata.euskadi.eus/puesto> )"
+				+ "FILTER (?habilidades = <http://opendata.euskadi.eus/skill> )"
+				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
+		String result = "";
+		query = completarFila("?nomCategoria IN (",pCategoria, query);
+		try {
+			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
+			GraphQueryResult results = tupleQuery.evaluate();
+			while (results.hasNext()) {
+				result = result + results.next();
+				result = result.replace(", ", ",");
+			}
+			System.out.println(result);
+			results.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Json json = new Json(result);
+		System.out.println(result);
+		result = json.parsearJSON();
+		System.out.println(result);
+		return result;
+	}
 	public String completarFila(String pPatron, String[] pConjunto, String pQuery) {
 		for (int i = 0; i < pConjunto.length; i++) {
 			if (i + 1 >= pConjunto.length) {

@@ -34,4 +34,32 @@ public class GeneradorIndex {
 	}
 		return html;
 	}
+	
+	// Categoria, Experiencia, Habilidades, Certificaciones,Idiomas, Universidad
+	public String generarIndex2(ArrayList<String> pLista){
+		String html=
+				"<form name=\"form\" id=\"form\" method=\"post\" >\n"
+				+"<center>\n"
+				+"<table border>\n";
+			String aAnadir="\n<TD>";
+			String cabecera="<TR>\n"
+					+"   <TD>"+pLista.get(pLista.size()-1)+":</TD>\n";
+			html=html+cabecera;
+			for (int i=pLista.size()-2;i>-1;i--) {
+				int inicio=html.indexOf("</TD>\n");
+				aAnadir	=aAnadir+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(pLista.size()-1)+"\" value=\""+pLista.get(i)+ "\">"+pLista.get(i) +"\n";
+				html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir ;
+		}
+			html=html+"\n</TD>"
+					+"\n<TR>"
+					+"<TH>Pulse aquí:</TH>\n"
+					+"<TD ALIGN=CENTER>\n"
+			        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
+					+"</table>\n"
+					+"</center>\n"
+					+"</form>\n"
+					+"<div id=\"result\" align=center></div>\n";
+			System.out.println(html);
+			return html;
+	}
 }

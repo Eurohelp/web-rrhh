@@ -10,11 +10,12 @@ public class main {
 //		gi.generarIndex();
 		Stardog st = new Stardog();
 		String[] pCategoria ={"Jefe de proyecto"};
+		st.getDatosCategoria();
 		String[] pExperiencia ={"Eurohelp Consulting"};
 		String[] pHabilidades ={"HTML"};
 		String[] pCertificaciones ={"ISTQB"};
 		String[] pIdiomas ={"Spanish"};
 		String[] pUniversidad ={"UPV-EHU"};
-		System.out.println(st.getGraphData(pCategoria, pExperiencia, pHabilidades, pCertificaciones, pIdiomas, pUniversidad));	
+		//System.out.println(st.getGraphData(pCategoria, pExperiencia, pHabilidades, pCertificaciones, pIdiomas, pUniversidad));	
 	}
 }

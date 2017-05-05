@@ -15,27 +15,6 @@ public class Json {
 		return elementos;
 	}
 
-	// public String parsearJSON(){
-	// String cabecera = "{\"nodes\":[";
-	// String[] filas=obtenerFilas();
-	// for (int i = 0; i < filas.length; i++) {
-	// String[] porElemento = filas[i].split(",");
-	// if(i+1==filas.length-1){
-	// cabecera=cabecera.replace("{\"nodes\":[","{\"nodes\":["+"\"value\":\""+
-	// porElemento[1]+"\"}]");
-	// }
-	// else{
-	// cabecera=cabecera.replace("{\"nodes\":[","{\"nodes\":["+"\"value\":\""+
-	// porElemento[1]+"\"},");
-	// }
-	// cabecera=cabecera.replace("{\"nodes\":[","{\"nodes\":["+"\"label\":\""+
-	// porElemento[2]+"\",");
-	// cabecera=cabecera.replace("{\"nodes\":[","{\"nodes\":[{"+"\"key\":\""+
-	// porElemento[0]+"\",");
-	// }
-	// return cabecera;
-	// }
-
 	public String parsearJSON() {
 		String result = "{\"head\" : {\"vars\" : [ \"s\", \"p\", \"o\" ]},\"results\" : {\"bindings\" : [{";
 		String[] filas = obtenerFilas();

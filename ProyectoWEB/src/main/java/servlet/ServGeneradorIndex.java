@@ -29,7 +29,7 @@ public class ServGeneradorIndex extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String datos = stardog.getPageData();
+		String datos = stardog.getDatosCategoria();
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(datos);

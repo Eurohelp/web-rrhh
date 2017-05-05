@@ -24,7 +24,7 @@
 					data : form.serialize(),
 					type : 'post',
 					success : function(data) {
-						var json = data;
+						console.log(data);
 						obj=JSON.parse(data);
 						crearGrafo(obj);
 					}
