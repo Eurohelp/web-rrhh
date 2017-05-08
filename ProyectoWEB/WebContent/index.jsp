@@ -6,8 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pruebas varias</title>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3sparql.js"></script>
 <script src="<%=request.getContextPath()%>/js/script.js"></script>
+<script src="<%=request.getContextPath()%>/js/llamadasServlet.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	$.get('ServGeneradorIndex', function(data) {
@@ -15,22 +17,7 @@
 	});
 </script>
 <script>
-	function mishelle() {
-		var form = $('#form');
-		var json = "";
-		$
-				.ajax({
-					url : 'ServGetJson',
-					data : form.serialize(),
-					type : 'post',
-					success : function(data) {
-						console.log(data);
-						obj=JSON.parse(data);
-						crearGrafo(obj);
-					}
-				});
-
-	}
+	
 </script>
 
 </head>

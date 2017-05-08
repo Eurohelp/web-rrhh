@@ -31,8 +31,4 @@ public class Json {
 		return result;
 	}
 
-	public int getNumeroNodo(String pElemento) {
-		int numNodo = -1;
-		return numNodo;
-	}
 }

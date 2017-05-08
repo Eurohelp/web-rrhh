@@ -81,7 +81,7 @@ public class Stardog {
 	public String getDatosCategoria() {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		ArrayList<String> resultadosParciales = new ArrayList<String>();
-		String resultado="";
+		String resultado = "";
 		try {
 			TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, queryCat);
 			TupleQueryResult resultadoQuery = query.evaluate();
@@ -203,8 +203,6 @@ public class Stardog {
 		return result;
 	}
 
-
-
 	/**
 	 * Obtiene las habilidades y certificaciones asociadas a la categoria
 	 * 
@@ -223,7 +221,8 @@ public class Stardog {
 				+ "FILTER (?habilidades = <http://opendata.euskadi.eus/skill> )"
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
 		String result = "";
-		query = completarFila("?nomCategoria IN (",pCategoria, query);
+		query = completarFila("?nomCategoria IN (", pCategoria, query);
+		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -231,23 +230,22 @@ public class Stardog {
 				result = result + results.next();
 				result = result.replace(", ", ",");
 			}
-			System.out.println(result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		System.out.println(result);
 		result = json.parsearJSON();
-		System.out.println(result);
 		return result;
-	}
+	} 
+
 	public String completarFila(String pPatron, String[] pConjunto, String pQuery) {
 		for (int i = 0; i < pConjunto.length; i++) {
-			if (i + 1 >= pConjunto.length) {
+			if (i==pConjunto.length-1) {
 				pQuery = pQuery.replace(pPatron, pPatron + "\"" + pConjunto[i] + "\"");
+
 			} else {
-				pQuery = pQuery.replace(pPatron, pPatron + "\"" + pConjunto[i] + "\"" + ",");
+				pQuery = pQuery.replace(pPatron, pPatron + ",\""  + pConjunto[i] + "\"" );
 			}
 		}
 		return pQuery;

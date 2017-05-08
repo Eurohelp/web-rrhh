@@ -1,6 +1,6 @@
 function crearGrafo(data){
-	var w = 1000;
-    var h = 600;
+	var w = $(window).width();
+    var h = 1500;
     var linkDistance=200;
     var colors = d3.scale.category10();
     config = {
@@ -20,7 +20,7 @@ function crearGrafo(data){
     console.log(json)
     var graph = (json.head && json.results) ? d3sparql.graph(json, config) : json
  
-    var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
+    var svg = d3.select("body").append("svg").attr({"width":w,"height":h,"id":"result"});
 
     var force = d3.layout.force()
         .nodes(graph.nodes)
@@ -138,5 +138,5 @@ function crearGrafo(data){
                 }
         });
     });
-
+    
 }

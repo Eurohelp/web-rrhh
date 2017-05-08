@@ -18,7 +18,7 @@ public class GeneradorIndex {
 			+"</table>\n"
 			+"</center>\n"
 			+"</form>\n"
-			+"<div id=\"result\" align=center></div>\n";
+			+"<div id=\"result\" align=center style=\"overflow:scroll;\"></div>\n";
 		String aAnadir="\n<TD>";
 		for (int i=pLista.size()-1;i>-1;i--) {
 		int inicio=html.indexOf("<table border>\n");
@@ -27,7 +27,7 @@ public class GeneradorIndex {
 		html=html.substring(0,inicio+"<table border>\n".length())+cabecera+html.substring(inicio+"<table border>\n".length(), html.length());
 			for (int j=pLista.get(i).size()-2;j>-1;j--) {
 			inicio=html.indexOf("</TD>\n");
-			aAnadir	=aAnadir.substring(0, aAnadir.length())+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(i).get(pLista.get(i).size()-1)+"\" value=\""+pLista.get(i).get(j)+ "\">" + pLista.get(i).get(j)  ;
+			aAnadir	=aAnadir.substring(0, aAnadir.length())+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(i).get(pLista.get(i).size()-1)+"\" value=\""+pLista.get(i).get(j) + "onchange=\"myScript\" \">" + pLista.get(i).get(j)  ;
 		}
 		html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir +  "</TD>\n"+ html.substring(inicio+"</TD>\n".length(), html.length());
 		aAnadir="\n<TD>";
@@ -47,14 +47,14 @@ public class GeneradorIndex {
 			html=html+cabecera;
 			for (int i=pLista.size()-2;i>-1;i--) {
 				int inicio=html.indexOf("</TD>\n");
-				aAnadir	=aAnadir+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(pLista.size()-1)+"\" value=\""+pLista.get(i)+ "\">"+pLista.get(i) +"\n";
+				aAnadir	=aAnadir+"\n<INPUT TYPE=\"checkbox\" onchange=\"obtenerJson()\" name=\""+pLista.get(pLista.size()-1)+"\" value=\""+pLista.get(i)+ "\">"+pLista.get(i) +"\n";
 				html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir ;
 		}
 			html=html+"\n</TD>"
 					+"\n<TR>"
 					+"<TH>Pulse aquí:</TH>\n"
 					+"<TD ALIGN=CENTER>\n"
-			        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
+			        +"<button class=\"btn\" type=\"button\" onclick=\"obtenerJson\">Hide</button>"
 					+"</table>\n"
 					+"</center>\n"
 					+"</form>\n"
