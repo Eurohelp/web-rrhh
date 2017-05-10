@@ -58,7 +58,10 @@ public class GeneradorIndex {
 					+"</table>\n"
 					+"</center>\n"
 					+"</form>\n"
-					+"<div id=\"result\" align=center></div>\n";
+					+"<div id=\"result\" align=center></div>\n"
+					+"<input id=\"targetNode\" name=\"targetNode\" type=\"text\" />"
+				    +"<button onclick=\"growNode()\">grow node</button>"
+				    +"<button onclick=\"shrinkNode()\">shrink node</button>;";
 			System.out.println(html);
 			return html;
 	}

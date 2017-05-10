@@ -48,7 +48,7 @@ function crearGrafo(data){
       .data(graph.nodes)
       .enter()
       .append("circle")
-      .attr({"r":15, "id":function(d,i){return d.key}})
+      .attr({"r":15, "id":function(d,i){return "c" + d.key}})
       .style("fill",function(d,i){return colors(i);})
       .call(force.drag)
 
@@ -149,4 +149,15 @@ function crearGrafo(data){
         });
     });
     
+}
+
+function growNode(){
+    var userInput = document.getElementById("targetNode");
+    var theNode = d3.select("#c"+userInput.value);
+    theNode.attr("r", 40);
+}
+function shrinkNode(){
+    var userInput = document.getElementById("targetNode");
+    var theNode = d3.select("#c"+userInput.value);
+    theNode.attr("r", 4.5);
 }
