@@ -37,16 +37,18 @@ function crearGrafo(data){
       .data(graph.links)
       .enter()
       .append("line")
-      .attr("id",function(d,i) {return 'edge'+i})
       .attr('marker-end','url(#arrowhead)')
+      .attr("id",function(d,i){return d.target.value})
       .style("stroke","#ccc")
       .style("pointer-events", "none");
+    
+
     
     var nodes = svg.selectAll("circle")
       .data(graph.nodes)
       .enter()
       .append("circle")
-      .attr({"r":15})
+      .attr({"r":15, "id":function(d,i){return d.key}})
       .style("fill",function(d,i){return colors(i);})
       .call(force.drag)
 
@@ -55,8 +57,11 @@ function crearGrafo(data){
        .enter()
        .append("text")
        .attr({"x":function(d){return d.x;},
-              "y":function(d){return d.y;},
+              "y":function(d){
+            	  return d.y;
+             },
               "class":"nodelabel",
+
               'font-size':10,
               })
        .text(function(d){return d.key;});
@@ -89,7 +94,12 @@ function crearGrafo(data){
     edgelabels.append('textPath')
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
-        .text(function(d,i){return d.target.value});
+        .text(function(d,i){
+        	//esto lo he modificado
+        //esto no
+        	return d.target.value});
+    
+    
     
     svg.append('defs').append('marker')
         .attr({'id':'arrowhead',
