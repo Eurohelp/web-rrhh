@@ -1,8 +1,6 @@
 package stardog;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,14 +11,10 @@ import org.openrdf.query.GraphQueryResult;
 import org.openrdf.query.QueryLanguage;
 import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
-import org.openrdf.query.resultio.QueryResultIO;
 import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.jsonld.JSONLDWriter;
-import org.openrdf.rio.n3.N3Writer;
-import org.openrdf.rio.ntriples.NTriplesWriter;
+
 
 import com.complexible.stardog.api.ConnectionConfiguration;
 import com.complexible.stardog.sesame.StardogRepository;

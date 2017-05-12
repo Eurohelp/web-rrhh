@@ -2,7 +2,6 @@ package stardog;
 
 import org.openrdf.repository.RepositoryException;
 
-import code.GeneradorIndex;
 
 public class main {
 	public static void main(String[] args) throws RepositoryException {

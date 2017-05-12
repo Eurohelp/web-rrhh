@@ -152,12 +152,12 @@ function crearGrafo(data){
 }
 
 function growNode(){
-    var userInput = document.getElementById("targetNode");
+    var userInput = document.getElementById("busqueda");
     var theNode = d3.select("#c"+userInput.value);
-    theNode.attr("r", 40);
+    theNode.attr("r", 25);
 }
 function shrinkNode(){
-    var userInput = document.getElementById("targetNode");
+    var userInput = document.getElementById("busqueda");
     var theNode = d3.select("#c"+userInput.value);
     theNode.attr("r", 4.5);
 }

@@ -17,8 +17,7 @@ public class GeneradorIndex {
 	        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
 			+"</table>\n"
 			+"</center>\n"
-			+"</form>\n"
-			+"<div id=\"result\" align=center style=\"overflow:scroll;\"></div>\n";
+			+"</form>\n";
 		String aAnadir="\n<TD>";
 		for (int i=pLista.size()-1;i>-1;i--) {
 		int inicio=html.indexOf("<table border>\n");
@@ -58,10 +57,10 @@ public class GeneradorIndex {
 					+"</table>\n"
 					+"</center>\n"
 					+"</form>\n"
-					+"<div id=\"result\" align=center></div>\n"
-					+"<input id=\"targetNode\" name=\"targetNode\" type=\"text\" />"
-				    +"<button onclick=\"growNode()\">grow node</button>"
-				    +"<button onclick=\"shrinkNode()\">shrink node</button>;";
+					+"<div id=\"result\" align=center>"
+					+"<input id=\"busqueda\" name=\"targetNode\" type=\"text\" />"
+				    +"<button onclick=\"growNode()\">Buscar</button>"
+				    +"<button onclick=\"shrinkNode()\">Esconder</button></div>\n";
 			System.out.println(html);
 			return html;
 	}

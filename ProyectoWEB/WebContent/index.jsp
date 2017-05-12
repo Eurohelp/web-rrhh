@@ -14,6 +14,7 @@
 <script>
 	$.get('ServGeneradorIndex', function(data) {
 		$('body').append(data);
+		$("#result").hide();
 	});
 </script>
 <script>
