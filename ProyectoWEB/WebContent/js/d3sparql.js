@@ -9,7 +9,7 @@
 
 var d3sparql = {
   version: "d3sparql.js version 2015-11-19",
-  debug: true  // set to true for showing debug information
+  debug: false  // set to true for showing debug information
 }
 
 /*
@@ -135,7 +135,6 @@ d3sparql.graph = function(json, config) {
 	    graph.links.push({"source": check.get(key1), "target": check.get(key2)})
 	  }
 	  if (d3sparql.debug) { console.log(JSON.stringify(graph)) }
-	  console.log(graph);
 	  return graph
 	}
 

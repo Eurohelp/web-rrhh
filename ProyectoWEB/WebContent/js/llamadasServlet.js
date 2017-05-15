@@ -8,7 +8,6 @@ function obtenerJson() {
 					data : form.serialize(),
 					type : 'post',
 					success : function(data) {
-						console.log(data);
 						$("#result").show();
 						$('svg').remove();
 						obj=JSON.parse(data);
