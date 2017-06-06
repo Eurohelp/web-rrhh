@@ -1,4 +1,4 @@
-package stardog;
+package eurohelp.recursoshumanos.stardog;
 
 
 import java.util.ArrayList;
@@ -15,12 +15,12 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
-
 import com.complexible.stardog.api.ConnectionConfiguration;
 import com.complexible.stardog.sesame.StardogRepository;
 
-import code.GeneradorIndex;
-import code.Json;
+import eurohelp.recursoshumanos.pagegenerator.GeneradorIndex;
+import eurohelp.recursoshumanos.pagegenerator.Json;
+
 
 public class Stardog {
 	private RepositoryConnection repository;

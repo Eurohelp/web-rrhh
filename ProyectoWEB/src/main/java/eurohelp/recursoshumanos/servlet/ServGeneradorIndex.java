@@ -1,4 +1,4 @@
-package servlet;
+package eurohelp.recursoshumanos.servlet;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.openrdf.repository.RepositoryException;
 
-import stardog.Stardog;
+import eurohelp.recursoshumanos.stardog.Stardog;
 
 public class ServGeneradorIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;

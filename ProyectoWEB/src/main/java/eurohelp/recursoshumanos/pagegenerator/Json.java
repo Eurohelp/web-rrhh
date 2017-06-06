@@ -1,4 +1,4 @@
-package code;
+package eurohelp.recursoshumanos.pagegenerator;
 
 public class Json {
 	private String json = "";

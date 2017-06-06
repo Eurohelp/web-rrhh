@@ -1,4 +1,4 @@
-package stardog;
+package eurohelp.recursoshumanos.stardog;
 
 public class segundoMain {
 
