@@ -178,7 +178,6 @@ public class Stardog {
 		query = completarFila("?nombreLenguajeProg IN (", pHabilidades, query);
 		query = completarFila("?nombreCertificacion IN (", pCertificaciones, query);
 		query = completarFila("?nombreIdioma IN (", pIdiomas, query);
-		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -186,11 +185,12 @@ public class Stardog {
 				result = result + results.next();
 				result = result.replace(" ", "");
 			}
-			System.out.println(result);
+			System.out.println("----------------"+result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		Json json = new Json(result);
 		result = json.parsearJSON();
 		System.out.println(result);
@@ -216,7 +216,6 @@ public class Stardog {
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
 		String result = "";
 		query = completarFila("?nomCategoria IN (", pCategoria, query);
-		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -224,6 +223,7 @@ public class Stardog {
 				result = result + results.next();
 				result = result.replace(", ", ",");
 			}
+			System.out.println(result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();

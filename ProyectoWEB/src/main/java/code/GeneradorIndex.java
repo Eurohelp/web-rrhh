@@ -61,7 +61,6 @@ public class GeneradorIndex {
 					+"<input id=\"busqueda\" name=\"targetNode\" type=\"text\" />"
 				    +"<button onclick=\"growNode()\">Buscar</button>"
 				    +"<button onclick=\"shrinkNode()\">Esconder</button></div>\n";
-			System.out.println(html);
 			return html;
 	}
 }

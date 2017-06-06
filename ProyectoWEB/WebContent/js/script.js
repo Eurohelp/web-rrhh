@@ -2,7 +2,7 @@ function crearGrafo(data) {
 	var w = $(window).width();
 	var h = 1000;
 	var linkDistance = 150;
-	var colors = d3.scale.category10();
+	var colors = d3.scale.category20();
 	config = {
 		"key1" : "s", // SPARQL variable name for node1 (optional; default
 		// is the 1st variable)
@@ -16,9 +16,220 @@ function crearGrafo(data) {
 		"value2" : "p"
 	}
 	var json = d3sparql.graph(data, config);
-	var graph = (json.head && json.results) ? d3sparql.graph(json, config)
-			: json
-
+	var graph = {
+		"nodes" : [ {
+			"key" : "http://opendata.euskadi.eus/SeniorProgrammer",
+			"cate" : "http://opendata.euskadi.eus/SeniorProgrammer",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "Programador Senior",
+			"label" : "Programador Senior",
+			"value" : "http://schema.org/name",
+			"tipo" : "categoria"
+		}, {
+			"key" : "http://opendata.euskadi.eus/r",
+			"label" : "http://opendata.euskadi.eus/r",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "R",
+			"label" : "R",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/PMP",
+			"label" : "http://opendata.euskadi.eus/PMP",
+			"value" : "http://opendata.euskadi.eus/certification"
+		}, {
+			"key" : "PMP",
+			"label" : "PMP",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/c++",
+			"label" : "http://opendata.euskadi.eus/c++",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "C++",
+			"label" : "C++",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/html",
+			"label" : "http://opendata.euskadi.eus/html",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "HTML",
+			"label" : "HTML",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/java",
+			"label" : "http://opendata.euskadi.eus/java",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "Java",
+			"label" : "Java",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/TrabajoProyectoID",
+			"label" : "http://opendata.euskadi.eus/TrabajoProyectoID",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "Trabajo en proyectos I+D",
+			"label" : "Trabajo en proyectos I+D",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",
+			"label" : "http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",
+			"value" : "http://opendata.euskadi.eus/skill"
+		}, {
+			"key" : "Trabajo en proyectos desarrollo general",
+			"label" : "Trabajo en proyectos desarrollo general",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/ISTQB",
+			"label" : "http://opendata.euskadi.eus/ISTQB",
+			"value" : "http://opendata.euskadi.eus/certification"
+		}, {
+			"key" : "ISTQB",
+			"label" : "ISTQB",
+			"value" : "http://schema.org/name"
+		}, {
+			"key" : "http://opendata.euskadi.eus/UDA",
+			"label" : "http://opendata.euskadi.eus/UDA",
+			"value" : "http://opendata.euskadi.eus/certification"
+		}, {
+			"key" : "UDA",
+			"label" : "UDA",
+			"value" : "http://schema.org/name"
+		} ],
+		"links" : [ {
+			"source" : 0,
+			"target" : 1
+		}, {
+			"source" : 0,
+			"target" : 2
+		}, {
+			"source" : 2,
+			"target" : 3
+		}, {
+			"source" : 0,
+			"target" : 4
+		}, {
+			"source" : 4,
+			"target" : 5
+		}, {
+			"source" : 0,
+			"target" : 6
+		}, {
+			"source" : 6,
+			"target" : 7
+		}, {
+			"source" : 0,
+			"target" : 8
+		}, {
+			"source" : 8,
+			"target" : 9
+		}, {
+			"source" : 0,
+			"target" : 10
+		}, {
+			"source" : 10,
+			"target" : 11
+		}, {
+			"source" : 0,
+			"target" : 12
+		}, {
+			"source" : 12,
+			"target" : 13
+		}, {
+			"source" : 0,
+			"target" : 14
+		}, {
+			"source" : 14,
+			"target" : 15
+		}, {
+			"source" : 0,
+			"target" : 2
+		}, {
+			"source" : 2,
+			"target" : 3
+		}, {
+			"source" : 0,
+			"target" : 16
+		}, {
+			"source" : 16,
+			"target" : 17
+		}, {
+			"source" : 0,
+			"target" : 6
+		}, {
+			"source" : 6,
+			"target" : 7
+		}, {
+			"source" : 0,
+			"target" : 8
+		}, {
+			"source" : 8,
+			"target" : 9
+		}, {
+			"source" : 0,
+			"target" : 10
+		}, {
+			"source" : 10,
+			"target" : 11
+		}, {
+			"source" : 0,
+			"target" : 12
+		}, {
+			"source" : 12,
+			"target" : 13
+		}, {
+			"source" : 0,
+			"target" : 14
+		}, {
+			"source" : 14,
+			"target" : 15
+		}, {
+			"source" : 0,
+			"target" : 2
+		}, {
+			"source" : 2,
+			"target" : 3
+		}, {
+			"source" : 0,
+			"target" : 18
+		}, {
+			"source" : 18,
+			"target" : 19
+		}, {
+			"source" : 0,
+			"target" : 6
+		}, {
+			"source" : 6,
+			"target" : 7
+		}, {
+			"source" : 0,
+			"target" : 8
+		}, {
+			"source" : 8,
+			"target" : 9
+		}, {
+			"source" : 0,
+			"target" : 10
+		}, {
+			"source" : 10,
+			"target" : 11
+		}, {
+			"source" : 0,
+			"target" : 12
+		}, {
+			"source" : 12,
+			"target" : 13
+		}, {
+			"source" : 0,
+			"target" : 14
+		}, {
+			"source" : 14,
+			"target" : 15
+		} ]
+	}
 	var svg = d3.select("body").append("svg").attr({
 		"width" : w,
 		"height" : h,
@@ -32,7 +243,11 @@ function crearGrafo(data) {
 	var links = svg.selectAll("line").data(graph.links).enter().append("line")
 			.attr("id", function(d, i) {
 				return d.target.value
-			}).style("stroke", "#ccc");
+			}).style("stroke", "#ccc").on("mouseover", function(d, i) {
+				onMouseOver(removeSymbols(d.target.value));
+			}).on("mouseout", function(d, i) {
+				onMouseOut();
+			});
 	//
 
 	var nodes = svg.selectAll("circle").data(graph.nodes).enter().append(
@@ -41,8 +256,8 @@ function crearGrafo(data) {
 		"id" : function(d, i) {
 			return "c" + d.key
 		}
-	}).style("fill", function(d, i) {
-		return colors(i);
+	}).style("fill", function(d) {
+		return colors(d.label);
 	}).call(force.drag)
 
 	var nodelabels = svg.selectAll(".nodelabel").data(graph.nodes).enter()
@@ -54,8 +269,8 @@ function crearGrafo(data) {
 					return d.y;
 				},
 				"class" : "nodelabel",
-
 				'font-size' : 10,
+				'text-anchor' : 'middle'
 			}).text(function(d) {
 				return d.key;
 			});
@@ -68,29 +283,26 @@ function crearGrafo(data) {
 									+ d.target.x + ' ' + d.target.y
 						},
 						'class' : 'edgepath',
-						'fill-opacity' : 0,
 						'stroke-opacity' : 0,
-						'fill' : 'blue',
-						'stroke' : 'red',
 						'id' : function(d, i) {
 							return 'edgepath' + i
 						},
 					}).on("mouseover", function(d, i) {
-				onMouseOver(i)
+				onMouseOver(removeSymbols(d.target.value));
 			}).on("mouseout", function(d, i) {
-				onMouseOut(i)
+				onMouseOut();
 			});
 
 	var edgelabels = svg.selectAll(".linkLabel").data(graph.links).enter()
 			.append('text').attr({
 				'class' : '.linkLabel',
 				'id' : function(d, i) {
-					return i
+					return removeSymbols(d.target.value);
 				},
 				'dx' : 20,
 				'dy' : 0,
 				'font-size' : 10,
-				'fill' : 'red'
+				'fill' : 'gray'
 			});
 
 	// VALOR DE LOS NODOS EN D.
@@ -168,14 +380,21 @@ function crearGrafo(data) {
 }
 
 function onMouseOver(pNodo) {
-	console.log(pNodo);
-	$("[id^="+pNodo+"]").show();
+	console.log("el nodo seleccionado :" + pNodo);
+	$("[id=" + pNodo + "]").show();
 
 }
 
-function onMouseOut(pNodo) {
+function onMouseOut() {
 	$("[class^='.linkLabel']").hide();
+}
 
+function removeSymbols(pString) {
+	pString = pString.replace(":", "");
+	pString = pString.replace("//", "");
+	pString = pString.replace("/", "");
+	pString = pString.replace(/\./g, "");
+	return pString;
 }
 
 function growNode() {

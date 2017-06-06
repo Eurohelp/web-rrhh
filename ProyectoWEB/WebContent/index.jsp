@@ -17,7 +17,6 @@
 		$("#result").hide();
 	});
 </script>
-
 </head>
 <body>
 
