@@ -2,10 +2,12 @@
 <center>
 <table border>
 <TR>
-<TD>${categoria}</TD><TD>
+<TD>${categoria}</TD>
 <#list listaCategoria as cat>
-<INPUT TYPE="checkbox" onchange="obtenerJson()" name="${categoria}" value="${cat}">${cat}
-</#list></TD>
+<TD>
+<INPUT TYPE="checkbox" onchange="obtenerJson()" name="${cat}" value="${cat}">${cat}
+</TD>
+</#list>
 <#if listaHabilidades?has_content && listaCertificaciones?has_content>
 <TR>
 <TD>${habilidad}</TD>
@@ -13,8 +15,10 @@
 <#list listaHabilidades as hab>
 <#--Si se ha seleccionado la categoria se mostraran las habilidades y las certificaciones correspondientes-->
 <INPUT TYPE="checkbox" onchange="obtenerJson()" name="${hab}" value="${hab}">${hab}
-</#list></TD>
-<TR> 
+</TD>
+<TR>
+</#list>
+<TR>
 <TD>${certificacion}</TD>
 <#list listaCertificaciones as cert>
 <TD>

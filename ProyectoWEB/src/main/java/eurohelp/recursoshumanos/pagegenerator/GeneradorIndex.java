@@ -1,67 +1,82 @@
 package eurohelp.recursoshumanos.pagegenerator;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import freemarker.core.ParseException;
+import freemarker.template.Configuration;
+import freemarker.template.MalformedTemplateNameException;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateNotFoundException;
+import freemarker.template.Version;
 
 public class GeneradorIndex {
-	
-	// Categoria, Experiencia, Habilidades, Certificaciones,Idiomas, Universidad
-	public String generarIndex(ArrayList<ArrayList<String>> pLista){
+	Configuration cfg;
+	Template template;
 
-		String html=
-			"<form name=\"form\" id=\"form\" method=\"post\" >\n"
-			+"<center>\n"
-			+"<table border>\n"
-			+ "<TR>"
-			+"<TH>Pulse aquí:</TH>\n"
-			+"<TD ALIGN=CENTER>\n"
-	        +"<button class=\"btn\" type=\"button\" onclick=\"mishelle()\">Hide</button>"
-			+"</table>\n"
-			+"</center>\n"
-			+"</form>\n";
-		String aAnadir="\n<TD>";
-		for (int i=pLista.size()-1;i>-1;i--) {
-		int inicio=html.indexOf("<table border>\n");
-		String cabecera="<TR>\n"
-				+"   <TD>"+pLista.get(i).get(pLista.get(i).size()-1)+":</TD>\n";
-		html=html.substring(0,inicio+"<table border>\n".length())+cabecera+html.substring(inicio+"<table border>\n".length(), html.length());
-			for (int j=pLista.get(i).size()-2;j>-1;j--) {
-			inicio=html.indexOf("</TD>\n");
-			aAnadir	=aAnadir.substring(0, aAnadir.length())+"\n<INPUT TYPE=\"checkbox\" name=\""+pLista.get(i).get(pLista.get(i).size()-1)+"\" value=\""+pLista.get(i).get(j) + "onchange=\"myScript\" \">" + pLista.get(i).get(j)  ;
-		}
-		html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir +  "</TD>\n"+ html.substring(inicio+"</TD>\n".length(), html.length());
-		aAnadir="\n<TD>";
+	public GeneradorIndex() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
+		cfg = new Configuration(new Version(2, 3, 20));
+		cfg.setDefaultEncoding("UTF-8");
+		cfg.setLocale(Locale.US);
+		cfg.setClassForTemplateLoading(GeneradorIndex.class, "/");
+		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 	}
-		return html;
+
+	public String generarIndex(List<String> pCategoria) throws TemplateException, IOException  {
+		Map<String, Object> listaGlobal = new HashMap<String, Object>();
+		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("listaCategoria", pCategoria);
+		template = cfg.getTemplate("index.ftl");
+		StringWriter stringWriter = new StringWriter();
+		template.process(listaGlobal, stringWriter);
+		System.out.println(stringWriter);
+		return stringWriter.toString();
 	}
-	
-	// Categoria, Experiencia, Habilidades, Certificaciones,Idiomas, Universidad
-	public String generarIndex2(ArrayList<String> pLista){
-		String html=
-				"<form name=\"form\" id=\"form\" method=\"post\" >\n"
-				+"<center>\n"
-				+"<table border>\n";
-			String aAnadir="\n<TD>";
-			String cabecera="<TR>\n"
-					+"   <TD>"+pLista.get(pLista.size()-1)+":</TD>\n";
-			html=html+cabecera;
-			for (int i=pLista.size()-2;i>-1;i--) {
-				int inicio=html.indexOf("</TD>\n");
-				aAnadir	=aAnadir+"\n<INPUT TYPE=\"checkbox\" onchange=\"obtenerJson()\" name=\""+pLista.get(pLista.size()-1)+"\" value=\""+pLista.get(i)+ "\">"+pLista.get(i) +"\n";
-				html = html.substring(0,inicio+"</TD>\n".length()) + aAnadir ;
-		}
-			html=html+"\n</TD>"
-					+"\n<TR>"
-					+"<TH>Pulse aquí:</TH>\n"
-					+"<TD ALIGN=CENTER>\n"
-			        +"<button class=\"btn\" type=\"button\" onclick=\"obtenerJson\">Hide</button>"
-					+"</table>\n"
-					+"</center>\n"
-					+"</form>\n"
-					+"<div id=\"result\" align=center>"
-					+"<input id=\"busqueda\" name=\"targetNode\" type=\"text\" />"
-				    +"<button onclick=\"growNode()\">Buscar</button>"
-				    +"<button onclick=\"shrinkNode()\">Esconder</button></div>\n";
-			System.out.println(html);
-			return html;
+
+	public String generarIndex(ArrayList<String> pCategoria, ArrayList<String> pHabilidades,
+			ArrayList<String> pCertificaciones) throws TemplateException, IOException {
+		Map<String, Object> listaGlobal = new HashMap<String, Object>();
+		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("listaCategoria", Arrays.asList(pCategoria));
+		listaGlobal.put("habilidad", "Habilidades");
+		listaGlobal.put("listaHabilidades", Arrays.asList(pHabilidades));
+		listaGlobal.put("certificacion", "Certificaciones");
+		listaGlobal.put("listaCertificaciones", Arrays.asList(pCertificaciones));
+		StringWriter stringWriter = new StringWriter();
+		template = cfg.getTemplate("index.ftl");
+		template.process(listaGlobal, stringWriter);
+		return stringWriter.toString();
 	}
+
+	public String generarIndex(ArrayList<String> pCategoria, ArrayList<String> pHabilidades,
+			ArrayList<String> pCertificaciones, ArrayList<String> pIdiomas, ArrayList<String> pUniversidad,
+			ArrayList<String> pExperiencia) throws TemplateNotFoundException, MalformedTemplateNameException,
+			ParseException, IOException, TemplateException {
+		Map<String, Object> listaGlobal = new HashMap<String, Object>();
+		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("listaCategoria", Arrays.asList(pCategoria));
+		listaGlobal.put("habilidad", "Habilidades");
+		listaGlobal.put("listaHabilidades", Arrays.asList(pHabilidades));
+		listaGlobal.put("certificacion", "Certificaciones");
+		listaGlobal.put("listaCertificaciones", Arrays.asList(pCertificaciones));
+		listaGlobal.put("idioma", "Certificaciones");
+		listaGlobal.put("listaIdiomas", Arrays.asList(pIdiomas));
+		listaGlobal.put("universidad", "Certificaciones");
+		listaGlobal.put("listaUniversidades", Arrays.asList(pUniversidad));
+		listaGlobal.put("experiencia", "Certificaciones");
+		listaGlobal.put("listaExperiencia", Arrays.asList(pExperiencia));
+		template = cfg.getTemplate("index.ftl");
+		StringWriter stringWriter = new StringWriter();
+		template.process(listaGlobal, stringWriter);
+		return stringWriter.toString();
+	}
+
 }

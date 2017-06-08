@@ -1,6 +1,7 @@
 package eurohelp.recursoshumanos.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,6 @@ public class ServGetJson extends HttpServlet {
 
 	public ServGetJson() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,19 +30,19 @@ public class ServGetJson extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] categoria = request.getParameterValues("Categoria");
-//		String[] experiencia = request.getParameterValues("Experiencia");
-//		String[] habilidades = request.getParameterValues("Habilidades");
-//		String[] certificaciones = request.getParameterValues("Certificaciones");
-//		String[] idiomas = request.getParameterValues("Idiomas");
-//		String[] universidad = request.getParameterValues("Universidad");
+		System.out.println(categoria[0]);
+		String[] experiencia = request.getParameterValues("Experiencia");
+		String[] habilidades = request.getParameterValues("Habilidades");
+		String[] certificaciones = request.getParameterValues("Certificaciones");
+		String[] idiomas = request.getParameterValues("Idiomas");
+		String[] universidad = request.getParameterValues("Universidad");
 		try {
 			Stardog stardog = new Stardog();
-			String json = stardog.getCategoriaCalCert(categoria);
+			String json = stardog.getJson(categoria);
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().print(json);
 		} catch (RepositoryException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
