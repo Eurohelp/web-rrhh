@@ -30,7 +30,6 @@ public class ServGetJson extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] categoria = request.getParameterValues("Categoria");
-		System.out.println(categoria[0]);
 		String[] experiencia = request.getParameterValues("Experiencia");
 		String[] habilidades = request.getParameterValues("Habilidades");
 		String[] certificaciones = request.getParameterValues("Certificaciones");

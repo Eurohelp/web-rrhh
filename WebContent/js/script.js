@@ -90,7 +90,7 @@ function crearGrafo(data) {
 				'dx' : 20,
 				'dy' : 0,
 				'font-size' : 10,
-				'fill' : 'gray'
+				'fill' : 'blue'
 			});
 
 	// VALOR DE LOS NODOS EN D.
@@ -168,7 +168,6 @@ function crearGrafo(data) {
 }
 
 function onMouseOver(pNodo) {
-	console.log("el nodo seleccionado :" + pNodo);
 	$("[id=" + pNodo + "]").show();
 
 }
