@@ -51,7 +51,6 @@ public class Stardog {
 	 */
 	public void loadRDF4JModel(final Model pModel) {
 
-		System.out.println(pModel.iterator().next());
 		try {
 			Iterable<? extends Statement> it = new Iterable<Statement>() {
 
@@ -59,12 +58,10 @@ public class Stardog {
 					return pModel.iterator();
 				}
 			};
-			System.out.println(pModel.iterator().next());
 			repository.add(it);
 			// repository.add(statement);
 
 			repository.commit();
-			System.out.println("subido");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -210,13 +207,14 @@ public class Stardog {
 	 * Metodo obtiene las categorias disponibles en los datos existentes
 	 * 
 	 * @return
-	 * @throws TemplateException 
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws MalformedTemplateNameException 
-	 * @throws TemplateNotFoundException 
+	 * @throws TemplateException
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws MalformedTemplateNameException
+	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public String getIndexData() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException,
+			IOException, TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		List<String> resultadosParciales = new ArrayList<String>();
 		String resultado = "";
@@ -235,8 +233,7 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(resultadosParciales.size());
-		String result=new GeneradorIndex().generarIndex(resultadosParciales);
+		String result = new GeneradorIndex().generarIndex(resultadosParciales);
 		return result;
 	}
 
@@ -246,13 +243,16 @@ public class Stardog {
 	 * 
 	 * @param pCategoria
 	 * @return
-	 * @throws TemplateException 
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws MalformedTemplateNameException 
-	 * @throws TemplateNotFoundException 
+	 * @throws TemplateException
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws MalformedTemplateNameException
+	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException,
+			ParseException, IOException, TemplateException {
+		//TODO
+		
 		ArrayList<String> querys = new ArrayList<String>();
 		querys.add("select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}");
@@ -289,7 +289,8 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String result= new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1), resultadosGlobales.get(2));
+		String result = new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1),
+				resultadosGlobales.get(2));
 		return result;
 	}
 
@@ -301,14 +302,15 @@ public class Stardog {
 	 * @param pHabilidades
 	 * @param pCertificaciones
 	 * @return
-	 * @throws TemplateException 
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws MalformedTemplateNameException 
-	 * @throws TemplateNotFoundException 
+	 * @throws TemplateException
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws MalformedTemplateNameException
+	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria, String[] pHabilidades,
-			String[] pCertificaciones) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public String getIndexData(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones)
+			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
+			TemplateException {
 		ArrayList<String> querys = new ArrayList<String>();
 		querys.add("select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}");
@@ -350,7 +352,8 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String result= new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1), resultadosGlobales.get(2));
+		String result = new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1),
+				resultadosGlobales.get(2));
 		return result;
 	}
 
@@ -378,10 +381,12 @@ public class Stardog {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
 			while (results.hasNext()) {
-				result = result + results.next();
-				result = result.replace(", ", ",");
+				Statement statement = results.next();
+				String e = statement.toString().replace(", ", ",");
+				if (!result.contains(e)) {
+					result = result + e;
+				}
 			}
-			System.out.println(result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -420,7 +425,6 @@ public class Stardog {
 				result = result + results.next();
 				result = result.replace(", ", ",");
 			}
-			System.out.println(result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -448,7 +452,6 @@ public class Stardog {
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
 		String result = "";
 		query = completarFila("?nomCategoria IN (", pCategoria, query);
-		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -456,7 +459,6 @@ public class Stardog {
 				result = result + results.next();
 				result = result.replace(", ", ",");
 			}
-			System.out.println(result);
 			results.close();
 		} catch (Exception e) {
 			e.printStackTrace();

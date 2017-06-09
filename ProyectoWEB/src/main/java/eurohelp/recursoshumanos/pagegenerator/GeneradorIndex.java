@@ -37,7 +37,6 @@ public class GeneradorIndex {
 		template = cfg.getTemplate("index.ftl");
 		StringWriter stringWriter = new StringWriter();
 		template.process(listaGlobal, stringWriter);
-		System.out.println(stringWriter);
 		return stringWriter.toString();
 	}
 
