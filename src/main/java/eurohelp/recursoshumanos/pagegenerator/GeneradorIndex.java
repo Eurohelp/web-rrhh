@@ -32,7 +32,7 @@ public class GeneradorIndex {
 
 	public String generarIndex(List<String> pCategoria) throws TemplateException, IOException  {
 		Map<String, Object> listaGlobal = new HashMap<String, Object>();
-		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("categoria", Opciones.Categoria);
 		listaGlobal.put("listaCategoria", pCategoria);
 		template = cfg.getTemplate("index.ftl");
 		StringWriter stringWriter = new StringWriter();
@@ -41,14 +41,14 @@ public class GeneradorIndex {
 		return stringWriter.toString();
 	}
 
-	public String generarIndex(ArrayList<String> pCategoria, ArrayList<String> pHabilidades,
-			ArrayList<String> pCertificaciones) throws TemplateException, IOException {
+	public String generarIndex(List<String> pCategoria, List<String> pHabilidades,
+			List<String> pCertificaciones) throws TemplateException, IOException {
 		Map<String, Object> listaGlobal = new HashMap<String, Object>();
-		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("categoria", Opciones.Categoria);
 		listaGlobal.put("listaCategoria", Arrays.asList(pCategoria));
-		listaGlobal.put("habilidad", "Habilidades");
+		listaGlobal.put("habilidad", Opciones.Habilidades);
 		listaGlobal.put("listaHabilidades", Arrays.asList(pHabilidades));
-		listaGlobal.put("certificacion", "Certificaciones");
+		listaGlobal.put("certificacion", Opciones.Certificaciones);
 		listaGlobal.put("listaCertificaciones", Arrays.asList(pCertificaciones));
 		StringWriter stringWriter = new StringWriter();
 		template = cfg.getTemplate("index.ftl");
@@ -56,22 +56,22 @@ public class GeneradorIndex {
 		return stringWriter.toString();
 	}
 
-	public String generarIndex(ArrayList<String> pCategoria, ArrayList<String> pHabilidades,
-			ArrayList<String> pCertificaciones, ArrayList<String> pIdiomas, ArrayList<String> pUniversidad,
-			ArrayList<String> pExperiencia) throws TemplateNotFoundException, MalformedTemplateNameException,
+	public String generarIndex(List<String> pCategoria, List<String> pHabilidades,
+			List<String> pCertificaciones, List<String> pIdiomas, List<String> pUniversidad,
+			List<String> pExperiencia) throws TemplateNotFoundException, MalformedTemplateNameException,
 			ParseException, IOException, TemplateException {
 		Map<String, Object> listaGlobal = new HashMap<String, Object>();
-		listaGlobal.put("categoria", "Categoria");
+		listaGlobal.put("categoria", Opciones.Categoria);
 		listaGlobal.put("listaCategoria", Arrays.asList(pCategoria));
-		listaGlobal.put("habilidad", "Habilidades");
+		listaGlobal.put("habilidad", Opciones.Habilidades);
 		listaGlobal.put("listaHabilidades", Arrays.asList(pHabilidades));
-		listaGlobal.put("certificacion", "Certificaciones");
+		listaGlobal.put("certificacion", Opciones.Certificaciones);
 		listaGlobal.put("listaCertificaciones", Arrays.asList(pCertificaciones));
-		listaGlobal.put("idioma", "Certificaciones");
+		listaGlobal.put("idioma", Opciones.Idioma);
 		listaGlobal.put("listaIdiomas", Arrays.asList(pIdiomas));
-		listaGlobal.put("universidad", "Certificaciones");
+		listaGlobal.put("universidad", Opciones.Universidad);
 		listaGlobal.put("listaUniversidades", Arrays.asList(pUniversidad));
-		listaGlobal.put("experiencia", "Certificaciones");
+		listaGlobal.put("experiencia", Opciones.Experiencia);
 		listaGlobal.put("listaExperiencia", Arrays.asList(pExperiencia));
 		template = cfg.getTemplate("index.ftl");
 		StringWriter stringWriter = new StringWriter();

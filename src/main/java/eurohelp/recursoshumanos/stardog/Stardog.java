@@ -216,26 +216,10 @@ public class Stardog {
 	public String getIndexData() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException,
 			IOException, TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
-		List<String> resultadosParciales = new ArrayList<String>();
-		String resultado = "";
-		try {
-			TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, queryCat);
-			TupleQueryResult resultadoQuery = query.evaluate();
-			while (resultadoQuery.hasNext()) {
-				resultado = resultadoQuery.next().toString();
-				resultado = resultado.replace("\"", "");
-				resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
-				resultado = resultado.replace("[", "");
-				resultado = resultado.replace("]", "");
-				String[] result = resultado.toString().split("=");
-				resultadosParciales.add(result[1]);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String result = new GeneradorIndex().generarIndex(resultadosParciales);
+		String result = new GeneradorIndex().generarIndex(getArrayListByData(queryCat));
 		return result;
 	}
+
 
 	/**
 	 * Recoge los datos referentes a las habilidades y las certificaciones dada
@@ -249,51 +233,26 @@ public class Stardog {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException,
-			ParseException, IOException, TemplateException {
-		//TODO
-		
-		ArrayList<String> querys = new ArrayList<String>();
-		querys.add("select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
-				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}");
-		querys.add(completarFila("?Categoria IN (", pCategoria,
+	public String getIndexData(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones)
+			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
+			TemplateException {
+		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
+				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
+		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
 						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
-						+ "FILTER(?Categoria IN ()}}"));
-		querys.add(completarFila("?Certificacion IN (", pCategoria,
+						+ "FILTER(?Categoria IN ()}}");
+		String queryCert = fillQuery("?Certificacion IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
-						+ "?Certificacion FILTER(?Categoria IN ())}}"));
-		ArrayList<ArrayList<String>> resultadosGlobales = new ArrayList<ArrayList<String>>();
-		ArrayList<String> resultadosParciales = new ArrayList<String>();
-		try {
-			Iterator<String> it = querys.iterator();
-			while (it.hasNext()) {
-				TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, it.next());
-				TupleQueryResult resultadosQuery = query.evaluate();
-				while (resultadosQuery.hasNext()) {
-					String resultado = resultadosQuery.next().toString();
-					resultado = resultado.replace("\"", "");
-					resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
-					resultado = resultado.replace("[", "");
-					resultado = resultado.replace("]", "");
-					String[] result = resultado.toString().split("=");
-					resultadosParciales.add(result[1]);
-				}
-				resultadosGlobales.add(resultadosParciales);
-				resultadosParciales = new ArrayList<String>();
-				resultadosQuery.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String result = new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1),
-				resultadosGlobales.get(2));
+						+ "?Certificacion FILTER(?Categoria IN ())}}");
+		String result = new GeneradorIndex().generarIndex(getArrayListByData(queryCat),
+				getArrayListByData(queryHabil), getArrayListByData(queryCert));
 		return result;
 	}
-
+	
 	/**
 	 * Recoge los idiomas, las universidades en las que ha estudiado y la
 	 * experiencia dada una categoria, unas habilidades y unas certificaciones
@@ -308,53 +267,48 @@ public class Stardog {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones)
-			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
-			TemplateException {
+	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException,
+			ParseException, IOException, TemplateException {
+		// TODO pendientisimooooooooooooooooo
 		ArrayList<String> querys = new ArrayList<String>();
 		querys.add("select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}");
-		querys.add(completarFila("?Categoria IN (", pCategoria,
+		querys.add(fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
 						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
 						+ "FILTER(?Categoria IN ()}}"));
-		querys.add(completarFila("?Certificacion IN (", pCategoria,
+		querys.add(fillQuery("?Certificacion IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
 						+ "?Certificacion FILTER(?Categoria IN ())}}"));
-		querys.add(completarFila("?Certificacion IN (", pCategoria,
-				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
-						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
-						+ "?Certificacion FILTER(?Categoria IN ())}}"));
-		ArrayList<ArrayList<String>> resultadosGlobales = new ArrayList<ArrayList<String>>();
-		ArrayList<String> resultadosParciales = new ArrayList<String>();
+		String result = new GeneradorIndex().generarIndex(getArrayListByData(querys.get(0)),
+				getArrayListByData(querys.get(1)), getArrayListByData(querys.get(2)));
+		return result;
+	}
+
+	
+
+	public List<String> getArrayListByData(String pQuery) {
+		List<String> results = new ArrayList<String>();
+		String resultado = "";
 		try {
-			Iterator<String> it = querys.iterator();
-			while (it.hasNext()) {
-				TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, it.next());
-				TupleQueryResult resultadosQuery = query.evaluate();
-				while (resultadosQuery.hasNext()) {
-					String resultado = resultadosQuery.next().toString();
-					resultado = resultado.replace("\"", "");
-					resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
-					resultado = resultado.replace("[", "");
-					resultado = resultado.replace("]", "");
-					String[] result = resultado.toString().split("=");
-					resultadosParciales.add(result[1]);
-				}
-				resultadosGlobales.add(resultadosParciales);
-				resultadosParciales = new ArrayList<String>();
-				resultadosQuery.close();
+			TupleQuery query = repository.prepareTupleQuery(QueryLanguage.SPARQL, pQuery);
+			TupleQueryResult resultadoQuery = query.evaluate();
+			while (resultadoQuery.hasNext()) {
+				resultado = resultadoQuery.next().toString();
+				resultado = resultado.replace("\"", "");
+				resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
+				resultado = resultado.replace("[", "");
+				resultado = resultado.replace("]", "");
+				String[] result = resultado.toString().split("=");
+				results.add(result[1]);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String result = new GeneradorIndex().generarIndex(resultadosGlobales.get(0), resultadosGlobales.get(1),
-				resultadosGlobales.get(2));
-		return result;
+		return results;
 	}
 
 	/**
@@ -376,7 +330,7 @@ public class Stardog {
 				+ "FILTER (?habilidades = <http://opendata.euskadi.eus/skill> )"
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)}}";
 		String result = "";
-		query = completarFila("?nomCategoria IN (", pCategoria, query);
+		query = fillQuery("?nomCategoria IN (", pCategoria, query);
 		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
@@ -404,7 +358,7 @@ public class Stardog {
 	 * @return
 	 */
 	public String getJson(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones) {
-		// TODO
+		// TODO CONSTRUIR JSON
 		ArrayList<ArrayList<String>> resultadosGlobales = new ArrayList<ArrayList<String>>();
 		ArrayList<String> resultadosParciales = new ArrayList<String>();
 		String query = "CONSTRUCT  {" + "?uriCategoria ?nombre ?nomCategoria."
@@ -418,7 +372,7 @@ public class Stardog {
 				+ "FILTER (?habilidades = <http://opendata.euskadi.eus/skill> )"
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
 		String result = "";
-		query = completarFila("?nomCategoria IN (", pCategoria, query);
+		query = fillQuery("?nomCategoria IN (", pCategoria, query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -452,7 +406,7 @@ public class Stardog {
 				+ "FILTER (?habilidades = <http://opendata.euskadi.eus/skill> )"
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)" + "}" + "}";
 		String result = "";
-		query = completarFila("?nomCategoria IN (", pCategoria, query);
+		query = fillQuery("?nomCategoria IN (", pCategoria, query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -469,7 +423,7 @@ public class Stardog {
 		return result;
 	}
 
-	public String completarFila(String pPatron, String[] pConjunto, String pQuery) {
+	public String fillQuery(String pPatron, String[] pConjunto, String pQuery) {
 		for (int i = 0; i < pConjunto.length; i++) {
 			if (i == pConjunto.length - 1) {
 				pQuery = pQuery.replace(pPatron, pPatron + "\"" + pConjunto[i] + "\"");
