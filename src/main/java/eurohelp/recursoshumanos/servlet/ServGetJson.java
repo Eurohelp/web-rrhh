@@ -1,7 +1,6 @@
 package eurohelp.recursoshumanos.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,14 +29,24 @@ public class ServGetJson extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] categoria = request.getParameterValues("Categoria");
-		String[] experiencia = request.getParameterValues("Experiencia");
 		String[] habilidades = request.getParameterValues("Habilidades");
 		String[] certificaciones = request.getParameterValues("Certificaciones");
-		String[] idiomas = request.getParameterValues("Idiomas");
+		String[] idiomas = request.getParameterValues("Idioma");
 		String[] universidad = request.getParameterValues("Universidad");
+		String[] experiencia = request.getParameterValues("Experiencia");
 		try {
 			Stardog stardog = new Stardog();
-			String json = stardog.getJson(categoria);
+			String json = "";
+			// si todos estan llenos
+			if (categoria != null && habilidades != null && certificaciones != null && idiomas != null
+					&& universidad != null && experiencia != null) {
+				json = stardog.getJson(categoria, habilidades, certificaciones, idiomas, universidad, experiencia);
+			} // si estan llenos la categoria la experiencia y las habilidades
+			else if (categoria != null && certificaciones != null && habilidades != null) {
+				json = stardog.getJson(categoria, habilidades, certificaciones);
+			} else if (categoria != null) {
+				json = stardog.getJson(categoria);
+			}
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().print(json);
@@ -45,5 +54,4 @@ public class ServGetJson extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

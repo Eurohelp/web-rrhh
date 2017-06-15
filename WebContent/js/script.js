@@ -1,7 +1,7 @@
 function crearGrafo(data) {
 	var w = $(window).width();
 	var h = 1000;
-	var linkDistance = 150;
+	var linkDistance = 180;
 	var colors = d3.scale.category20();
 	config = {
 		"key1" : "s", // SPARQL variable name for node1 (optional; default
@@ -36,8 +36,7 @@ function crearGrafo(data) {
 			}).on("mouseout", function(d, i) {
 				onMouseOut();
 			});
-	//
-
+	
 	var nodes = svg.selectAll("circle").data(graph.nodes).enter().append(
 			"circle").attr({
 		"r" : 15,

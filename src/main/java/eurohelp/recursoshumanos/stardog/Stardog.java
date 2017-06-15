@@ -81,7 +81,7 @@ public class Stardog {
 	public String getIndexData() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException,
 			IOException, TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
-		String result = new GeneradorIndex().generarIndex(getArrayListByData(queryCat));
+		String result = new GeneradorIndex().generarIndex(getListByData(queryCat));
 		return result;
 	}
 
@@ -97,23 +97,22 @@ public class Stardog {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones)
-			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
-			TemplateException {
+	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException,
+			ParseException, IOException, TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
 						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
-						+ "FILTER(?Categoria IN ()}}");
-		String queryCert = fillQuery("?Certificacion IN (", pCategoria,
+						+ "FILTER(?Categoria IN ())}}");
+		String queryCert = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
 						+ "?Certificacion FILTER(?Categoria IN ())}}");
-		String result = new GeneradorIndex().generarIndex(getArrayListByData(queryCat), getArrayListByData(queryHabil),
-				getArrayListByData(queryCert));
+		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
+				getListByData(queryCert));
 		return result;
 	}
 
@@ -131,17 +130,16 @@ public class Stardog {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public String getIndexData(String[] pCategoria) throws TemplateNotFoundException, MalformedTemplateNameException,
-			ParseException, IOException, TemplateException {
-		// TODO pendientisimooooooooooooooooo
-		ArrayList<String> querys = new ArrayList<String>();
+	public String getIndexData(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones)
+			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
+			TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
 						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
-						+ "FILTER(?Categoria IN ()}}");
+						+ "FILTER(?Categoria IN ())}}");
 		String queryCert = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
@@ -158,17 +156,17 @@ public class Stardog {
 						+ "<http://opendata.euskadi.eus/education> ?estudios.?estudios <http://schema.org/name> "
 						+ "?Estudios FILTER(?Categoria IN ())}}");
 		String queryExperiencia = fillQuery("?Categoria IN (", pCategoria,
-				"select distinct ?Estudios{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
+				"select distinct ?Experiencia{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona"
-						+ "<http://opendata.euskadi.eus/education> ?estudios.?estudios <http://schema.org/name>"
-						+ "?Estudios FILTER(?Categoria IN ())}}");
-		String result = new GeneradorIndex().generarIndex(getArrayListByData(queryCat), getArrayListByData(queryHabil),
-				getArrayListByData(queryCert), getArrayListByData(queryIdioma), getArrayListByData(queryUniversidad),
-				getArrayListByData(queryExperiencia));
+						+ "<http://opendata.euskadi.eus/experience> ?experiencia.?experiencia <http://schema.org/name>"
+						+ "?Experiencia FILTER(?Categoria IN ())}}");
+		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
+				getListByData(queryCert), getListByData(queryIdioma), getListByData(queryUniversidad),
+				getListByData(queryExperiencia));
 		return result;
 	}
 
-	public List<String> getArrayListByData(String pQuery) {
+	public List<String> getListByData(String pQuery) {
 		List<String> results = new ArrayList<String>();
 		String resultado = "";
 		try {
@@ -209,7 +207,6 @@ public class Stardog {
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)}}";
 		String result = "";
 		query = fillQuery("?nomCategoria IN (", pCategoria, query);
-		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -236,11 +233,15 @@ public class Stardog {
 	 * @return
 	 */
 	public String getJson(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones) {
-		// TODO CONSTRUIR JSON
-		String query = "CONSTRUCT  {?uriCategoria ?nombre ?nomCategoria."
-				+ "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad ?nombre ?nomHabilidad."
-				+ "?uriCategoria ?certificaciones ?uriCertificacion.?uriCertificacion ?nombre ?nomCertificacion."
-				+ "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
+		String query = "CONSTRUCT  {"
+				// + "?uriCategoria ?nombre ?nomCategoria."
+				// + "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad
+				// ?nombre ?nomHabilidad."
+				// + "?uriCategoria ?certificaciones
+				// ?uriCertificacion.?uriCertificacion ?nombre
+				// ?nomCertificacion."
+				// + "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre
+				// ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
 
@@ -252,8 +253,7 @@ public class Stardog {
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
 
-				+ "FILTER(?nomCategoria IN (" + pCategoria + ")) " + "FILTER(?nomHabilidad IN (" + pHabilidades + "))"
-				+ "FILTER(?nomCertificacion IN (" + pCertificaciones + "))"
+				+ "FILTER(?nomCategoria IN ()) FILTER(?nomHabilidad IN ())" + "FILTER(?nomCertificacion IN ())"
 
 				+ "FILTER (?puesto = <http://opendata.euskadi.eus/puesto> )"
 				+ "FILTER (?persona = <http://schema.org/Person> )"
@@ -272,10 +272,15 @@ public class Stardog {
 
 	public String getJson(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones, String[] pIdiomas,
 			String[] pUniversidad, String[] pExperiencia) {
-		String query = "CONSTRUCT  {?uriCategoria ?nombre ?nomCategoria."
-				+ "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad ?nombre ?nomHabilidad."
-				+ "?uriCategoria ?certificaciones ?uriCertificacion.?uriCertificacion ?nombre ?nomCertificacion."
-				+ "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
+		String query = "CONSTRUCT  {"
+				// + "?uriCategoria ?nombre ?nomCategoria."
+				// + "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad
+				// ?nombre ?nomHabilidad."
+				// + "?uriCategoria ?certificaciones
+				// ?uriCertificacion.?uriCertificacion ?nombre
+				// ?nomCertificacion."
+				// + "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre
+				// ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia." +
 
@@ -287,10 +292,8 @@ public class Stardog {
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia." +
 
-				"FILTER(?nomCategoria IN (" + pCategoria + ")) " + "FILTER(?nomHabilidad IN (" + pHabilidades + "))"
-				+ "FILTER(?nomCertificacion IN (" + pCertificaciones + "))" + "FILTER(?nomIdioma IN (" + pIdiomas + "))"
-				+ "FILTER(?nomUniversidades IN (" + pUniversidad + "))" + "FILTER(?nomExperiencia IN (" + pExperiencia
-				+ "))" +
+				"FILTER(?nomCategoria IN ()) " + "FILTER(?nomHabilidad IN ())" + "FILTER(?nomCertificacion IN ())"
+				+ "FILTER(?nomIdioma IN ())" + "FILTER(?nomUniversidades IN ())" + "FILTER(?nomExperiencia IN ())" +
 
 				"FILTER (?puesto = <http://opendata.euskadi.eus/puesto> )"
 				+ "FILTER (?persona = <http://schema.org/Person> )"

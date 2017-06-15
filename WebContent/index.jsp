@@ -12,14 +12,14 @@
 <script src="<%=request.getContextPath()%>/js/llamadasServlet.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	$.get('ServGeneradorIndex', function(data) {
-		$('body').append(data);
+	$.post('ServGeneradorIndex', function(data) {
+		$('#form').append(data);
 		$("#result").hide();
 	});
 </script>
 </head>
 <body>
-
-
+<form name="form" id="form" method="post">
+</form>
 </body>
 </html>
