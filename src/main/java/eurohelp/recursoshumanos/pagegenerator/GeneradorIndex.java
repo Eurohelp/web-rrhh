@@ -2,7 +2,6 @@ package eurohelp.recursoshumanos.pagegenerator;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -77,5 +76,4 @@ public class GeneradorIndex {
 		template.process(listaGlobal, stringWriter);
 		return stringWriter.toString();
 	}
-
 }

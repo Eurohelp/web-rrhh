@@ -282,13 +282,14 @@ public class Stardog {
 				// + "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre
 				// ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
-				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia." +
-
-				"}WHERE { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {"
+				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
+				+ "?person ?nombre ?nombrePersona."
+				+ "}WHERE { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {"
 				+ "?uriCategoria ?tipo ?puesto. ?uriCategoria ?nombre ?nomCategoria."
 				+ "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad ?nombre ?nomHabilidad."
 				+ "?uriCategoria ?certificaciones ?uriCertificacion. ?uriCertificacion ?nombre ?nomCertificacion."
-				+ "?person ?tipo ?persona." + "?person ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
+				+ "?person ?tipo ?persona. ?person ?nombre ?nombrePersona."
+				+ "?person ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia." +
 

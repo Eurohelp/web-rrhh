@@ -1,4 +1,3 @@
-<form name="form" id="form" method="post" >
 <center>
 <table border>
 <TR>
@@ -52,5 +51,4 @@
 </#if>
 </table>
 </center>
-</form>
 <div id="result" align=center><input id="busqueda" name="targetNode" type="text"/><button onclick="growNode()">Buscar</button><button onclick="shrinkNode()">Esconder</button></div>
