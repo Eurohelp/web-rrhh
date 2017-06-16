@@ -22,8 +22,8 @@ function createIndex() {
 		data : form.serialize(),
 		type : 'post',
 		success : function(data) {
-			//$('#form').html("");
-			$('#form').append(data);
+			$('#form').html("");
+			$('#form').html(data);
 			$("#result").remove();
 		}
 	});
