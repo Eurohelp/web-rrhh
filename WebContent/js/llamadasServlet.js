@@ -1,4 +1,3 @@
-
 function obtenerJson() {
 	var json = "";
 	var form = $('#form');
@@ -22,13 +21,51 @@ function createIndex() {
 		data : form.serialize(),
 		type : 'post',
 		success : function(data) {
+			// var a = $('input[name="Categoria"]:checked').val();
+			// console.log($('input[name="locationthemes"]:checked').serialize());
+			// console.log(a);
+			// alert($("input[name='Categoria']:checked").map(function() {
+			// return this.value;
+			// }).get().join(","));
+			var catSel = saveSelected();
 			$('#form').html("");
 			$('#form').html(data);
 			$("#result").remove();
+			putSelected(catSel);
 		}
 	});
 }
-function generateAll(){
+
+function saveSelected() {
+	var form = $('#form');
+	var categoriaSelec = [];
+	$("input[name='Categoria']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	$("input[name='Habilidades']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	$("input[name='Certificaciones']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	$("input[name='Idioma']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	$("input[name='Experiencia']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	$("input[name='Universidad']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+	}).get();
+	return categoriaSelec;
+}
+function putSelected(arraySelect) {
+	arraySelect.forEach(function(entry) {
+		console.log(entry);
+		$("#" + entry).attr("checked", "checked");
+	});
+}
+function generateAll() {
 	createIndex()
 	obtenerJson();
 }
