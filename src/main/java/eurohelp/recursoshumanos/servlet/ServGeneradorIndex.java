@@ -33,6 +33,10 @@ public class ServGeneradorIndex extends HttpServlet {
 		String[] categoria = request.getParameterValues("Categoria");
 		String[] habilidades = request.getParameterValues("Habilidades");
 		String[] certificaciones = request.getParameterValues("Certificaciones");
+		String[] idiomas = request.getParameterValues("Idioma");
+		String[] universidad = request.getParameterValues("Universidad");
+		String[] experiencia = request.getParameterValues("Experiencia");
+
 		String datos = "";
 
 		try {
@@ -41,13 +45,12 @@ public class ServGeneradorIndex extends HttpServlet {
 				datos = stardog.getIndexData();
 			} else if (categoria != null && habilidades == null && certificaciones == null) {
 				datos = stardog.getIndexData(categoria);
-			} else if (categoria != null && habilidades != null && certificaciones != null) {
+			} else if (categoria != null && habilidades != null && certificaciones != null && idiomas==null && universidad==null && experiencia==null) {
 				datos = stardog.getIndexData(categoria, habilidades, certificaciones);
 			}
 		} catch (RepositoryException | TemplateException e) {
 			e.printStackTrace();
 		}
-
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(datos);
