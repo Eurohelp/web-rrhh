@@ -1,178 +1,144 @@
 function crearGrafo(data) {
-	var w = $(window).width();
-	var h = 1000;
-	var linkDistance = 180;
-	var colors = d3.scale.category20();
-	config = {
-		"key1" : "s", // SPARQL variable name for node1 (optional; default
-		// is the 1st variable)
-		"key2" : "o", // SPARQL variable name for node2 (optional; default
-		// is the 2nd varibale)
-		"label1" : "s", // SPARQL variable name for the label of node1
-		// (optional; default is the 3rd variable)
-		"label2" : "o", // SPARQL variable name for the label of node2
-		// (optional; default is the 4th variable)
-		"value1" : "p",
-		"value2" : "p"
-	}
-	var json = d3sparql.graph(data, config);
-	var graph = (json.head && json.results) ? d3sparql.graph(json, config)
-			: json
-	var svg = d3.select("body").append("svg").attr({
-		"width" : w,
-		"height" : h,
-		"id" : "result"
+	// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+	var links =[{source:"http://opendata.euskadi.eus/UDA",target:"UDA",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/UDA",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/ISTQB",target:"ISTQB",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/ISTQB",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/TrabajoEntidadesPrivadas",target:"Trabajo en proyectos de entidades privadas",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoEntidadesPrivadas",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoEntidadesPublicas",target:"Trabajo en proyectos de entidades publicas",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoEntidadesPublicas",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",target:"Trabajo en proyectos desarrollo general",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoProyectoID",target:"Trabajo en proyectos I+D",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoProyectoID",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/java",target:"Java",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/java",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/html",target:"HTML",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/html",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/c++",target:"C++",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/c++",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/PMP",target:"PMP",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/PMP",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/r",target:"R",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/r",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/Analyst",target:"Analista",type:"http://schema.org/name"}]
+	;
+	console.log(typeof links)
+
+	var nodes = {};
+
+	// Compute the distinct nodes from the links.
+	links.forEach(function(link) {
+	  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+	  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
 	});
 
-	var force = d3.layout.force().nodes(graph.nodes).links(graph.links).size(
-			[ w, h ]).linkDistance([ linkDistance ]).charge([ -500 ])
-			.theta(0.1).gravity(0.05).start();
+	var w = $(window).width(),
+	    h = 1000;
 
-	var links = svg.selectAll("line").data(graph.links).enter().append("line")
-			.attr("id", function(d, i) {
-				return d.target.value
-			}).style("stroke", "#ccc").on("mouseover", function(d, i) {
-				onMouseOver(removeSymbols(d.target.value));
+	var force = d3.layout.force()
+	    .nodes(d3.values(nodes))
+	    .links(links)
+	    .size([w, h])
+	    .linkDistance(180)
+	    .charge(-500).theta(0.1).gravity(0.05)
+	    .on("tick", tick)
+	    .start();
+
+	var svg = d3.select("body").append("svg:svg")
+	    .attr("width", w)
+	    .attr("height", h);
+
+	// Per-type markers, as they don't inherit styles.
+	svg.append("svg:defs").selectAll("marker")
+	    .data(["suit", "licensing", "resolved"])
+	  .enter().append("svg:marker")
+	    .attr("id", String)
+	    .attr("viewBox", "0 -5 10 10")
+	    .attr("refX", 15)
+	    .attr("refY", -1.5)
+	    .attr("markerWidth", 6)
+	    .attr("markerHeight", 6)
+	    .attr("orient", "auto")
+	  .append("svg:path")
+	    .attr("d", "M0,-5L10,0L0,5");
+
+	    var link = svg.append("svg:g").selectAll("g.link")
+	        .data(force.links())
+	      .enter().append('g')
+	        .attr('class', 'link');
+	    
+	    var linkPath = link.append("svg:path")
+	        .attr("class", function(d) { return "link " + d.type; })
+	        .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
+	        .style("stroke", "#ccc")
+	        .on("mouseover", function(d, i) {
+				onMouseOver(removeSymbols(d.type));
 			}).on("mouseout", function(d, i) {
 				onMouseOut();
 			});
+	    
+	    var textPath = link.append("svg:path")
+	        .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
+	        .attr("class", "textpath");
+
+	var circle = svg.append("svg:g").selectAll("circle")
+	    .data(force.nodes())
+	  .enter().append("svg:circle")
+	    .attr({"r": 15, "fill":"#BDBDBD"})
+	    .call(force.drag);
+
+	var text = svg.append("svg:g").selectAll("g")
+	    .data(force.nodes())
+	  .enter().append("svg:g");
+
+	// A copy of the text with a thick white stroke for legibility.
+	text.append("svg:text")
+	    .attr("x", 8)
+	    .attr("y", ".31em")
+	    .attr({"font-size":"10",'text-anchor' : 'middle'})
+	    .attr("class", "shadow")
+	    .text(function(d) { return d.name; });
+
+	text.append("svg:text")
+	    .attr("x", 8)
+	    .attr("y", ".31em")
+	    .attr({"font-size":"10",'text-anchor' : 'middle'})
+	    .text(function(d) { return d.name; });
+
+	var path_label = svg.append("svg:g").selectAll(".path_label")
+	    .data(force.links())
+	  .enter().append("svg:text")
+	    .attr({"class": "path_label","id" : function(d, i) {
+			return removeSymbols(d.type);
+		}})
+	    .append("svg:textPath")
+	      .attr("startOffset", "50%")
+	      .attr("text-anchor", "middle")
+	      .attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+	      .style("fill", "#000")
+	      .style({"font-size":"10","font-family": "Arial"})
+	      .text(function(d) { return d.type; });
 	
-	var nodes = svg.selectAll("circle").data(graph.nodes).enter().append(
-			"circle").attr({
-		"r" : 15,
-		"id" : function(d, i) {
-			return "c" + d.key
-		}
-	}).style("fill", function(d) {
-		return colors(d.label);
-	}).call(force.drag)
 
-	var nodelabels = svg.selectAll(".nodelabel").data(graph.nodes).enter()
-			.append("text").attr({
-				"x" : function(d) {
-					return d.x;
-				},
-				"y" : function(d) {
-					return d.y;
-				},
-				"class" : "nodelabel",
-				'font-size' : 10,
-				'text-anchor' : 'middle'
-			}).text(function(d) {
-				return d.key;
-			});
-	// se refiere las aristas del grafo
-	var edgepaths = svg.selectAll(".edgepath").data(graph.links).enter()
-			.append('path').attr(
-					{
-						'd' : function(d) {
-							return 'M ' + d.source.x + ' ' + d.source.y + ' L '
-									+ d.target.x + ' ' + d.target.y
-						},
-						'class' : 'edgepath',
-						'stroke-opacity' : 0,
-						'id' : function(d, i) {
-							return 'edgepath' + i
-						},
-					}).on("mouseover", function(d, i) {
-				onMouseOver(removeSymbols(d.target.value));
-			}).on("mouseout", function(d, i) {
-				onMouseOut();
-			});
+	    function arcPath(leftHand, d ) {
+	        var start = leftHand ? d.source : d.target,
+	            end = leftHand ? d.target : d.source,
+	            dx = end.x - start.x,
+	            dy = end.y - start.y,
+	            dr = Math.sqrt(dx * dx + dy * dy),
+	            sweep = leftHand ? 0 : 1;
+	        return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," + sweep + " " + end.x + "," + end.y;
+	    }
+		$("[class^='path_label']").hide();
+	    
+	// Use elliptical arc path segments to doubly-encode directionality.
+	function tick() {
+	  linkPath.attr("d", function(d) {
+	    return arcPath(false, d);
+	  });
+	    
+	  textPath.attr("d", function(d) {
+	    return arcPath(d.source.x < d.target.x, d);
+	  });
 
-	var edgelabels = svg.selectAll(".linkLabel").data(graph.links).enter()
-			.append('text').attr({
-				'class' : '.linkLabel',
-				'id' : function(d, i) {
-					return removeSymbols(d.target.value);
-				},
-				'dx' : 20,
-				'dy' : 0,
-				'font-size' : 10,
-				'fill' : 'blue'
-			});
+	  circle.attr("transform", function(d) {
+	    return "translate(" + d.x + "," + d.y + ")";
+	  });
 
-	// VALOR DE LOS NODOS EN D.
-	edgelabels.append('textPath').attr('xlink:href', function(d, i) {
-		return '#edgepath' + i
-	}).text(function(d, i) {
-		return d.target.value
-	});
-
-	$("[class^='.linkLabel']").hide();
-
-	svg.append('defs').append('marker').attr({
-		'id' : 'arrowhead',
-		'viewBox' : '-0 -5 10 10',
-		'refX' : 25,
-		'refY' : 0,
-		// 'markerUnits':'strokeWidth',
-		'orient' : 'auto',
-		'markerWidth' : 10,
-		'markerHeight' : 10,
-		'xoverflow' : 'visible'
-	}).append('svg:path').attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-			.attr('fill', '#ccc').attr('stroke', '#ccc');
-
-	force.on("tick", function() {
-
-		links.attr({
-			"x1" : function(d) {
-				return d.source.x;
-			},
-			"y1" : function(d) {
-				return d.source.y;
-			},
-			"x2" : function(d) {
-				return d.target.x;
-			},
-			"y2" : function(d) {
-				return d.target.y;
-			}
-		});
-
-		nodes.attr({
-			"cx" : function(d) {
-				return d.x;
-			},
-			"cy" : function(d) {
-				return d.y;
-			}
-		});
-
-		nodelabels.attr("x", function(d) {
-			return d.x;
-		}).attr("y", function(d) {
-			return d.y;
-		});
-
-		edgepaths.attr('d', function(d) {
-			var path = 'M ' + d.source.x + ' ' + d.source.y + ' L '
-					+ d.target.x + ' ' + d.target.y;
-			// console.log(d)
-			return path
-		});
-
-		edgelabels.attr('transform', function(d, i) {
-			if (d.target.x < d.source.x) {
-				bbox = this.getBBox();
-				rx = bbox.x + bbox.width / 2;
-				ry = bbox.y + bbox.height / 2;
-				return 'rotate(180 ' + rx + ' ' + ry + ')';
-			} else {
-				return 'rotate(0)';
-			}
-		});
-	});
+	  text.attr("transform", function(d) {
+	    return "translate(" + d.x + "," + d.y + ")";
+	  });
+	}
 }
 
 function onMouseOver(pNodo) {
+	console.log(pNodo);
 	$("[id=" + pNodo + "]").show();
 
 }
 
 function onMouseOut() {
-	$("[class^='.linkLabel']").hide();
+	$("[class^='path_label']").hide();
 }
 
 function removeSymbols(pString) {
