@@ -61,7 +61,6 @@ function saveSelected() {
 }
 function putSelected(arraySelect) {
 	arraySelect.forEach(function(entry) {
-		console.log(entry);
 		$("#" + entry).attr("checked", "checked");
 	});
 }
