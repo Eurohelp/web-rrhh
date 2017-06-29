@@ -135,7 +135,7 @@ function crearGrafo(data) {
 
 	// Per-type markers, as they don't inherit styles.
 	svg.append("svg:defs").selectAll("marker").data(
-			[ "suit", "licensing", "resolved" ]).enter().append("svg:marker")
+			["end"]).enter().append("svg:marker")
 			.attr("id", String).attr("viewBox", "0 -5 10 10").attr("refX", 15)
 			.attr("refY", -1.5).attr("markerWidth", 6).attr("markerHeight", 6)
 			.attr("orient", "auto").append("svg:path").attr("d",
@@ -181,22 +181,43 @@ function crearGrafo(data) {
 		"width":function(d){ return get_tex_width(d.name, "10px Arial")},
 		"height": 20,
 		"fill": "#ccc",
-	    "stroke": "#000000"
+    "justify-content": "center",
+    "aling-items": "center",
+	  "stroke": "#000000"
 	}).call(force.drag);
 	
 	
-	var text = svg.append("svg:g").selectAll("g").data(force.nodes()).enter()
+	var textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literals)).enter()
 			.append("svg:g");
 
 	// A copy of the text with a thick white stroke for legibility.
-	text.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
+	textRectangles.append("svg:text").attr({
+		"font-size" : "10",
+		//'text-anchor' : 'middle'
+	}).attr("class", "shadow").text(function(d) {
+		return d.name;
+	});
+
+	textRectangles.append("svg:text").attr({
+		"font-size" : "10",
+	//	'text-anchor' : 'middle'
+	}).text(function(d) {
+		return d.name;
+	});
+	
+
+	var textCircles = svg.append("svg:g").selectAll("g").data(d3.values(resources)).enter()
+			.append("svg:g");
+	
+	// A copy of the text with a thick white stroke for legibility.
+	textCircles.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
 		"font-size" : "10",
 		'text-anchor' : 'middle'
 	}).attr("class", "shadow").text(function(d) {
 		return d.name;
 	});
 
-	text.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
+	textCircles.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
 		"font-size" : "10",
 		'text-anchor' : 'middle'
 	}).text(function(d) {
@@ -240,18 +261,23 @@ function crearGrafo(data) {
 		});
 
 		circle.attr("transform", function(d) {
-			return "translate(" + d.px + "," + d.py + ")";
+			return "translate(" + d.x + "," + d.y + ")";
 		});
 		
 		rectangle.attr("transform", function(d) {
-			return "translate(" + d.x + "," + d.y + ")";
+    	var valueY = d.y-11;
+      var valueX = d.x-5;
+			return "translate(" + valueX + "," + valueY + ")";
 		});
 		
-		text.attr("transform", function(d) {
+		textRectangles.attr("transform", function(d) {
 			return "translate(" + d.x + "," + d.y + ")";
 		});
-	}
-
+	
+		textCircles.attr("transform", function(d) {
+		return "translate(" + d.x + "," + d.y + ")";
+	});
+}
 }
 
 function onMouseOver(pNodo) {
@@ -288,5 +314,5 @@ function get_tex_width(txt, font) {
     this.element = document.createElement('canvas');
     this.context = this.element.getContext("2d");
     this.context.font = font;
-    return this.context.measureText(txt).width+20 ;
+    return this.context.measureText(txt).width+10 ;
 }

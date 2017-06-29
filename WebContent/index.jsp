@@ -7,11 +7,13 @@
 <style>path.link {
   fill: none;
   stroke: #666;
-  stroke-width: 1.5px;
 }
 path.textpath {
     fill: none;
     stroke: none;
+}
+marker#end {
+  fill: green;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

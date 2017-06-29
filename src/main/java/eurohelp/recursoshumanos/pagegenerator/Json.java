@@ -5,6 +5,7 @@ public class Json {
 
 	public Json(String pJson) {
 		json = pJson;
+		System.out.println(json);
 	}
 
 	public String[] obtenerFilas() {
@@ -49,7 +50,6 @@ public class Json {
 			}
 		}
 		a = a.concat("");
-		System.out.println(a);
 		return a;
 	}
 
