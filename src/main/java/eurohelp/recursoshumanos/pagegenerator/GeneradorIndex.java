@@ -33,7 +33,7 @@ public class GeneradorIndex {
 		Map<String, Object> listaGlobal = new HashMap<String, Object>();
 		listaGlobal.put("categoria", Opciones.Categoria);
 		listaGlobal.put("listaCategoria", pCategoria);
-		template = cfg.getTemplate("index.ftl");
+		template = cfg.getTemplate("otro.ftl");
 		StringWriter stringWriter = new StringWriter();
 		template.process(listaGlobal, stringWriter);
 		return stringWriter.toString();
@@ -49,7 +49,7 @@ public class GeneradorIndex {
 		listaGlobal.put("certificacion", Opciones.Certificaciones);
 		listaGlobal.put("listaCertificaciones", pCertificaciones);
 		StringWriter stringWriter = new StringWriter();
-		template = cfg.getTemplate("index.ftl");
+		template = cfg.getTemplate("otro.ftl");
 		template.process(listaGlobal, stringWriter);
 		return stringWriter.toString();
 	}
@@ -71,7 +71,7 @@ public class GeneradorIndex {
 		listaGlobal.put("listaUniversidades", pUniversidad);
 		listaGlobal.put("experiencia", Opciones.Experiencia);
 		listaGlobal.put("listaExperiencia", pExperiencia);
-		template = cfg.getTemplate("index.ftl");
+		template = cfg.getTemplate("otro.ftl");
 		StringWriter stringWriter = new StringWriter();
 		template.process(listaGlobal, stringWriter);
 		return stringWriter.toString();

@@ -223,7 +223,7 @@ public class Stardog {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		result = json.parsearJSON();
+		result = json.parsearJSON2();
 		return result;
 	}
 

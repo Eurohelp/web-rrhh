@@ -44,4 +44,6 @@
 <button class="btn" type="button" onclick="generateAll()">Hide</button></table>		
 </table>
 </center>
-<div id="result" align=center><input id="busqueda" name="targetNode" type="text"/><button onclick="growNode()">Buscar</button><button onclick="shrinkNode()">Esconder</button></div>
+<#--
+
+<input id="busqueda" name="targetNode" type="text"/><button onclick="growNode()">Buscar</button><button onclick="shrinkNode()">Esconder</button>-->

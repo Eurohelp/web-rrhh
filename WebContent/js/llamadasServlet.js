@@ -8,7 +8,7 @@ function obtenerJson() {
 		success : function(data) {
 			$("#result").show();
 			$('svg').remove();
-			obj = JSON.parse(data);
+			obj = JSON.parse(JSON.stringify(data));
 			crearGrafo(obj);
 		}
 	});
@@ -58,6 +58,19 @@ function saveSelected() {
 		categoriaSelec.push(this.value);
 	}).get();
 	return categoriaSelec;
+}
+
+function changeIcon(element) {
+	var elemento = element.slice(0, element.length - 1);
+	var etiqueta = $("[id=span" + elemento + "]");
+	var labelEtiqueta = $("[name=" + element + "]");
+	if (element.includes(elemento+"C")) {
+		etiqueta.attr("class", "glyphicon glyphicon-chevron-up pull-right");
+		labelEtiqueta.attr("name", elemento+"A");
+	} else {
+		etiqueta.attr("class", "glyphicon glyphicon-chevron-down pull-right");
+		labelEtiqueta.attr("name", elemento+"C");
+	}
 }
 function putSelected(arraySelect) {
 	arraySelect.forEach(function(entry) {
