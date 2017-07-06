@@ -16,6 +16,7 @@ function obtenerJson() {
 
 function createIndex() {
 	var form = $('#form');
+	console.log(form);
 	$.ajax({
 		url : 'ServGeneradorIndex',
 		data : form.serialize(),
@@ -31,45 +32,35 @@ function createIndex() {
 			$('#form').html("");
 			$('#form').html(data);
 			$("#result").remove();
-			putSelected(catSel);
+		//	putSelected(catSel);
 		}
 	});
 }
 
 function saveSelected() {
-	var form = $('#form');
-	var categoriaSelec = [];
-	$("input[name='Categoria']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	$("input[name='Habilidades']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	$("input[name='Certificaciones']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	$("input[name='Idioma']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	$("input[name='Experiencia']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	$("input[name='Universidad']:checked").each(function(i) {
-		categoriaSelec.push(this.value);
-	}).get();
-	return categoriaSelec;
+	$('#getData').on('click', function(event) {
+        event.preventDefault(); 
+        var checkedItems = {}, counter = 0;
+        $("#check-list-box li.active").each(function(idx, li) {
+            checkedItems[counter] = $(li).text();
+            counter++;
+        });
+        $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+    });
 }
 
 function changeIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
-	var span = $("[id=" + elemento + "cb]");
-	var cuadrado = $("[id=" + element + "]");
+	var span = $("[id=span" + elemento + "]");
+	console.log(span);
+	var cuadrado = $("[name=" + element + "]");
+	console.log(cuadrado);
 	if (element.includes(elemento+"N")) {
 		span.attr("class", "glyphicon glyphicon-chevron-up pull-right");
-		cuadrado.attr("id", elemento+"S");
+		cuadrado.attr("name", elemento+"S");
 	} else {
 		span.attr("class", "glyphicon glyphicon-chevron-down pull-right");
-		cuadrado.attr("id", elemento+"N");
+		cuadrado.attr("name", elemento+"N");
 	}
 }
 function putSelected(arraySelect) {
@@ -95,6 +86,7 @@ function changeCboxIcon(element){
 		etiqueta.attr("class", "glyphicon glyphicon-unchecked");
 		labelEtiqueta.attr("id", elemento+"N");
 		labelEtiqueta.attr("class", "list-group-item large");
-
 	}
 }
+
+

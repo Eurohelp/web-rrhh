@@ -33,14 +33,13 @@ public class ServGeneradorIndex extends HttpServlet {
 		String[] categoria = request.getParameterValues("Categoria");
 		String[] habilidades = request.getParameterValues("Habilidades");
 		String[] certificaciones = request.getParameterValues("Certificaciones");
-
 		String datos = "";
-
 		try {
 			stardog = new Stardog();
 			if (categoria == null) {
 				datos = stardog.getIndexData();
 			} else if (categoria != null && habilidades == null && certificaciones == null) {
+				System.out.println(categoria[0]+"aqui");
 				datos = stardog.getIndexData(categoria);
 			} else if (categoria != null && habilidades != null && certificaciones != null) {
 				datos = stardog.getIndexData(categoria, habilidades, certificaciones);
