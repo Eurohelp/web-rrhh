@@ -62,14 +62,14 @@ function saveSelected() {
 
 function changeIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
-	var etiqueta = $("[id=span" + elemento + "]");
-	var labelEtiqueta = $("[name=" + element + "]");
-	if (element.includes(elemento+"C")) {
-		etiqueta.attr("class", "glyphicon glyphicon-chevron-up pull-right");
-		labelEtiqueta.attr("name", elemento+"A");
+	var span = $("[id=" + elemento + "cb]");
+	var cuadrado = $("[id=" + element + "]");
+	if (element.includes(elemento+"N")) {
+		span.attr("class", "glyphicon glyphicon-chevron-up pull-right");
+		cuadrado.attr("id", elemento+"S");
 	} else {
-		etiqueta.attr("class", "glyphicon glyphicon-chevron-down pull-right");
-		labelEtiqueta.attr("name", elemento+"C");
+		span.attr("class", "glyphicon glyphicon-chevron-down pull-right");
+		cuadrado.attr("id", elemento+"N");
 	}
 }
 function putSelected(arraySelect) {
@@ -80,4 +80,21 @@ function putSelected(arraySelect) {
 function generateAll() {
 	createIndex()
 	obtenerJson();
+}
+
+function changeCboxIcon(element){
+	var elemento = element.slice(0, element.length - 1);
+	var labelEtiqueta = $("[id=" + element + "]");
+	var etiqueta= $("[id=" + elemento + "cb]");
+	console.log(etiqueta);
+	if (element.includes(elemento+"N")) {
+		etiqueta.attr("class", "glyphicon glyphicon-check");
+		labelEtiqueta.attr("id", elemento+"S");
+		labelEtiqueta.attr("class", "list-group-item list-group-item-info large active");
+	} else {
+		etiqueta.attr("class", "glyphicon glyphicon-unchecked");
+		labelEtiqueta.attr("id", elemento+"N");
+		labelEtiqueta.attr("class", "list-group-item large");
+
+	}
 }

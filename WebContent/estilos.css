@@ -27,13 +27,16 @@ body {
 	width: 100%;
 	font-family: 'Bellefair', serif;
 }
-
+.glyphicon {
+    font-size: 15px;
+}
 .pageLeftMenu {
 	float: left;
 	clear: none;
 	height: 70%;
 	width: 20%;
 	font-size: 20;
+	font-family: 'Bellefair', serif;
 }
 
 .pageContent {
