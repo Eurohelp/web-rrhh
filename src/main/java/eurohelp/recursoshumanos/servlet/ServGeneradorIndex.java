@@ -39,7 +39,6 @@ public class ServGeneradorIndex extends HttpServlet {
 			if (categoria == null) {
 				datos = stardog.getIndexData();
 			} else if (categoria != null && habilidades == null && certificaciones == null) {
-				System.out.println(categoria[0]+"aqui");
 				datos = stardog.getIndexData(categoria);
 			} else if (categoria != null && habilidades != null && certificaciones != null) {
 				datos = stardog.getIndexData(categoria, habilidades, certificaciones);

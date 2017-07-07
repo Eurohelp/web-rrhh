@@ -4,7 +4,9 @@
 	border: 0;
 }
 
-h3{font-size: 10px;}
+h3 {
+	font-size: 10px;
+}
 
 body {
 	background-attachment: fixed;
@@ -27,9 +29,11 @@ body {
 	width: 100%;
 	font-family: 'Bellefair', serif;
 }
+
 .glyphicon {
-    font-size: 15px;
+	font-size: 15px;
 }
+
 .pageLeftMenu {
 	float: left;
 	clear: none;
@@ -71,4 +75,25 @@ path.textpath {
 
 marker#end {
 	fill: green;
+}
+
+.checkbox {
+   position: relative;
+   display: block;
+   width: 80px;
+   height: 26px;
+   margin: 0 auto;
+   background: #FFF;
+   border: 1px solid #2E2E2E;
+   border-radius: 2px;
+   -webkit-border-radius: 2px;
+   -moz-border-radius: 2px;
+}
+
+span{
+	margin-rigth:10px;
+		margin-right:10px;
+				margin-left:10px;
+		
+	
 }

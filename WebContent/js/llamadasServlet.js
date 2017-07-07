@@ -16,7 +16,6 @@ function obtenerJson() {
 
 function createIndex() {
 	var form = $('#form');
-	console.log(form);
 	$.ajax({
 		url : 'ServGeneradorIndex',
 		data : form.serialize(),
@@ -29,64 +28,78 @@ function createIndex() {
 			// return this.value;
 			// }).get().join(","));
 			var catSel = saveSelected();
-			$('#form').html("");
-			$('#form').html(data);
+			$('#pageLeftMenu').html("");
+			$('#pageLeftMenu').html(data);
 			$("#result").remove();
-		//	putSelected(catSel);
+			putSelected(catSel);
 		}
 	});
 }
 
 function saveSelected() {
-	$('#getData').on('click', function(event) {
-        event.preventDefault(); 
-        var checkedItems = {}, counter = 0;
-        $("#check-list-box li.active").each(function(idx, li) {
-            checkedItems[counter] = $(li).text();
-            counter++;
-        });
-        $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
-    });
-}
+	var form = $('#form');
+	var categoriaSelec = [];
+	$("input[name='Categoria']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+		//categoriaSelec.push($("input[name='Categoria']:checked")[0].value);
+	}).get();
+	$("input[name='Habilidades']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+		}).get();
+		$("input[name='Certificaciones']:checked").each(function(i) {
+		categoriaSelec.push(this.value);
+		}).get();
+		$("input[name='Idioma']:checked").each(function(i) {
+			categoriaSelec.push(this.value);
+		}).get();
+		$("input[name='Experiencia']:checked").each(function(i) {
+	 		categoriaSelec.push(this.value);
+		}).get();
+		$("input[name='Universidad']:checked").each(function(i) {
+	 		categoriaSelec.push(this.value);
+	 	}).get();
+	 	return categoriaSelec;
+	 }
 
 function changeIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
 	var span = $("[id=span" + elemento + "]");
-	console.log(span);
 	var cuadrado = $("[name=" + element + "]");
-	console.log(cuadrado);
-	if (element.includes(elemento+"N")) {
+	if (element.includes(elemento + "N")) {
 		span.attr("class", "glyphicon glyphicon-chevron-up pull-right");
-		cuadrado.attr("name", elemento+"S");
+		cuadrado.attr("name", elemento + "S");
 	} else {
 		span.attr("class", "glyphicon glyphicon-chevron-down pull-right");
-		cuadrado.attr("name", elemento+"N");
+		cuadrado.attr("name", elemento + "N");
 	}
 }
 function putSelected(arraySelect) {
 	arraySelect.forEach(function(entry) {
-		$("#" + entry).attr("checked", "checked");
-	});
+		var element=entry.replace(/\s/g, "");
+		var element=element.replace("+", "");
+		console.log(element);
+		changeCboxIcon(element+"N")
+		});
 }
 function generateAll() {
 	createIndex()
 	obtenerJson();
 }
 
-function changeCboxIcon(element){
+function changeCboxIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
 	var labelEtiqueta = $("[id=" + element + "]");
-	var etiqueta= $("[id=" + elemento + "cb]");
-	console.log(etiqueta);
-	if (element.includes(elemento+"N")) {
+	var etiqueta = $("[id=" + elemento + "cb]");
+	if (element.includes(elemento + "N")) {
 		etiqueta.attr("class", "glyphicon glyphicon-check");
-		labelEtiqueta.attr("id", elemento+"S");
-		labelEtiqueta.attr("class", "list-group-item list-group-item-info large active");
+		labelEtiqueta.attr("id", elemento + "S");
+		labelEtiqueta.attr("class",
+				"list-group-item list-group-item-info large active");
+		$("[id=" + elemento + "]").prop("checked", true);
 	} else {
 		etiqueta.attr("class", "glyphicon glyphicon-unchecked");
-		labelEtiqueta.attr("id", elemento+"N");
+		labelEtiqueta.attr("id", elemento + "N");
 		labelEtiqueta.attr("class", "list-group-item large");
+		$("[id=" + elemento + "]").prop("checked", false);
 	}
 }
-
-
