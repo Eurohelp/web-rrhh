@@ -35,4 +35,22 @@ public class Json {
 		return result;
 	}
 
+	public String parsearJSON2() {
+		String json = "";
+		String[] filas = obtenerFilas();
+		for (int i = filas.length - 1; i > -1; i--) {
+			String[] porElemento = filas[i].split(",");
+			if (i == 0) {
+				json = json.concat("{source:\"" + porElemento[0] + "\",target:\"" + porElemento[2] + "\",type:\""
+						+ porElemento[1] + "\"}");
+			} else {
+				json = json.concat("{source:\"" + porElemento[0] + "\",target:\"" + porElemento[2] + "\",type:\""
+						+ porElemento[1] + "\"},");
+			}
+		}
+		json = json.concat("");
+		System.out.println(json);
+		return json;
+	}
+
 }
