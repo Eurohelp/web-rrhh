@@ -37,6 +37,7 @@ public class ServGetJson extends HttpServlet {
 		try {
 			Stardog stardog = new Stardog();
 			String json = "";
+			System.out.println(json);
 			// si todos estan llenos
 			if (categoria != null && habilidades != null && certificaciones != null && idiomas != null
 					&& universidad != null && experiencia != null) {
