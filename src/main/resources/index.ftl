@@ -1,27 +1,47 @@
-<form name="form" id="form">
-<div class="panel list-group">
- <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
- <div id="sl" class="sublinks collapse">
-  <#list listaCategoria as cat>
-  <a class="list-group-item large" data-color="info" id="${cat?replace(" ","")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${cat?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${categoria}" value="${cat}" id ="${cat?replace(" ","")}"/>${cat}</a>
- </#list>
- </div>
+<center>
+<table border>
+<TR>
+<TD>${categoria}</TD><TD>
+<#list listaCategoria as cat>
+<INPUT TYPE="checkbox" name="${categoria}" value="${cat}">${cat}
+</#list></TD>
 <#if listaHabilidades?has_content && listaCertificaciones?has_content>
- <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu" name="${habilidad}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${habilidad}"></span>${habilidad}</a>
- <div id="sm" class="sublinks collapse">
+<TR>
+<TD>${habilidad}</TD>
+<TD>
 <#list listaHabilidades as hab>
-<a class="list-group-item large" data-color="info" id="${hab?replace("+","")?replace(" ","")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${hab?replace("+","")?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${habilidad}" value="${hab}" id ="${hab?replace("+","")?replace(" ","")}"/>${hab}</a>
- </#list>
- </div>
-<a href="#" class="list-group-item" data-toggle="collapse" data-target="#sg" data-parent="#menu" name="${certificacion}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${certificacion}"></span>${certificacion}</a>
- <div id="sg" class="sublinks collapse">
+<#--Si se ha seleccionado la categoria se mostraran las habilidades y las certificaciones correspondientes-->
+<INPUT TYPE="checkbox" name="${habilidad}" value="${hab}">${hab}
+</#list></TD>
+<TR> 
+<TD>${certificacion}</TD><TD>
 <#list listaCertificaciones as cert>
- <a class="list-group-item large" data-color="info" id="${cert?replace(" ","")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${cert?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${certificacion}" value="${cert}" id ="${cert?replace(" ","")}"/>	${cert}</a>
- </#list>
- </div>
- </#if>
-</div>
-</form>
-<div id="boton" align=center>
-<button class="btn btn-primary" id="getData" type="button" onclick="generateAll()">BUSCAR</button>		</div>
-
+<INPUT TYPE="checkbox" name="${certificacion}" value="${cert}">${cert}
+</#list></TD>
+</#if>
+<#if listaIdiomas?has_content && listaExperiencia?has_content && listaUniversidades?has_content>
+<TR>
+<TD>${idioma}</TD>
+<TD>
+<#list listaIdiomas as idiom>
+<INPUT TYPE="checkbox" name="${idioma}" value="${idiom}">${idiom}
+</#list></TD>
+<TR>
+<TD>${universidad}</TD>
+<TD>
+<#list listaUniversidades as univ>
+<INPUT TYPE="checkbox"  name="${universidad}" value="${univ}">${univ}
+</#list></TD>
+<TR>
+<TD>${experiencia}</TD>
+<TD>
+<#list listaExperiencia as exp>
+<INPUT TYPE="checkbox" name="${experiencia}" value="${exp}">${exp}
+</#list></TD>
+</#if>
+<TR>
+<TR><TH>Pulse aquí:</TH>
+<TD ALIGN=CENTER>
+<button class="btn" type="button" onclick="generateAll()">Buscar</button></table>
+</center>
+<div id="result" align=center><input id="busqueda" name="targetNode" type="text"/><button onclick="growNode()">Buscar</button><button onclick="shrinkNode()">Esconder</button></div>
