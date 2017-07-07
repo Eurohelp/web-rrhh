@@ -34,6 +34,7 @@ public class ServGeneradorIndex extends HttpServlet {
 		String[] habilidades = request.getParameterValues("Habilidades");
 		String[] certificaciones = request.getParameterValues("Certificaciones");
 		String datos = "";
+
 		try {
 			stardog = new Stardog();
 			if (categoria == null) {
@@ -46,6 +47,7 @@ public class ServGeneradorIndex extends HttpServlet {
 		} catch (RepositoryException | TemplateException e) {
 			e.printStackTrace();
 		}
+
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(datos);
