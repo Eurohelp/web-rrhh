@@ -34,6 +34,7 @@ public class ServGetJson extends HttpServlet {
 		String[] idiomas = request.getParameterValues("Idioma");
 		String[] universidad = request.getParameterValues("Universidad");
 		String[] experiencia = request.getParameterValues("Experiencia");
+		System.out.println("Cambio minimo");
 		try {
 			Stardog stardog = new Stardog();
 			String json = "";
