@@ -174,6 +174,7 @@ public class Stardog {
 			TupleQueryResult resultadoQuery = query.evaluate();
 			while (resultadoQuery.hasNext()) {
 				resultado = resultadoQuery.next().toString();
+				System.out.println(resultado);
 				resultado = resultado.replace("\"", "");
 				resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
 				resultado = resultado.replace("[", "");
@@ -222,7 +223,7 @@ public class Stardog {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		result = json.parsearJSON();
+		result = json.parsearJSON2();
 		return result;
 	}
 
@@ -331,7 +332,7 @@ public class Stardog {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		result = json.parsearJSON();
+		result = json.parsearJSON2();
 		return result;
 	}
 

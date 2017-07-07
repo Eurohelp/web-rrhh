@@ -9,7 +9,7 @@
 
 var d3sparql = {
   version: "d3sparql.js version 2015-11-19",
-  debug: false  // set to true for showing debug information
+  debug: true  // set to true for showing debug information
 }
 
 /*
