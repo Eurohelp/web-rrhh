@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.xerces.util.SynchronizedSymbolTable;
 import org.openrdf.model.Model;
 import org.openrdf.model.Statement;
 import org.openrdf.query.GraphQuery;
@@ -103,14 +104,15 @@ public class Stardog {
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
-						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
+						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
 						+ "FILTER(?Categoria IN ())}}");
 		String queryCert = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
+						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
 						+ "?Certificacion FILTER(?Categoria IN ())}}");
+
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
 				getListByData(queryCert));
 		return result;
@@ -137,28 +139,31 @@ public class Stardog {
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
-						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
+						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
 						+ "FILTER(?Categoria IN ())}}");
 		String queryCert = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
+						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
 						+ "?Certificacion FILTER(?Categoria IN ())}}");
 		String queryIdioma = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Idioma{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona "
-						+ "<http://opendata.euskadi.eus/idioma> ?idioma.?idioma <http://schema.org/name> "
+						+ "<http://opendata.euskadi.eus/puesto>. ?person rdf:type ?s. ?s <http://schema.org/name> ?Categoria."
+						+ "?person <http://opendata.euskadi.eus/idioma> ?idioma.?idioma <http://schema.org/name> "
 						+ "?Idioma FILTER(?Categoria IN ())}}");
+
 		String queryUniversidad = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Estudios{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type"
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona"
-						+ "<http://opendata.euskadi.eus/education> ?estudios.?estudios <http://schema.org/name> "
+						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. "
+						+"?person rdf:type ?s."
+						+ "?person <http://opendata.euskadi.eus/education> ?estudios.?estudios <http://schema.org/name> "
 						+ "?Estudios FILTER(?Categoria IN ())}}");
 		String queryExperiencia = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Experiencia{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
-						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?persona"
-						+ "<http://opendata.euskadi.eus/experience> ?experiencia.?experiencia <http://schema.org/name>"
+						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. "
+						+"?person rdf:type ?s."
+						+ "?person <http://opendata.euskadi.eus/experience> ?experiencia.?experiencia <http://schema.org/name>"
 						+ "?Experiencia FILTER(?Categoria IN ())}}");
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
 				getListByData(queryCert), getListByData(queryIdioma), getListByData(queryUniversidad),
@@ -174,7 +179,6 @@ public class Stardog {
 			TupleQueryResult resultadoQuery = query.evaluate();
 			while (resultadoQuery.hasNext()) {
 				resultado = resultadoQuery.next().toString();
-				System.out.println(resultado);
 				resultado = resultado.replace("\"", "");
 				resultado = resultado.replace("^^<http://www.w3.org/2001/XMLSchema#string>", "");
 				resultado = resultado.replace("[", "");
@@ -223,7 +227,7 @@ public class Stardog {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		result = json.parsearJSON2();
+		result = json.parsearJSON();
 		return result;
 	}
 
@@ -243,6 +247,7 @@ public class Stardog {
 				// ?nomCertificacion."
 				// + "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre
 				// ?nomIdioma."
+				+ "?person ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
 
@@ -266,8 +271,8 @@ public class Stardog {
 		query = fillQuery("?nomCategoria IN (", pCategoria, query);
 		query = fillQuery("?nomHabilidad IN (", pHabilidades, query);
 		query = fillQuery("?nomCertificacion IN (", pCertificaciones, query);
-
 		String result = getStringByData(query);
+		System.out.println("para comprobar que sale\n"+ result);
 		return result;
 	}
 
@@ -312,6 +317,8 @@ public class Stardog {
 		query = fillQuery("?nomExperiencia IN (", pExperiencia, query);
 
 		String result = getStringByData(query);
+		System.out.println("la query"+query);
+		System.out.println("el result"+result);
 		return result;
 	}
 
@@ -332,7 +339,7 @@ public class Stardog {
 			e.printStackTrace();
 		}
 		Json json = new Json(result);
-		result = json.parsearJSON2();
+		result = json.parsearJSON();
 		return result;
 	}
 

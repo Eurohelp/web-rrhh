@@ -6,10 +6,10 @@ function obtenerJson() {
 		data : form.serialize(),
 		type : 'post',
 		success : function(data) {
-			$("#result").show();
+			$("#search").css("visibility", "visible");
 			$('svg').remove();
-			obj = JSON.parse(JSON.stringify(data));
-			crearGrafo(obj);
+			//obj = JSON.parse(JSON.stringify(data));
+			crearGrafo(data);
 		}
 	});
 }
@@ -21,12 +21,6 @@ function createIndex() {
 		data : form.serialize(),
 		type : 'post',
 		success : function(data) {
-			// var a = $('input[name="Categoria"]:checked').val();
-			// console.log($('input[name="locationthemes"]:checked').serialize());
-			// console.log(a);
-			// alert($("input[name='Categoria']:checked").map(function() {
-			// return this.value;
-			// }).get().join(","));
 			var catSel = saveSelected();
 			$('#pageLeftMenu').html("");
 			$('#pageLeftMenu').html(data);
@@ -77,7 +71,7 @@ function putSelected(arraySelect) {
 	arraySelect.forEach(function(entry) {
 		var element=entry.replace(/\s/g, "");
 		var element=element.replace("+", "");
-		console.log(element);
+		var element=element.replace("+", "");
 		changeCboxIcon(element+"N")
 		});
 }
