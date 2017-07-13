@@ -20,7 +20,27 @@
  </#list>
  </div>
  </#if>
-</div>
+ <#if listaIdiomas?has_content && listaUniversidades?has_content && listaExperiencia?has_content>
+          <a href="#" class="list-group-item" data-toggle="collapse" data-target="#st" data-parent="#menu" name="${idioma}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${idioma}"></span>${idioma}</a>
+            <div id="st" class="sublinks collapse">
+                <#list listaIdiomas as idiom>
+                    <a class="list-group-item large" data-color="info" id="${idiom?replace(" "," ")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${idiom?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${idioma}" value="${idiom}" id ="${idiom?replace(" ","")}"/>${idiom}</a>
+                </#list>
+            </div>
+             <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sr" data-parent="#menu" name="${universidad}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${universidad}"></span>${universidad}</a>
+            <div id="sr" class="sublinks collapse">
+                <#list listaUniversidades as univ>
+                    <a class="list-group-item large" data-color="info" id="${univ?replace(" ","")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${univ?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${universidad}" value="${univ}" id ="${univ?replace(" ","")}"/>${univ}</a>
+                </#list>
+            </div>
+             <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sh" data-parent="#menu" name="${experiencia}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${experiencia}"></span>${experiencia}</a>
+            <div id="sh" class="sublinks collapse">
+                <#list listaExperiencia as exp>
+                    <a class="list-group-item large" data-color="info" id="${exp?replace(" "," ")}N" onclick="changeCboxIcon(id)"><span class="glyphicon glyphicon-unchecked" id="${exp?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${experiencia}" value="${exp}" id ="${exp?replace(" ","")}"/>${exp}</a>
+                </#list>
+            </div>
+        </#if>
+    </div>
 </form>
 <div id="boton" align=center>
 <button class="btn btn-primary" id="getData" type="button" onclick="generateAll()">BUSCAR</button>		</div>

@@ -29,7 +29,6 @@
 <script>
 	$.post('ServGeneradorIndex', function(data) {
 		$('#pageLeftMenu').append(data);
-		$("#result").hide();
 	});
 </script>
 </head>
@@ -47,7 +46,15 @@
 		<div class="pageLeftMenu" id="pageLeftMenu">
 
 		</div>
-		<div id="graph" class="pageContent">
+		<div id="graph" class="pageContent" >
+            <div class="input-group custom-search-form" id="search" style="visibility: hidden">
+              <input type="text" class="form-control" id="busqueda" placeholder="Introduce valor a buscar">
+              <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" onclick="growNode()">
+              <span class="glyphicon glyphicon-search"></span>
+             </button>
+             </span>
+             </div><!-- /input-group -->
 			<div id="result" align=center></div>
 		</div>
 		<div class="pageFooter"></div>
