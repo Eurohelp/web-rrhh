@@ -97,6 +97,16 @@ span {
 
 .custom-search-form {
 	float: right;
-	width:45%;
+	width: 45%;
 	margin-top: 5px;
+}
+.alertify-notifier .ajs-message.ajs-error{
+	background:"#337ab7";
+}
+.alertify-notifier .ajs-message {
+	font-family: 'Bellefair', serif;
+}
+
+.alertify-notifier.ajs-right .ajs-message.ajs-visible {
+	left: 1400px;
 }
