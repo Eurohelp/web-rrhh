@@ -227,7 +227,7 @@ function growNode() {
     var userInput = removeSymbols(document.getElementById("busqueda").value);
     var theNode = d3.select("#b" + userInput);
     theNode.attr("fill", "#337ab7");
-    setTimeout(function(){ shrinkNode("#b" + userInput); }, 5000);
+    setTimeout(function(){ shrinkNode("#b" + userInput); }, 9000);
 }
 
 function shrinkNode(element) {
