@@ -15,7 +15,7 @@ function crearGrafo(data) {
     literals = {};
     resources = {};
     
-    var w = $(window).width(),
+    var w = $("#graph").width(),
         h = 1000;
     var force = d3.layout.force().nodes(d3.values(nodes)).links(links).size(
             [w, h]).linkDistance(180).charge(-500).theta(0.1).gravity(0.05)
@@ -36,8 +36,8 @@ function crearGrafo(data) {
     }
 
 
-    var svg = d3.select("#graph").append("svg:svg").attr("width", w).attr(
-        "height", h);
+    var svg = d3.select("#result").append("svg:svg").attr("width", w).attr(
+        "height", h).attr(  "align-items", "center");
 
     // Per-type markers, as they don't inherit styles.
     svg.append("svg:defs").selectAll("marker").data(
