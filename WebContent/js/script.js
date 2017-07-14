@@ -1,6 +1,6 @@
 function crearGrafo(data) {
-    var links = [{source:"http://opendata.euskadi.eus/UDA",target:"UDA",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/UDA",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/ISTQB",target:"ISTQB",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/ISTQB",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/TrabajoEntidadesPrivadas",target:"Trabajo en proyectos de entidades privadas",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoEntidadesPrivadas",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoEntidadesPublicas",target:"Trabajo en proyectos de entidades publicas",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoEntidadesPublicas",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",target:"Trabajo en proyectos desarrollo general",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoDesarrolloGeneral",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/TrabajoProyectoID",target:"Trabajo en proyectos I+D",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/TrabajoProyectoID",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/java",target:"Java",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/java",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/html",target:"HTML",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/html",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/c++",target:"C++",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/c++",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/PMP",target:"PMP",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/PMP",type:"http://opendata.euskadi.eus/certification"},{source:"http://opendata.euskadi.eus/r",target:"R",type:"http://schema.org/name"},{source:"http://opendata.euskadi.eus/Analyst",target:"http://opendata.euskadi.eus/r",type:"http://opendata.euskadi.eus/skill"},{source:"http://opendata.euskadi.eus/Analyst",target:"Analista",type:"http://schema.org/name"}];
-
+    var links = jsonFormat(data);
+    console.log(links);
     
     var nodes = {};
     // Compute the distinct nodes from the links.
@@ -69,12 +69,15 @@ function crearGrafo(data) {
     var circle = svg.append("svg:g").selectAll("circle").data(d3.values(resources))
         .enter().append("svg:circle").attr("class", function(d) {
             if (d.name.includes("http")) {
-                return "literal";
-            } else {
                 return "recurso";
+            } else {
+                return "literal";
             }
         })
         .attr({
+            "id":function(d) {
+            	return "b"+removeSymbols(d.name);
+            },
             "r": 15,
             "fill": "#ccc",
             "stroke": "#000000"
@@ -83,12 +86,15 @@ function crearGrafo(data) {
     var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literals))
         .enter().append("svg:rect").attr("class", function(d) {
             if (d.name.includes("http")) {
-                return "literal";
-            } else {
                 return "recurso";
+            } else {
+                return "literal";
             }
         })
         .attr({
+        	"id":function(d) {
+            	return "b"+removeSymbols(d.name);
+            },
             "width": function(d) {
                 return get_tex_width(d.name, "10px Arial")
             },
@@ -208,24 +214,26 @@ function onMouseOut() {
 
 function removeSymbols(pString) {
     pString = pString.replace(":", "");
+    pString = pString.replace(/\s/g, "");
+    pString = pString.replace("+", "");
     pString = pString.replace("//", "");
     pString = pString.replace("/", "");
     pString = pString.replace(/\./g, "");
+    pString = pString.replace("+", "");
     return pString;
 }
 
 function growNode() {
-    var userInput = document.getElementById("busqueda");
-    var theNode = d3.select("#c" + userInput.value);
-    theNode.attr("r", 25);
+    var userInput = removeSymbols(document.getElementById("busqueda").value);
+    var theNode = d3.select("#b" + userInput);
+    theNode.attr("fill", "#337ab7");
+    setTimeout(function(){ shrinkNode("#b" + userInput); }, 9000);
 }
 
-function shrinkNode() {
-    var userInput = document.getElementById("busqueda");
-    var theNode = d3.select("#c" + userInput.value);
-    theNode.attr("r", 15);
+function shrinkNode(element) {
+    var theNode = d3.select(element);
+    theNode.attr("fill", "#ccc");
 }
-
 
 function get_tex_width(txt, font) {
     this.element = document.createElement('canvas');
@@ -233,3 +241,16 @@ function get_tex_width(txt, font) {
     this.context.font = font;
     return this.context.measureText(txt).width + 10;
 }
+
+function jsonFormat(data){
+	var data=JSON.parse(JSON.stringify(data));
+	var x=data.split(";");
+	var generalElements=[];
+	var centralElements={};
+	x.forEach(function(links, i){
+	y=links.split(",");
+	generalElements.push({source:y[0], target:y[1], type:y[2]});
+	centralElements={};
+	});
+	return generalElements;
+	}
