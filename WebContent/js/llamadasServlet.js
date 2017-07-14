@@ -31,39 +31,80 @@ function createIndex() {
 			var catSel = saveSelected();
 			$('#pageLeftMenu').html("");
 			$('#pageLeftMenu').html(data);
-			$("#result").remove();
+		//	$("#result").remove();
 			putSelected(catSel);
 		}
 	});
 }
-
+function comprobarSelecciones() {
+	boolCat = false;
+	boolHab = false;
+	boolCert = false;
+	boolIdi = false;
+	boolExp = false;
+	boolUniv = false;
+	var ckboxCategoria = document.getElementsByName('Categoria');
+	var ckboxHabilidades = document.getElementsByName('Habilidades');
+	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
+	var ckboxIdioma = document.getElementsByName('Idioma');
+	var ckboxExperiencia = document.getElementsByName('Experiencia');
+	var ckboxUniversidad = document.getElementsByName('Universidad');
+	for (i = 0; i < ckboxCategoria.length; i++) {
+		if (ckboxCategoria[i].checked == true) {
+			boolCat = true;
+		}
+	}
+	for (i = 0; i < ckboxHabilidades.length; i++) {
+		if (ckboxHabilidades[i].checked == true) {
+			boolHab = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxCertificaciones.length; i++) {
+		if (ckboxCertificaciones[i].checked == true) {
+			boolCert = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxIdioma.length; i++) {
+		if (ckboxIdioma[i].checked == true) {
+			boolIdi = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxExperiencia.length; i++) {
+		if (ckboxExperiencia[i].checked == true) {
+			boolExp = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxUniversidad.length; i++) {
+		if (ckboxUniversidad[i].checked == true) {
+			boolUniv = true;
+			break;
+		}
+	}
+}
 function saveSelected() {
 	var form = $('#form');
 	var categoriaSelec = [];
 	$("input[name='Categoria']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolCat = true;
-		console.log("lo debe");
 	}).get();
 	$("input[name='Habilidades']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolHab = true;
 	}).get();
 	$("input[name='Certificaciones']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolCert = true;
 	}).get();
 	$("input[name='Idioma']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolIdi = true;
 	}).get();
 	$("input[name='Experiencia']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolExp = true;
 	}).get();
 	$("input[name='Universidad']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolUniv = true;
 	}).get();
 	return categoriaSelec;
 }
@@ -112,7 +153,7 @@ function changeCboxIcon(element) {
 }
 
 function validar() {
-	saveSelected();
+	comprobarSelecciones();
 	var ckboxCategoria = document.getElementsByName('Categoria');
 	var ckboxHabilidades = document.getElementsByName('Habilidades');
 	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
@@ -124,27 +165,42 @@ function validar() {
 		alertify.notify('Debes seleccionar al menos una categoria', 'error', 5,
 				function() {
 				});
-	} else if (boolCat == true
-			&& ckboxHabilidades.length == 0
-			&& ckboxCertificaciones.length == 0
-			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
+	} else if (boolCat == true && ckboxHabilidades.length == 0
+			&& ckboxCertificaciones.length == 0 && ckboxIdioma.length == 0
+			&& ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
 		generateAll();
 	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
 		alertify.notify(
 				'Debes seleccionar al menos una habilidad y una certificacion',
 				'error', 5, function() {
 				});
-	}else if(boolCat == true && boolCert == true && boolHab == true && ckboxIdioma.length == 0 &&
-			ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0){
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
 		generateAll();
-	}
-	else if(boolCat == true && boolCert == true && boolHab == true && (boolIdi== false || boolExp ==false || boolUniv==false) ){
-		alertify.notify(
-				'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
-				'error', 5, function() {
-				});	}
-	else if(boolCat == true && boolCert == true && boolHab == true && boolIdi== true && boolExp ==true && boolUniv==true){
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& (boolIdi == false || boolExp == false || boolUniv == false)) {
+		alertify
+				.notify(
+						'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
+						'error', 5, function() {
+						});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& boolIdi == true && boolExp == true && boolUniv == true) {
 		generateAll()
+	} else if (boolCat == false
+			&& (boolCert == true || boolHab == true || boolIdi == true
+					|| boolExp == true || boolUniv == true)) {
+		createIndex();
+		$("#graph").remove();
+	} else if (boolIdi == true || boolExp == true || boolUniv == true
+			&& (boolCert == false || boolHab == false || boolCat == false)) {
+		createIndex();
+		$("#graph").remove();
 	}
+}
 
+function seleccionar(element) {
+	changeCboxIcon(element);
+	validar();
 }
