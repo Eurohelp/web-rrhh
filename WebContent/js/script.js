@@ -96,7 +96,7 @@ function crearGrafo(data) {
             	return "b"+removeSymbols(d.name);
             },
             "width": function(d) {
-                return get_tex_width(d.name, "10px Arial")
+                return getTextWidth(d.name, "Bellefair","10px")
             },
             "height": 20,
             "fill": "#ccc",
@@ -112,7 +112,7 @@ function crearGrafo(data) {
     // A copy of the text with a thick white stroke for legibility.
     textRectangles.append("svg:text").attr({
         "font-size": "10",
-        // 'text-anchor' : 'middle'
+       // 'text-anchor' : 'middle'
     }).attr("class", "shadow").text(function(d) {
         return d.name;
     });
@@ -190,12 +190,14 @@ function crearGrafo(data) {
 
         rectangle.attr("transform", function(d) {
             var valueY = d.y - 11;
-            var valueX = d.x - 5;
+            var valueX = d.x;
+            console.log(removeSymbols(d.name));
             return "translate(" + valueX + "," + valueY + ")";
         });
 
         textRectangles.attr("transform", function(d) {
-            return "translate(" + d.x + "," + d.y + ")";
+            var valueX = d.x+5;
+            return "translate(" + valueX + "," + d.y + ")";
         });
 
         textCircles.attr("transform", function(d) {
@@ -235,12 +237,16 @@ function shrinkNode(element) {
     theNode.attr("fill", "#ccc");
 }
 
-function get_tex_width(txt, font) {
-    this.element = document.createElement('canvas');
-    this.context = this.element.getContext("2d");
-    this.context.font = font;
-    return this.context.measureText(txt).width + 10;
-}
+ function getTextWidth(txt, fontname, fontsize){
+	  this.e = document.createElement('span');
+	  this.e.style.fontSize = fontsize;
+	  this.e.style.fontFamily = fontname;
+	  this.e.innerHTML = txt;
+	  document.body.appendChild(this.e);
+	  var w = this.e.offsetWidth;
+	  document.body.removeChild(this.e);
+	  return w+10;
+	}
 
 function jsonFormat(data){
 	var data=JSON.parse(JSON.stringify(data));

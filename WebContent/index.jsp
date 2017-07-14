@@ -48,7 +48,6 @@
 <script
 	src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-<script src="<%=request.getContextPath()%>/js/d3sparql.js"></script>
 <script src="<%=request.getContextPath()%>/js/script.js"></script>
 <script src="<%=request.getContextPath()%>/js/llamadasServlet.js"></script>
 
