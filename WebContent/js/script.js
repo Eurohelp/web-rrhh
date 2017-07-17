@@ -1,6 +1,5 @@
 function crearGrafo(data) {
     var links = jsonFormat(data);
-    console.log(links);
     
     var nodes = {};
     // Compute the distinct nodes from the links.
@@ -191,7 +190,6 @@ function crearGrafo(data) {
         rectangle.attr("transform", function(d) {
             var valueY = d.y - 11;
             var valueX = d.x;
-            console.log(removeSymbols(d.name));
             return "translate(" + valueX + "," + valueY + ")";
         });
 
