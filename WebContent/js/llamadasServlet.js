@@ -4,21 +4,33 @@ var boolCert = false;
 var boolIdi = false;
 var boolExp = false;
 var boolUniv = false;
+var fin = false;
 
 function obtenerJson() {
-	var json = "";
 	var form = $('#form');
-	$.ajax({
-		url : 'ServGetJson',
-		data : form.serialize(),
-		type : 'post',
-		success : function(data) {
-			$("#search").css("visibility", "visible");
-			$('svg').remove();
-			// obj = JSON.parse(JSON.stringify(data));
-			crearGrafo(data);
-		}
-	});
+	$
+			.ajax({
+				url : 'ServGetJson',
+				data : form.serialize(),
+				type : 'post',
+				success : function(data) {
+					$("#search").css("visibility", "visible");
+					$('svg').remove();
+					console.log(data);
+					if (data.includes("vacio")) {
+						console.log("deberia entrar");
+						swal(
+								'Oops...',
+								'No se encontraron resultados con esos parametros de busqueda',
+								'info');
+					} else {
+						crearGrafo(data);
+						if (!fin) {
+							createIndex();
+						}
+					}
+				}
+			});
 }
 
 function createIndex() {
@@ -31,39 +43,83 @@ function createIndex() {
 			var catSel = saveSelected();
 			$('#pageLeftMenu').html("");
 			$('#pageLeftMenu').html(data);
-			$("#result").remove();
+<<<<<<< HEAD
+		//	$("#result").remove();
+=======
+>>>>>>> feature/graph
 			putSelected(catSel);
 		}
 	});
 }
-
+function comprobarSelecciones() {
+	boolCat = false;
+	boolHab = false;
+	boolCert = false;
+	boolIdi = false;
+	boolExp = false;
+	boolUniv = false;
+	var ckboxCategoria = document.getElementsByName('Categoria');
+	var ckboxHabilidades = document.getElementsByName('Habilidades');
+	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
+	var ckboxIdioma = document.getElementsByName('Idioma');
+	var ckboxExperiencia = document.getElementsByName('Experiencia');
+	var ckboxUniversidad = document.getElementsByName('Universidad');
+	for (i = 0; i < ckboxCategoria.length; i++) {
+		if (ckboxCategoria[i].checked == true) {
+			boolCat = true;
+		}
+	}
+	for (i = 0; i < ckboxHabilidades.length; i++) {
+		if (ckboxHabilidades[i].checked == true) {
+			boolHab = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxCertificaciones.length; i++) {
+		if (ckboxCertificaciones[i].checked == true) {
+			boolCert = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxIdioma.length; i++) {
+		if (ckboxIdioma[i].checked == true) {
+			boolIdi = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxExperiencia.length; i++) {
+		if (ckboxExperiencia[i].checked == true) {
+			boolExp = true;
+			break;
+		}
+	}
+	for (i = 0; i < ckboxUniversidad.length; i++) {
+		if (ckboxUniversidad[i].checked == true) {
+			boolUniv = true;
+			break;
+		}
+	}
+}
 function saveSelected() {
 	var form = $('#form');
 	var categoriaSelec = [];
 	$("input[name='Categoria']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolCat = true;
-		console.log("lo debe");
 	}).get();
 	$("input[name='Habilidades']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolHab = true;
 	}).get();
 	$("input[name='Certificaciones']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolCert = true;
 	}).get();
 	$("input[name='Idioma']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolIdi = true;
 	}).get();
 	$("input[name='Experiencia']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolExp = true;
 	}).get();
 	$("input[name='Universidad']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
-		boolUniv = true;
 	}).get();
 	return categoriaSelec;
 }
@@ -89,7 +145,6 @@ function putSelected(arraySelect) {
 	});
 }
 function generateAll() {
-	createIndex()
 	obtenerJson();
 }
 
@@ -111,40 +166,153 @@ function changeCboxIcon(element) {
 	}
 }
 
+<<<<<<< HEAD
 function validar() {
-	saveSelected();
+	comprobarSelecciones();
+=======
+function validar(clase) {
+	comprobarSelecciones();
+	console.log(clase);
+>>>>>>> feature/graph
 	var ckboxCategoria = document.getElementsByName('Categoria');
 	var ckboxHabilidades = document.getElementsByName('Habilidades');
 	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
 	var ckboxIdioma = document.getElementsByName('Idioma');
 	var ckboxExperiencia = document.getElementsByName('Experiencia');
 	var ckboxUniversidad = document.getElementsByName('Universidad');
+<<<<<<< HEAD
 	if (boolCat == false && boolCert == false && boolExp == false
 			&& boolHab == false && boolIdi == false && boolUniv == false) {
 		alertify.notify('Debes seleccionar al menos una categoria', 'error', 5,
 				function() {
 				});
-	} else if (boolCat == true
-			&& ckboxHabilidades.length == 0
-			&& ckboxCertificaciones.length == 0
-			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
+	} else if (boolCat == true && ckboxHabilidades.length == 0
+=======
+
+	// Si solo esta seleccionada la categoria
+	if (boolCat == true && ckboxHabilidades.length == 0
+>>>>>>> feature/graph
+			&& ckboxCertificaciones.length == 0 && ckboxIdioma.length == 0
+			&& ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
 		generateAll();
+		console.log(2);
+		// Si hay una categoria seleccionada pero no se han seleccionado
+		// una certificacion o una habilidad
 	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
+<<<<<<< HEAD
 		alertify.notify(
 				'Debes seleccionar al menos una habilidad y una certificacion',
 				'error', 5, function() {
 				});
-	}else if(boolCat == true && boolCert == true && boolHab == true && ckboxIdioma.length == 0 &&
-			ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0){
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
 		generateAll();
-	}
-	else if(boolCat == true && boolCert == true && boolHab == true && (boolIdi== false || boolExp ==false || boolUniv==false) ){
-		alertify.notify(
-				'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
-				'error', 5, function() {
-				});	}
-	else if(boolCat == true && boolCert == true && boolHab == true && boolIdi== true && boolExp ==true && boolUniv==true){
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& (boolIdi == false || boolExp == false || boolUniv == false)) {
+		alertify
+				.notify(
+						'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
+						'error', 5, function() {
+						});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& boolIdi == true && boolExp == true && boolUniv == true) {
 		generateAll()
+	} else if (boolCat == false
+			&& (boolCert == true || boolHab == true || boolIdi == true
+					|| boolExp == true || boolUniv == true)) {
+		createIndex();
+		$("#graph").remove();
+	} else if (boolIdi == true || boolExp == true || boolUniv == true
+			&& (boolCert == false || boolHab == false || boolCat == false)) {
+		createIndex();
+		$("#graph").remove();
 	}
+}
 
+function seleccionar(element) {
+	changeCboxIcon(element);
+	validar();
+=======
+		if (clase != "Certificaciones" && clase != "Habilidades") {
+			$("#sm").empty();
+			$("#sg").empty();
+			createIndex();
+			$("#graph").remove();
+		} else {
+			console.log(3);
+			alertify
+					.notify(
+							'Debes seleccionar al menos una habilidad y una certificacion',
+							'error', 5, function() {
+							});
+		}
+		// Si se ha seleccionado una categoria, habilidad y certificacion
+		// y aun no se ha generado aun menu para las demas
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
+		if (clase != "Certificaciones" && clase != "Habilidades") {
+			$("#sm").empty();
+			$("#sg").empty();
+			createIndex();
+			$("#graph").remove();
+		} else {
+			generateAll();
+		}
+		console.log(4);
+		// Si se ha seleccionado habilidad, categoria y certificacion pero
+		// o no se ha seleccionado idioma, universidad o algun tipo de
+		// experiencia
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& (boolIdi == false || boolExp == false || boolUniv == false)) {
+		if (clase != "Idioma" && clase != "Experiencia"
+				&& clase != "Universidad") {
+			if (clase == "Categoria") {
+				$("#sm").remove();
+				$("#sg").remove();
+			}
+			$("#st").remove();
+			$("#sr").remove();
+			$("#sh").remove();
+			createIndex();
+			$("#graph").remove();
+			$("#graph").remove();
+			console.log(5);
+		} else {
+			alertify
+					.notify(
+							'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
+							'error', 5, function() {
+							});
+			console.log(6);
+		} // Si se ha seleccionado todo correctamente
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& boolIdi == true && boolExp == true && boolUniv == true) {
+		if (clase != "Idioma" && clase != "Experiencia"
+				&& clase != "Universidad") {
+			if (clase == "Categoria") {
+				$("#sm").remove();
+				$("#sg").remove();
+			}
+			$("#st").remove();
+			$("#sr").remove();
+			$("#sh").remove();
+			createIndex();
+			$("#graph").remove();
+			$("#graph").remove();
+			console.log(7)
+		} else {
+			fin = true;
+			generateAll();
+			console.log(8)
+		}
+		;
+	}
+}
+
+function seleccionar(element, clase) {
+	changeCboxIcon(element);
+	validar(clase);
+>>>>>>> feature/graph
 }
