@@ -272,21 +272,12 @@ public class Stardog {
 		query = fillQuery("?nomHabilidad IN (", pHabilidades, query);
 		query = fillQuery("?nomCertificacion IN (", pCertificaciones, query);
 		String result = getStringByData(query);
-		System.out.println("para comprobar que sale\n"+ result);
 		return result;
 	}
 
 	public String getJson(String[] pCategoria, String[] pHabilidades, String[] pCertificaciones, String[] pIdiomas,
 			String[] pUniversidad, String[] pExperiencia) {
 		String query = "CONSTRUCT  {"
-				// + "?uriCategoria ?nombre ?nomCategoria."
-				// + "?uriCategoria ?habilidades ?uriHabilidad. ?uriHabilidad
-				// ?nombre ?nomHabilidad."
-				// + "?uriCategoria ?certificaciones
-				// ?uriCertificacion.?uriCertificacion ?nombre
-				// ?nomCertificacion."
-				// + "?uriCategoria ?idiomas ?uriIdioma. ?uriIdioma ?nombre
-				// ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
 				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
 				+ "?person ?nombre ?nombrePersona."
@@ -315,10 +306,7 @@ public class Stardog {
 		query = fillQuery("?nomIdioma IN (", pIdiomas, query);
 		query = fillQuery("?nomUniversidades IN (", pUniversidad, query);
 		query = fillQuery("?nomExperiencia IN (", pExperiencia, query);
-
 		String result = getStringByData(query);
-		System.out.println("la query"+query);
-		System.out.println("el result"+result);
 		return result;
 	}
 
@@ -338,8 +326,13 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(result);
+		if(result==""){
+			result="json vacio";
+		}
+		else{
 		Json json = new Json(result);
-		result = json.parsearJSON();
+		result = json.parsearJSON();}
 		return result;
 	}
 

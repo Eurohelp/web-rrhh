@@ -17,9 +17,8 @@ body {
 .blended_grid {
 	display: block;
 	background-color: #D8D8D8;
-	width: 100%;
+	width: 100% overflow: auto;
 	height: 100% overflow: auto;
-	margin: 0 20 0 20;
 }
 
 .pageHeader {
@@ -35,11 +34,12 @@ body {
 }
 
 .pageLeftMenu {
+	margin-top: 30px;
 	float: left;
 	clear: none;
 	height: 70%;
 	width: 20%;
-	font-size: 20;
+	font-size: large;
 	font-family: 'Bellefair', serif;
 }
 
@@ -98,15 +98,22 @@ span {
 .custom-search-form {
 	float: right;
 	width: 45%;
-	margin-top: 5px;
+	font-size: large;
+	padding: 40px;
 }
-.alertify-notifier .ajs-message.ajs-error{
-	background:"#337ab7";
+
+#busqueda {
+	font-size: large;
 }
+
+.alertify-notifier .ajs-message.ajs-error {
+	background: #337ab7;
+}
+
 .alertify-notifier .ajs-message {
 	font-family: 'Bellefair', serif;
 }
 
 .alertify-notifier.ajs-right .ajs-message.ajs-visible {
-	left: 1400px;
+	left: 1300px;
 }
