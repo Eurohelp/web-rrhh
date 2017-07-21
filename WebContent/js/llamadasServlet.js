@@ -4,7 +4,8 @@ var boolCert = false;
 var boolIdi = false;
 var boolExp = false;
 var boolUniv = false;
-json = "";
+var fin = false;
+
 function obtenerJson() {
 	var form = $('#form');
 	$
@@ -14,16 +15,19 @@ function obtenerJson() {
 				type : 'post',
 				success : function(data) {
 					$("#search").css("visibility", "visible");
-					json=data;
 					$('svg').remove();
-					if (json.includes("vacio")) {
+					console.log(data);
+					if (data.includes("vacio")) {
 						console.log("deberia entrar");
 						swal(
 								'Oops...',
 								'No se encontraron resultados con esos parametros de busqueda',
 								'info');
 					} else {
-						crearGrafo(json);
+						crearGrafo(data);
+						if (!fin) {
+							createIndex();
+						}
 					}
 				}
 			});
@@ -138,9 +142,6 @@ function putSelected(arraySelect) {
 }
 function generateAll() {
 	obtenerJson();
-	if (json.includes("vacio")==false) {
-	createIndex();
-	}
 }
 
 function changeCboxIcon(element) {
@@ -215,12 +216,12 @@ function validar(clase) {
 		if (clase != "Idioma" && clase != "Experiencia"
 				&& clase != "Universidad") {
 			if (clase == "Categoria") {
-				$("#sm").empty();
-				$("#sg").empty();
+				$("#sm").remove();
+				$("#sg").remove();
 			}
-			$("#st").empty();
-			$("#sr").empty();
-			$("#sh").empty();
+			$("#st").remove();
+			$("#sr").remove();
+			$("#sh").remove();
 			createIndex();
 			$("#graph").remove();
 			$("#graph").remove();
@@ -238,17 +239,18 @@ function validar(clase) {
 		if (clase != "Idioma" && clase != "Experiencia"
 				&& clase != "Universidad") {
 			if (clase == "Categoria") {
-				$("#sm").empty();
-				$("#sg").empty();
+				$("#sm").remove();
+				$("#sg").remove();
 			}
-			$("#st").empty();
-			$("#sr").empty();
-			$("#sh").empty();
+			$("#st").remove();
+			$("#sr").remove();
+			$("#sh").remove();
 			createIndex();
 			$("#graph").remove();
 			$("#graph").remove();
 			console.log(7)
 		} else {
+			fin = true;
 			generateAll();
 			console.log(8)
 		}
