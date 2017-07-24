@@ -4,7 +4,9 @@
 <title>Eurohelp Consulting</title>
 <meta name="description"
 	content="Write some words to describe your html page">
-
+	
+<!-- Progress bar -->
+<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
 <!-- CSS -->
@@ -71,8 +73,6 @@
 		</div>
 		<div class="pageLeftMenu" id="pageLeftMenu"></div>
 		<div id="graph" class="pageContent">
-
-			<!-- /input-group -->
 			<div id="result" class="result" align=center>
 				<div class="input-group custom-search-form" id="search"
 					style="visibility: hidden">

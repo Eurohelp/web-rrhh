@@ -83,8 +83,9 @@ public class Stardog {
 			IOException, TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat));
+		System.out.println(queryCat);
 		return result;
-	}
+}
 
 	/**
 	 * Recoge los datos referentes a las habilidades y las certificaciones dada
@@ -115,6 +116,11 @@ public class Stardog {
 
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
 				getListByData(queryCert));
+
+		System.out.println(queryCat);
+		System.out.println(queryHabil);
+		System.out.println(queryCert);
+
 		return result;
 	}
 
@@ -168,6 +174,13 @@ public class Stardog {
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
 				getListByData(queryCert), getListByData(queryIdioma), getListByData(queryUniversidad),
 				getListByData(queryExperiencia));
+		System.out.println(queryCat);
+		System.out.println(queryHabil);
+		System.out.println(queryCert);
+		System.out.println(queryExperiencia);
+		System.out.println(queryIdioma);
+		System.out.println(queryUniversidad);
+
 		return result;
 	}
 
@@ -212,6 +225,7 @@ public class Stardog {
 				+ "FILTER (?certificaciones = <http://opendata.euskadi.eus/certification>)}}";
 		String result = "";
 		query = fillQuery("?nomCategoria IN (", pCategoria, query);
+		System.out.println(query);
 		try {
 			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
 			GraphQueryResult results = tupleQuery.evaluate();
@@ -230,6 +244,8 @@ public class Stardog {
 		result = json.parsearJSON();
 		return result;
 	}
+
+	
 
 	/**
 	 * 
@@ -257,7 +273,7 @@ public class Stardog {
 				+ "?uriCategoria ?certificaciones ?uriCertificacion. ?uriCertificacion ?nombre ?nomCertificacion."
 				+ "?person ?tipo ?persona." + "?person ?idiomas ?uriIdioma. ?uriIdioma ?nombre ?nomIdioma."
 				+ "?person ?universidades ?uriUniversidades. ?uriUniversidades ?nombre ?nomUniversidades."
-				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia."
+				+ "?person ?experiencia ?uriExperiencia. ?uriExperiencia ?nombre ?nomExperiencia. ?person rdf:type ?uriCategoria."
 
 				+ "FILTER(?nomCategoria IN ()) FILTER(?nomHabilidad IN ())" + "FILTER(?nomCertificacion IN ())"
 
@@ -271,6 +287,7 @@ public class Stardog {
 		query = fillQuery("?nomCategoria IN (", pCategoria, query);
 		query = fillQuery("?nomHabilidad IN (", pHabilidades, query);
 		query = fillQuery("?nomCertificacion IN (", pCertificaciones, query);
+		System.out.println(query);
 		String result = getStringByData(query);
 		return result;
 	}
@@ -306,6 +323,7 @@ public class Stardog {
 		query = fillQuery("?nomIdioma IN (", pIdiomas, query);
 		query = fillQuery("?nomUniversidades IN (", pUniversidad, query);
 		query = fillQuery("?nomExperiencia IN (", pExperiencia, query);
+		System.out.println(query);
 		String result = getStringByData(query);
 		return result;
 	}
@@ -326,7 +344,6 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		if(result==""){
 			result="json vacio";
 		}

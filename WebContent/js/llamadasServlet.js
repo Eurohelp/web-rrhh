@@ -18,15 +18,19 @@ function obtenerJson() {
 					$('svg').remove();
 					console.log(data);
 					if (data.includes("vacio")) {
-						console.log("deberia entrar");
+						$('svg').remove();
 						swal(
 								'Oops...',
 								'No se encontraron resultados con esos parametros de busqueda',
 								'info');
 					} else {
+						console.log("va a crear el grafo");
 						crearGrafo(data);
 						if (!fin) {
+							console.log("no es el fin");
 							createIndex();
+						} else {
+							fin = false;
 						}
 					}
 				}
@@ -177,15 +181,16 @@ function validar(clase) {
 			&& ckboxCertificaciones.length == 0 && ckboxIdioma.length == 0
 			&& ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
 		generateAll();
-		console.log(2);
+		console.log(1);
 		// Si hay una categoria seleccionada pero no se han seleccionado
 		// una certificacion o una habilidad
 	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
 		if (clase != "Certificaciones" && clase != "Habilidades") {
-			$("#sm").empty();
-			$("#sg").empty();
-			createIndex();
-			$("#graph").remove();
+			$("#sm").remove();
+			$("#sg").remove();
+			$('svg').remove();
+			generateAll();
+			console.log(2);
 		} else {
 			console.log(3);
 			alertify
@@ -200,14 +205,15 @@ function validar(clase) {
 			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
 			&& ckboxUniversidad.length == 0) {
 		if (clase != "Certificaciones" && clase != "Habilidades") {
-			$("#sm").empty();
-			$("#sg").empty();
-			createIndex();
-			$("#graph").remove();
+			$("#sm").remove();
+			$("#sg").remove();
+			$('svg').remove();
+			generateAll();
+			console.log(4);
 		} else {
 			generateAll();
+			console.log(5);
 		}
-		console.log(4);
 		// Si se ha seleccionado habilidad, categoria y certificacion pero
 		// o no se ha seleccionado idioma, universidad o algun tipo de
 		// experiencia
@@ -218,21 +224,21 @@ function validar(clase) {
 			if (clase == "Categoria") {
 				$("#sm").remove();
 				$("#sg").remove();
+				console.log(6);
 			}
 			$("#st").remove();
 			$("#sr").remove();
 			$("#sh").remove();
-			createIndex();
-			$("#graph").remove();
-			$("#graph").remove();
-			console.log(5);
+			$('svg').remove();
+			generateAll();
+			console.log(7);
 		} else {
 			alertify
 					.notify(
 							'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
 							'error', 5, function() {
 							});
-			console.log(6);
+			console.log(8);
 		} // Si se ha seleccionado todo correctamente
 	} else if (boolCat == true && boolCert == true && boolHab == true
 			&& boolIdi == true && boolExp == true && boolUniv == true) {
@@ -241,20 +247,31 @@ function validar(clase) {
 			if (clase == "Categoria") {
 				$("#sm").remove();
 				$("#sg").remove();
+				console.log(9)
 			}
 			$("#st").remove();
 			$("#sr").remove();
 			$("#sh").remove();
-			createIndex();
-			$("#graph").remove();
-			$("#graph").remove();
-			console.log(7)
+			$('svg').remove();
+			generateAll();
+			console.log(10)
 		} else {
 			fin = true;
+			console.log(11);
 			generateAll();
-			console.log(8)
 		}
-		;
+	}
+	// s
+	else if (boolCat == false
+			&& (boolCert == true || boolHab == true || boolIdi == true
+					|| boolExp == true || boolUniv == true)) {
+
+	}
+	// s
+	else if ((boolIdi == true
+			|| boolExp == true || boolUniv == true) && (boolCat == false || 
+			boolCert == false || boolHab == false)) {
+
 	}
 }
 

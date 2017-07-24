@@ -34,7 +34,7 @@ body {
 }
 
 .pageLeftMenu {
-	margin-top: 30px;
+	margin-top: 40px;
 	float: left;
 	clear: none;
 	height: 70%;
@@ -97,6 +97,8 @@ span {
 
 .custom-search-form {
 	float: right;
+	margin-top:30px;
+	margin-right:15px;
 	width: 45%;
 	font-size: large;
 	padding: 40px;
@@ -117,3 +119,4 @@ span {
 .alertify-notifier.ajs-right .ajs-message.ajs-visible {
 	left: 1300px;
 }
+
