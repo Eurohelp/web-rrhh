@@ -5,12 +5,15 @@
 <meta name="description"
 	content="Write some words to describe your html page">
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
 >>>>>>> feature/graph
 =======
 	
+>>>>>>> branch 'feature/graph' of https://github.com/mishel-uchuari/web-rrhh.git
 <!-- Progress bar -->
 <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 >>>>>>> feature/graph
