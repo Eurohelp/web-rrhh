@@ -9,9 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.openrdf.repository.RepositoryException;
 
+import eurohelp.recursoshumanos.pagegenerator.Opciones;
 import eurohelp.recursoshumanos.stardog.Stardog;
 import freemarker.template.TemplateException;
 
+/**
+ * 
+ * @author Mishel Uchuari, 28 jul. 2017
+ */
 public class ServGeneradorIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,15 +29,15 @@ public class ServGeneradorIndex extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Dependiendo del punto de filtrado en el que se encuentre el usuario se
+	 * genera un index adecuado
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Stardog stardog = null;
-		String[] categoria = request.getParameterValues("Categoria");
-		String[] habilidades = request.getParameterValues("Habilidades");
-		String[] certificaciones = request.getParameterValues("Certificaciones");
+		String[] categoria = request.getParameterValues(Opciones.Categoria.toString());
+		String[] habilidades = request.getParameterValues(Opciones.Habilidades.toString());
+		String[] certificaciones = request.getParameterValues(Opciones.Certificaciones.toString());
 		String datos = "";
 		try {
 			stardog = new Stardog();
