@@ -51,6 +51,7 @@ function crearIndex() {
 		data : form.serialize(),
 		type : "post",
 		success : function(data) {
+
 			var catSel = saveSelected();
 			$('#pageLeftMenu').html("");
 			$('#pageLeftMenu').html(data);
@@ -206,7 +207,6 @@ function changeCboxIcon(element) {
 }
 
 
-
 /**
  * Controlador del menú
  * 
@@ -229,6 +229,7 @@ function validar(clase) {
 		obtenerJson();
 		// Si hay una categoria seleccionada pero no se han seleccionado
 		// una certificacion o una habilidad
+
 	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
 		alertify.notify(
 				'Debes seleccionar al menos una habilidad y una certificacion',
@@ -375,5 +376,4 @@ function eliminarOpcionesMenu(pCase) {
 function generarGrafo(element, clase) {
 	changeCboxIcon(element);
 	validar(clase);
->>>>>>> feature/graph
 }

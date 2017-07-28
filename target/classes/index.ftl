@@ -1,5 +1,5 @@
 <form name="form" id="form">
-<<<<<<< HEAD
+
      <div class="panel list-group">
          <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" id="${categoria}E" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
          <div id="sl" class="sublinks collapse">
@@ -42,8 +42,6 @@
              </div>
          </#if>
      </div>
- </form>
-=======
     <div class="panel list-group">
         <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
         <div id="sl" class="sublinks collapse">
@@ -90,4 +88,3 @@
 <div id="boton" align=center>
     <button class="btn btn-primary" id="getData" type="button" onclick="validar()">BUSCAR</button>
 </div>
->>>>>>> branch 'feature/graph' of https://github.com/mishel-uchuari/web-rrhh.git
