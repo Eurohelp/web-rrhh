@@ -51,6 +51,11 @@ function crearIndex() {
 		data : form.serialize(),
 		type : "post",
 		success : function(data) {
+
+			var catSel = saveSelected();
+			$('#pageLeftMenu').html("");
+			$('#pageLeftMenu').html(data);
+		//	$("#result").remove();
 			var catSel = guardarSelecciones();
 			$("#pageLeftMenu").html("");
 			$("#pageLeftMenu").html(data);
@@ -201,6 +206,7 @@ function changeCboxIcon(element) {
 	}
 }
 
+
 /**
  * Controlador del menú
  * 
@@ -223,6 +229,42 @@ function validar(clase) {
 		obtenerJson();
 		// Si hay una categoria seleccionada pero no se han seleccionado
 		// una certificacion o una habilidad
+
+	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
+		alertify.notify(
+				'Debes seleccionar al menos una habilidad y una certificacion',
+				'error', 5, function() {
+				});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
+		generateAll();
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& (boolIdi == false || boolExp == false || boolUniv == false)) {
+		alertify
+				.notify(
+						'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
+						'error', 5, function() {
+						});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& boolIdi == true && boolExp == true && boolUniv == true) {
+		generateAll()
+	} else if (boolCat == false
+			&& (boolCert == true || boolHab == true || boolIdi == true
+					|| boolExp == true || boolUniv == true)) {
+		createIndex();
+		$("#graph").remove();
+	} else if (boolIdi == true || boolExp == true || boolUniv == true
+			&& (boolCert == false || boolHab == false || boolCat == false)) {
+		createIndex();
+		$("#graph").remove();
+	}
+}
+
+function seleccionar(element) {
+	changeCboxIcon(element);
+	validar();
+
 	} else if (boolCat == true && (boolCert == false || boolHab == false)
 			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
 			&& ckboxUniversidad.length == 0) {
