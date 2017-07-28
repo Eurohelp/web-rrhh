@@ -51,10 +51,21 @@ function crearIndex() {
 		data : form.serialize(),
 		type : "post",
 		success : function(data) {
+<<<<<<< HEAD:WebContent/js/llamadasServlet.js
+			var catSel = saveSelected();
+			$('#pageLeftMenu').html("");
+			$('#pageLeftMenu').html(data);
+<<<<<<< HEAD
+		//	$("#result").remove();
+=======
+>>>>>>> feature/graph
+			putSelected(catSel);
+=======
 			var catSel = guardarSelecciones();
 			$("#pageLeftMenu").html("");
 			$("#pageLeftMenu").html(data);
 			ponerSelecciones(catSel);
+>>>>>>> feature/graph:WebContent/js/GestorIndice.js
 		}
 	});
 }
@@ -201,6 +212,30 @@ function changeCboxIcon(element) {
 	}
 }
 
+<<<<<<< HEAD:WebContent/js/llamadasServlet.js
+<<<<<<< HEAD
+function validar() {
+	comprobarSelecciones();
+=======
+function validar(clase) {
+	comprobarSelecciones();
+	console.log(clase);
+>>>>>>> feature/graph
+	var ckboxCategoria = document.getElementsByName('Categoria');
+	var ckboxHabilidades = document.getElementsByName('Habilidades');
+	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
+	var ckboxIdioma = document.getElementsByName('Idioma');
+	var ckboxExperiencia = document.getElementsByName('Experiencia');
+	var ckboxUniversidad = document.getElementsByName('Universidad');
+<<<<<<< HEAD
+	if (boolCat == false && boolCert == false && boolExp == false
+			&& boolHab == false && boolIdi == false && boolUniv == false) {
+		alertify.notify('Debes seleccionar al menos una categoria', 'error', 5,
+				function() {
+				});
+	} else if (boolCat == true && ckboxHabilidades.length == 0
+=======
+=======
 /**
  * Controlador del menú
  * 
@@ -215,17 +250,58 @@ function validar(clase) {
 	var ckboxIdioma = document.getElementsByName("Idioma");
 	var ckboxExperiencia = document.getElementsByName("Experiencia");
 	var ckboxUniversidad = document.getElementsByName("Universidad");
+>>>>>>> feature/graph:WebContent/js/GestorIndice.js
 
 	// Si solo esta seleccionada la categoria
 	if (boolCat == true && ckboxHabilidades.length == 0
+>>>>>>> feature/graph
 			&& ckboxCertificaciones.length == 0 && ckboxIdioma.length == 0
 			&& ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
 		obtenerJson();
 		// Si hay una categoria seleccionada pero no se han seleccionado
 		// una certificacion o una habilidad
+<<<<<<< HEAD:WebContent/js/llamadasServlet.js
+	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
+<<<<<<< HEAD
+		alertify.notify(
+				'Debes seleccionar al menos una habilidad y una certificacion',
+				'error', 5, function() {
+				});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
+		generateAll();
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& (boolIdi == false || boolExp == false || boolUniv == false)) {
+		alertify
+				.notify(
+						'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
+						'error', 5, function() {
+						});
+	} else if (boolCat == true && boolCert == true && boolHab == true
+			&& boolIdi == true && boolExp == true && boolUniv == true) {
+		generateAll()
+	} else if (boolCat == false
+			&& (boolCert == true || boolHab == true || boolIdi == true
+					|| boolExp == true || boolUniv == true)) {
+		createIndex();
+		$("#graph").remove();
+	} else if (boolIdi == true || boolExp == true || boolUniv == true
+			&& (boolCert == false || boolHab == false || boolCat == false)) {
+		createIndex();
+		$("#graph").remove();
+	}
+}
+
+function seleccionar(element) {
+	changeCboxIcon(element);
+	validar();
+=======
+=======
 	} else if (boolCat == true && (boolCert == false || boolHab == false)
 			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
 			&& ckboxUniversidad.length == 0) {
+>>>>>>> feature/graph:WebContent/js/GestorIndice.js
 		if (clase != "Certificaciones" && clase != "Habilidades") {
 			eliminarOpcionesMenu(1);
 			obtenerJson();
@@ -334,4 +410,5 @@ function eliminarOpcionesMenu(pCase) {
 function generarGrafo(element, clase) {
 	changeCboxIcon(element);
 	validar(clase);
+>>>>>>> feature/graph
 }
