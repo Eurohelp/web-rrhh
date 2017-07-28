@@ -4,22 +4,8 @@
 <title>Eurohelp Consulting</title>
 <meta name="description"
 	content="Write some words to describe your html page">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/graph
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/graph
-=======
-	
 <!-- Progress bar -->
 <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
->>>>>>> feature/graph
->>>>>>> develop
 <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
 <!-- CSS -->
@@ -46,11 +32,8 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.rtl.min.css" />
-<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="estilos.css">
-=======
 <link rel="stylesheet" type="text/css" href="css/estilos.css">
->>>>>>> develop
 <!-- Fuente -->
 <link href="https://fonts.googleapis.com/css?family=Bellefair"
 	rel="stylesheet">
@@ -67,15 +50,12 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="<%=request.getContextPath()%>/js/sweetalert2.min.js"></script>
-<<<<<<< HEAD
 <script src="<%=request.getContextPath()%>/js/script.js"></script>
 <link rel="stylesheet" type="text/css" href="sweetalert2.min.css">
 <script src="<%=request.getContextPath()%>/js/llamadasServlet.js"></script>
-=======
 <script src="<%=request.getContextPath()%>/js/GestorGrafo.js"></script>
 <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css">
 <script src="<%=request.getContextPath()%>/js/GestorIndice.js"></script>
->>>>>>> develop
 
 <script>
 	$.post('ServGeneradorIndex', function(data) {
@@ -95,14 +75,7 @@
 			</nav>
 		</div>
 		<div class="pageLeftMenu" id="pageLeftMenu"></div>
-		<div id="graph" class="pageContent">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> develop
-		
-			<!-- /input-group -->
+		<div id="graph" class="pageContent">	
 			<div id="result" class="result" align=center>	<div class="input-group custom-search-form" id="search"
 				style="visibility: hidden">
 				<input type="text" class="form-control" id="busqueda"
@@ -113,31 +86,19 @@
 					</button>
 				</span>
 			</div></div>
-=======
-
-			<!-- /input-group -->
-<<<<<<< HEAD
-=======
-=======
->>>>>>> feature/graph
->>>>>>> develop
 			<div id="result" class="result" align=center>
 				<div class="input-group custom-search-form" id="search"
 					style="visibility: hidden">
 					<input type="text" class="form-control" id="busqueda"
 						placeholder="Introduce valor a buscar"> <span
 						class="input-group-btn">
-<<<<<<< HEAD
 						<button class="btn btn-primary" type="button" onclick="growNode()">
-=======
 						<button class="btn btn-primary" type="button" onclick="destacarElemento()">
->>>>>>> develop
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</span>
 				</div>
 			</div>
->>>>>>> feature/graph
 		</div>
 		<div class="pageFooter"></div>
 	</div>

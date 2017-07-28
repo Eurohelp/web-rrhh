@@ -1,5 +1,4 @@
 <form name="form" id="form">
-<<<<<<< HEAD
     <div class="panel list-group">
         <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
         <div id="sl" class="sublinks collapse">
@@ -46,9 +45,7 @@
 <div id="boton" align=center>
     <button class="btn btn-primary" id="getData" type="button" onclick="validar()">BUSCAR</button>
 </div>
-=======
      <div class="panel list-group">
-<<<<<<< HEAD
          <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
          <div id="sl" class="sublinks collapse">
              <#list listaCategoria as cat>
@@ -66,7 +63,6 @@
              <div id="sg" class="sublinks collapse">
                  <#list listaCertificaciones as cert>
                      <a class="list-group-item large" data-color="info" name="${certificacion}" id="${cert?replace(" ","")}N" onclick="seleccionar(id,name)"><span class="glyphicon glyphicon-unchecked" id="${cert?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${certificacion}" value="${cert}" id ="${cert?replace(" ","")}"/>	${cert}</a>
-=======
          <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" id="${categoria}E" data-parent="#menu" name="${categoria}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${categoria}"></span>${categoria}</a>
          <div id="sl" class="sublinks collapse">
              <#list listaCategoria as cat>
@@ -84,12 +80,10 @@
              <div id="sg" class="sublinks collapse">
                  <#list listaCertificaciones as cert>
                      <a class="list-group-item large" data-color="info" name="${certificacion}" id="${cert?replace(" ","")}N" onclick="generarGrafo(id,name)"><span class="glyphicon glyphicon-unchecked" id="${cert?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${certificacion}" value="${cert}" id ="${cert?replace(" ","")}"/>	${cert}</a>
->>>>>>> develop
                  </#list>
              </div>
          </#if>
          <#if listaIdiomas?has_content && listaUniversidades?has_content && listaExperiencia?has_content>
-<<<<<<< HEAD
              <a href="#" class="list-group-item" data-toggle="collapse" data-target="#st" data-parent="#menu" name="${idioma}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${idioma}"></span>${idioma}</a>
              <div id="st" class="sublinks collapse">
                  <#list listaIdiomas as idiom>
@@ -106,7 +100,6 @@
              <div id="sh" class="sublinks collapse">
                  <#list listaExperiencia as exp>
                      <a class="list-group-item large" data-color="info" id="${exp?replace(" ","")}N" name="${experiencia}" onclick="seleccionar(id,name)"><span class="glyphicon glyphicon-unchecked" id="${exp?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${experiencia}" value="${exp}" id ="${exp?replace(" ","")}"/>${exp}</a>
-=======
              <a href="#" class="list-group-item" data-toggle="collapse" data-target="#st" data-parent="#menu"  id="${idioma}E" name="${idioma}C" onclick="changeIcon(name)"><span class="glyphicon glyphicon-chevron-down pull-right" id="span${idioma}"></span>${idioma}</a>
              <div id="st" class="sublinks collapse">
                  <#list listaIdiomas as idiom>
@@ -123,23 +116,12 @@
              <div id="sh" class="sublinks collapse">
                  <#list listaExperiencia as exp>
                      <a class="list-group-item large" data-color="info" id="${exp?replace(" ","")}N" name="${experiencia}" onclick="generarGrafo(id,name)"><span class="glyphicon glyphicon-unchecked" id="${exp?replace(" ","")}cb"></span><input type="checkbox" class="hidden" name="${experiencia}" value="${exp}" id ="${exp?replace(" ","")}"/>${exp}</a>
->>>>>>> develop
                  </#list>
              </div>
          </#if>
      </div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> develop
  </form>
  <div id="boton" align=center>
      <button class="btn btn-primary" id="getData" type="button" onclick="validar()">BUSCAR</button>
  </div> 
->>>>>>> feature/graph
-<<<<<<< HEAD
-=======
-=======
  </form>
->>>>>>> feature/graph
->>>>>>> develop
