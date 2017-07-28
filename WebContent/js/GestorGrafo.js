@@ -1,44 +1,41 @@
 function crearGrafo(data) {
-    var links = jsonFormat(data);
+    var links = getFormatoJson(data);
     
-    var nodes = {};
-    // Compute the distinct nodes from the links.
+    var nodos = {};
     links.forEach(function(link) {
-        link.source = nodes[link.source] || (nodes[link.source] = {
+        link.source = nodos[link.source] || (nodos[link.source] = {
             name: link.source,
         });
-        link.target = nodes[link.target] || (nodes[link.target] = {
+        link.target = nodos[link.target] || (nodos[link.target] = {
             name: link.target
         });
     });
-    literals = {};
-    resources = {};
+    literales = {};
+    recursos = {};
     
     var w = $("#graph").width(),
         h = 1000;
-    var force = d3.layout.force().nodes(d3.values(nodes)).links(links).size(
+    var force = d3.layout.force().nodes(d3.values(nodos)).links(links).size(
             [w, h]).linkDistance(180).charge(-500).theta(0.1).gravity(0.05)
         .on("tick", tick).start();
     aux = {};
 
-    for (var key in nodes) {
-        if (nodes[key].name.includes("http")) {
-            nodes[key].class = "recurso";
-            aux = nodes[key];
-            resources[nodes[key].name] = aux;
+    for (var key in nodos) {
+        if (nodos[key].name.includes("http")) {
+            nodos[key].class = "recurso";
+            aux = nodos[key];
+            recursos[nodos[key].name] = aux;
         } else {
-            nodes[key].class = "literal";
-            aux = nodes[key];
-            literals[nodes[key].name] = aux;
+            nodos[key].class = "literal";
+            aux = nodos[key];
+            literales[nodos[key].name] = aux;
         }
         aux = {};
     }
 
-
     var svg = d3.select("#result").append("svg:svg").attr("width", w).attr(
         "height", h).attr(  "align-items", "center");
 
-    // Per-type markers, as they don't inherit styles.
     svg.append("svg:defs").selectAll("marker").data(
             ["end"]).enter().append("svg:marker")
         .attr("id", String).attr("viewBox", "0 -5 10 10").attr("refX", 15)
@@ -54,7 +51,7 @@ function crearGrafo(data) {
     }).attr("marker-end", function(d) {
         return "url(#" + d.type + ")";
     }).style("stroke", "#ccc").on("mouseover", function(d, i) {
-        onMouseOver(removeSymbols(d.type));
+        onMouseOver(eliminarSimbolos(d.type));
     }).on("mouseout", function(d, i) {
         onMouseOut();
     });
@@ -63,9 +60,7 @@ function crearGrafo(data) {
         return d.source.index + "_" + d.target.index;
     }).attr("class", "textpath");
 
-
-
-    var circle = svg.append("svg:g").selectAll("circle").data(d3.values(resources))
+    var circle = svg.append("svg:g").selectAll("circle").data(d3.values(recursos))
         .enter().append("svg:circle").attr("class", function(d) {
             if (d.name.includes("http")) {
                 return "recurso";
@@ -75,14 +70,14 @@ function crearGrafo(data) {
         })
         .attr({
             "id":function(d) {
-            	return "b"+removeSymbols(d.name);
+            	return "b"+eliminarSimbolos(d.name);
             },
             "r": 15,
             "fill": "#ccc",
             "stroke": "#000000"
         });
 
-    var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literals))
+    var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literales))
         .enter().append("svg:rect").attr("class", function(d) {
             if (d.name.includes("http")) {
                 return "recurso";
@@ -92,10 +87,10 @@ function crearGrafo(data) {
         })
         .attr({
         	"id":function(d) {
-            	return "b"+removeSymbols(d.name);
+            	return "b"+eliminarSimbolos(d.name);
             },
             "width": function(d) {
-                return getTextWidth(d.name, "Bellefair","10px")
+                return getTamanoTexto(d.name, "Bellefair","10px")
             },
             "height": 20,
             "fill": "#ccc",
@@ -105,49 +100,44 @@ function crearGrafo(data) {
         }).call(force.drag);
 
 
-    var textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literals)).enter()
+    var textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literales)).enter()
         .append("svg:g");
 
-    // A copy of the text with a thick white stroke for legibility.
     textRectangles.append("svg:text").attr({
         "font-size": "10",
-       // 'text-anchor' : 'middle'
     }).attr("class", "shadow").text(function(d) {
         return d.name;
     });
 
     textRectangles.append("svg:text").attr({
         "font-size": "10",
-        // 'text-anchor' : 'middle'
     }).text(function(d) {
         return d.name;
     });
 
 
-    var textCircles = svg.append("svg:g").selectAll("g").data(d3.values(resources)).enter()
+    var textCircles = svg.append("svg:g").selectAll("g").data(d3.values(recursos)).enter()
         .append("svg:g");
 
-    // A copy of the text with a thick white stroke for legibility.
     textCircles.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
         "font-size": "10",
-        'text-anchor': 'middle'
+        "text-anchor": "middle"
     }).attr("class", "shadow").text(function(d) {
         return d.name;
     });
 
     textCircles.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
         "font-size": "10",
-        'text-anchor': 'middle'
+        "text-anchor": "middle"
     }).text(function(d) {
         return d.name;
     });
 
-    // Se refiere al texto de las aristas del grafo
     var path_label = svg.append("svg:g").selectAll(".path_label").data(
         force.links()).enter().append("svg:text").attr({
         "class": "path_label",
         "id": function(d, i) {
-            return removeSymbols(d.type);
+            return eliminarSimbolos(d.type);
         }
     }).append("svg:textPath").attr("startOffset", "50%").attr("text-anchor",
         "middle").attr("xlink:href", function(d) {
@@ -171,9 +161,9 @@ function crearGrafo(data) {
         return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," +
             sweep + " " + end.x + "," + end.y;
     }
+    
     $("[class^='path_label']").hide();
 
-    // Use elliptical arc path segments to doubly-encode directionality.
     function tick() {
         linkPath.attr("d", function(d) {
             return arcPath(false, d);
@@ -212,7 +202,7 @@ function onMouseOut() {
     $("[class^='path_label']").hide();
 }
 
-function removeSymbols(pString) {
+function eliminarSimbolos(pString) {
     pString = pString.replace(":", "");
     pString = pString.replace(/\s/g, "");
     pString = pString.replace("+", "");
@@ -223,20 +213,20 @@ function removeSymbols(pString) {
     return pString;
 }
 
-function growNode() {
-    var userInput = removeSymbols(document.getElementById("busqueda").value);
+function destacarElemento() {
+    var userInput = eliminarSimbolos(document.getElementById("busqueda").value);
     var theNode = d3.select("#b" + userInput);
     theNode.attr("fill", "#337ab7");
-    setTimeout(function(){ shrinkNode("#b" + userInput); }, 9000);
+    setTimeout(function(){ ocultarElemento("#b" + userInput); }, 9000);
 }
 
-function shrinkNode(element) {
+function ocultarElemento(element) {
     var theNode = d3.select(element);
     theNode.attr("fill", "#ccc");
 }
 
- function getTextWidth(txt, fontname, fontsize){
-	  this.e = document.createElement('span');
+ function getTamanoTexto(txt, fontname, fontsize){
+	  this.e = document.createElement("span");
 	  this.e.style.fontSize = fontsize;
 	  this.e.style.fontFamily = fontname;
 	  this.e.innerHTML = txt;
@@ -246,7 +236,7 @@ function shrinkNode(element) {
 	  return w+10;
 	}
 
-function jsonFormat(data){
+function getFormatoJson(data){
 	var data=JSON.parse(JSON.stringify(data));
 	var x=data.split(";");
 	var generalElements=[];

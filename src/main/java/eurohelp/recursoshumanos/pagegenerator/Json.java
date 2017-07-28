@@ -1,35 +1,46 @@
 package eurohelp.recursoshumanos.pagegenerator;
 
+/**
+ * 
+ * @author Mishel Uchuari, 28 jul. 2017
+ */
+
 public class Json {
-	private String json = "";
 
-	public Json(String pJson) {
-		json = pJson;
-	}
-
-	public String[] obtenerFilas() {
-		json = json.replace("(", "");
-		json = json.replace("\"", "");
-		json = json.replace("\"\"", "");
-		String[] elementos = json.split("\\)");
+	/**
+	 * Devuelve las filas del resultado sparql
+	 * 
+	 * @param pResultados
+	 * @return
+	 */
+	public String[] getFilas(String pResultados) {
+		pResultados = pResultados.replace("(", "");
+		pResultados = pResultados.replace("\"", "");
+		pResultados = pResultados.replace("\"\"", "");
+		String[] elementos = pResultados.split("\\)");
 		return elementos;
 	}
 
-	public String parsearJSON() {
+	/**
+	 * Convierte el resultado sparql a un formato adecuado para convertirse en
+	 * json posteriormente
+	 * 
+	 * @param pResultados
+	 * @return
+	 */
+	public String parsearJSON(String pResultados) {
 		String json = "";
-		String[] filas = obtenerFilas();
-		for (int i = filas.length - 1; i > -1; i--) {
+		String[] filas = getFilas(pResultados);
+		int i = filas.length - 1;
+		while (i > -1) {
 			String[] porElemento = filas[i].split(",");
 			if (i == 0) {
-				json = json.concat("" + porElemento[0] +","+ porElemento[2] + ","
-						+ porElemento[1] + "");
+				json = json.concat("" + porElemento[0] + "," + porElemento[2] + "," + porElemento[1] + "");
 			} else {
-				json = json.concat("" + porElemento[0] + "," + porElemento[2] + ","
-						+ porElemento[1] + ";");
+				json = json.concat("" + porElemento[0] + "," + porElemento[2] + "," + porElemento[1] + ";");
 			}
+			i--;
 		}
-		json = json.concat("");
-		System.out.println(json);
 		return json;
 	}
 }

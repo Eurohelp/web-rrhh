@@ -12,7 +12,8 @@ import org.openrdf.repository.RepositoryException;
 import eurohelp.recursoshumanos.stardog.Stardog;
 
 /**
- * Servlet implementation class ServGetJson
+ * 
+ * @author Mishel Uchuari, 28 jul. 2017
  */
 public class ServGetJson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,9 +24,11 @@ public class ServGetJson extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 	}
 
+	/**
+	 * Obtiene el json con los resultados de la consulta para general el grafo
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] categoria = request.getParameterValues("Categoria");
@@ -37,12 +40,10 @@ public class ServGetJson extends HttpServlet {
 		try {
 			Stardog stardog = new Stardog();
 			String json = "";
-			// si todos estan llenos
 			if (categoria != null && habilidades != null && certificaciones != null && idiomas != null
 					&& universidad != null && experiencia != null) {
 				json = stardog.getJson(categoria, habilidades, certificaciones, idiomas, universidad, experiencia);
-			} // si estan llenos la categoria la experiencia y las habilidades
-			else if (categoria != null && certificaciones != null && habilidades != null) {
+			} else if (categoria != null && certificaciones != null && habilidades != null) {
 				json = stardog.getJson(categoria, habilidades, certificaciones);
 			} else if (categoria != null) {
 				json = stardog.getJson(categoria);

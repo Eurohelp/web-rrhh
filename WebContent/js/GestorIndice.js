@@ -6,29 +6,32 @@ var boolExp = false;
 var boolUniv = false;
 var fin = false;
 
+/**
+ * Metodo ejecuta la llamada al servlet que obtiene el json para la creacion del
+ * grafo
+ * 
+ * @returns
+ */
 function obtenerJson() {
-	var form = $('#form');
+	var form = $("#form");
 	$
 			.ajax({
-				url : 'ServGetJson',
+				url : "ServGetJson",
 				data : form.serialize(),
-				type : 'post',
+				type : "post",
 				success : function(data) {
 					$("#search").css("visibility", "visible");
-					$('svg').remove();
-					console.log(data);
+					$("svg").remove();
 					if (data.includes("vacio")) {
-						$('svg').remove();
+						$("svg").remove();
 						swal(
-								'Oops...',
-								'No se encontraron resultados con esos parametros de busqueda',
-								'info');
+								"Oops...",
+								"No se encontraron resultados con esos parametros de busqueda",
+								"info");
 					} else {
-						console.log("va a crear el grafo");
 						crearGrafo(data);
 						if (!fin) {
-							console.log("no es el fin");
-							createIndex();
+							crearIndex();
 						} else {
 							fin = false;
 						}
@@ -36,21 +39,30 @@ function obtenerJson() {
 				}
 			});
 }
-
-function createIndex() {
-	var form = $('#form');
+/**
+ * Metodo ejecuta llamada al servlet que generará el index
+ * 
+ * @returns
+ */
+function crearIndex() {
+	var form = $("#form");
 	$.ajax({
-		url : 'ServGeneradorIndex',
+		url : "ServGeneradorIndex",
 		data : form.serialize(),
-		type : 'post',
+		type : "post",
 		success : function(data) {
-			var catSel = saveSelected();
-			$('#pageLeftMenu').html("");
-			$('#pageLeftMenu').html(data);
-			putSelected(catSel);
+			var catSel = guardarSelecciones();
+			$("#pageLeftMenu").html("");
+			$("#pageLeftMenu").html(data);
+			ponerSelecciones(catSel);
 		}
 	});
 }
+/**
+ * Metodo comprueba las opciones del menú seleccionadas
+ * 
+ * @returns
+ */
 function comprobarSelecciones() {
 	boolCat = false;
 	boolHab = false;
@@ -58,12 +70,12 @@ function comprobarSelecciones() {
 	boolIdi = false;
 	boolExp = false;
 	boolUniv = false;
-	var ckboxCategoria = document.getElementsByName('Categoria');
-	var ckboxHabilidades = document.getElementsByName('Habilidades');
-	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
-	var ckboxIdioma = document.getElementsByName('Idioma');
-	var ckboxExperiencia = document.getElementsByName('Experiencia');
-	var ckboxUniversidad = document.getElementsByName('Universidad');
+	var ckboxCategoria = document.getElementsByName("Categoria");
+	var ckboxHabilidades = document.getElementsByName("Habilidades");
+	var ckboxCertificaciones = document.getElementsByName("Certificaciones");
+	var ckboxIdioma = document.getElementsByName("Idioma");
+	var ckboxExperiencia = document.getElementsByName("Experiencia");
+	var ckboxUniversidad = document.getElementsByName("Universidad");
 	for (i = 0; i < ckboxCategoria.length; i++) {
 		if (ckboxCategoria[i].checked == true) {
 			boolCat = true;
@@ -100,8 +112,15 @@ function comprobarSelecciones() {
 		}
 	}
 }
-function saveSelected() {
-	var form = $('#form');
+
+/**
+ * Metodo almacena opciones seleccionadas para su recolocación al volverse a
+ * generar el menú
+ * 
+ * @returns
+ */
+function guardarSelecciones() {
+	var form = $("#form");
 	var categoriaSelec = [];
 	$("input[name='Categoria']:checked").each(function(i) {
 		categoriaSelec.push(this.id);
@@ -123,7 +142,12 @@ function saveSelected() {
 	}).get();
 	return categoriaSelec;
 }
-
+/**
+ * Metodo cambia icono "subida" "bajada" de las categorias del menú.
+ * 
+ * @param element
+ * @returns
+ */
 function changeIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
 	var span = $("[id=span" + elemento + "]");
@@ -136,7 +160,14 @@ function changeIcon(element) {
 		cuadrado.attr("name", elemento + "C");
 	}
 }
-function putSelected(arraySelect) {
+
+/**
+ * Metodo recoloca opciones elegidas previamente al regenererse el menú
+ * 
+ * @param arraySelect
+ * @returns
+ */
+function ponerSelecciones(arraySelect) {
 	arraySelect.forEach(function(entry) {
 		var element = entry.replace(/\s/g, "");
 		var element = element.replace("+", "");
@@ -144,10 +175,14 @@ function putSelected(arraySelect) {
 		changeCboxIcon(element + "N")
 	});
 }
-function generateAll() {
-	obtenerJson();
-}
 
+/**
+ * Marca como seleccionada una opción determinada
+ * del menú
+ *  
+ * @param element
+ * @returns
+ */
 function changeCboxIcon(element) {
 	var elemento = element.slice(0, element.length - 1);
 	var labelEtiqueta = $("[id=" + element + "]");
@@ -166,37 +201,39 @@ function changeCboxIcon(element) {
 	}
 }
 
+/**
+ * Controlador del menú
+ * 
+ * @param clase
+ * @returns
+ */
 function validar(clase) {
 	comprobarSelecciones();
-	console.log(clase);
-	var ckboxCategoria = document.getElementsByName('Categoria');
-	var ckboxHabilidades = document.getElementsByName('Habilidades');
-	var ckboxCertificaciones = document.getElementsByName('Certificaciones');
-	var ckboxIdioma = document.getElementsByName('Idioma');
-	var ckboxExperiencia = document.getElementsByName('Experiencia');
-	var ckboxUniversidad = document.getElementsByName('Universidad');
+	var ckboxCategoria = document.getElementsByName("Categoria");
+	var ckboxHabilidades = document.getElementsByName("Habilidades");
+	var ckboxCertificaciones = document.getElementsByName("Certificaciones");
+	var ckboxIdioma = document.getElementsByName("Idioma");
+	var ckboxExperiencia = document.getElementsByName("Experiencia");
+	var ckboxUniversidad = document.getElementsByName("Universidad");
 
 	// Si solo esta seleccionada la categoria
 	if (boolCat == true && ckboxHabilidades.length == 0
 			&& ckboxCertificaciones.length == 0 && ckboxIdioma.length == 0
 			&& ckboxExperiencia.length == 0 && ckboxUniversidad.length == 0) {
-		generateAll();
-		console.log(1);
+		obtenerJson();
 		// Si hay una categoria seleccionada pero no se han seleccionado
 		// una certificacion o una habilidad
-	} else if (boolCat == true && (boolCert == false || boolHab == false)) {
+	} else if (boolCat == true && (boolCert == false || boolHab == false)
+			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
+			&& ckboxUniversidad.length == 0) {
 		if (clase != "Certificaciones" && clase != "Habilidades") {
-			$("#sm").remove();
-			$("#sg").remove();
-			$('svg').remove();
-			generateAll();
-			console.log(2);
+			eliminarOpcionesMenu(1);
+			obtenerJson();
 		} else {
-			console.log(3);
 			alertify
 					.notify(
-							'Debes seleccionar al menos una habilidad y una certificacion',
-							'error', 5, function() {
+							"Debes seleccionar al menos una habilidad y una certificacion",
+							"error", 5, function() {
 							});
 		}
 		// Si se ha seleccionado una categoria, habilidad y certificacion
@@ -205,14 +242,10 @@ function validar(clase) {
 			&& ckboxIdioma.length == 0 && ckboxExperiencia.length == 0
 			&& ckboxUniversidad.length == 0) {
 		if (clase != "Certificaciones" && clase != "Habilidades") {
-			$("#sm").remove();
-			$("#sg").remove();
-			$('svg').remove();
-			generateAll();
-			console.log(4);
+			eliminarOpcionesMenu(1);
+			obtenerJson();
 		} else {
-			generateAll();
-			console.log(5);
+			obtenerJson();
 		}
 		// Si se ha seleccionado habilidad, categoria y certificacion pero
 		// o no se ha seleccionado idioma, universidad o algun tipo de
@@ -222,60 +255,83 @@ function validar(clase) {
 		if (clase != "Idioma" && clase != "Experiencia"
 				&& clase != "Universidad") {
 			if (clase == "Categoria") {
-				$("#sm").remove();
-				$("#sg").remove();
-				console.log(6);
+				eliminarOpcionesMenu(1);
 			}
-			$("#st").remove();
-			$("#sr").remove();
-			$("#sh").remove();
-			$('svg').remove();
-			generateAll();
-			console.log(7);
+			eliminarOpcionesMenu(2);
+			obtenerJson();
 		} else {
 			alertify
 					.notify(
-							'Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia',
-							'error', 5, function() {
+							"Debes seleccionar al menos un idioma, una universidad y algun tipo de experiencia",
+							"error", 5, function() {
 							});
-			console.log(8);
 		} // Si se ha seleccionado todo correctamente
 	} else if (boolCat == true && boolCert == true && boolHab == true
 			&& boolIdi == true && boolExp == true && boolUniv == true) {
 		if (clase != "Idioma" && clase != "Experiencia"
 				&& clase != "Universidad") {
 			if (clase == "Categoria") {
-				$("#sm").remove();
-				$("#sg").remove();
-				console.log(9)
+				eliminarOpcionesMenu(1);
 			}
-			$("#st").remove();
-			$("#sr").remove();
-			$("#sh").remove();
-			$('svg').remove();
-			generateAll();
-			console.log(10)
+			eliminarOpcionesMenu(2);
+			obtenerJson();
 		} else {
 			fin = true;
-			console.log(11);
-			generateAll();
+			obtenerJson();
 		}
 	}
-	// s
+	// si no esta seleccionada la categoria y si otra opcion
 	else if (boolCat == false
 			&& (boolCert == true || boolHab == true || boolIdi == true
 					|| boolExp == true || boolUniv == true)) {
-
+		eliminarOpcionesMenu(1);
+		eliminarOpcionesMenu(2);
+		alertify.notify("Debes seleccionar al menos una categoria", "error", 5,
+				function() {
+				});
 	}
-	// s
-	else if ((boolIdi == true
-			|| boolExp == true || boolUniv == true) && (boolCat == false || 
-			boolCert == false || boolHab == false)) {
-
+	// si esta seleccionado el idioma, la experiencia o la universidad
+	// pero alguna de las anteriores no
+	else if ((boolIdi == true || boolExp == true || boolUniv == true)
+			&& (boolCat == false || boolCert == false || boolHab == false)) {
+		if (boolCat == false) {
+			eliminarOpcionesMenu(1);
+		}
+		eliminarOpcionesMenu(2);
+		alertify
+				.notify(
+						"Debes seleccionar al menos una categoria, una habilidad y una certificacion",
+						"error", 5, function() {
+						});
+	}
+}
+/**
+ * Elimina opciones del menú
+ * @param pCase
+ * @returns
+ */
+function eliminarOpcionesMenu(pCase) {
+	switch (pCase) {
+	case 1:
+		$("#CertificacionesE").remove();
+		$("#HabilidadesE").remove();
+		$("#sm").remove();
+		$("#sg").remove();
+		$("svg").remove();
+		break;
+	case 2:
+		$("#IdiomaE").remove();
+		$("#UniversidadE").remove();
+		$("#ExperienciaE").remove();
+		$("#st").remove();
+		$("#sr").remove();
+		$("#sh").remove();
+		$("svg").remove();
+		break;
 	}
 }
 
-function seleccionar(element, clase) {
+function generarGrafo(element, clase) {
 	changeCboxIcon(element);
 	validar(clase);
 }
