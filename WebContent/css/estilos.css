@@ -8,6 +8,7 @@ h3 {
 	font-size: 10px;
 }
 
+
 body {
 	background-attachment: fixed;
 	background-size: 100%;
@@ -100,6 +101,16 @@ span {
 	margin-top: 30px;
 	margin-right: 15px;
 	width: 45%;
+<<<<<<< HEAD
+	margin-top: 5px;
+	margin-rigth: 20px;
+}
+
+.alertify-notifier .ajs-message.ajs-error {
+	background: #337ab7;
+}
+
+=======
 	font-size: large;
 	padding: 40px;
 }
@@ -112,6 +123,7 @@ span {
 	background: #337ab7;
 }
 
+>>>>>>> feature/graph
 .alertify-notifier .ajs-message {
 	font-family: 'Bellefair', serif;
 }
