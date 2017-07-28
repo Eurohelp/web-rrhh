@@ -5,8 +5,14 @@
 <meta name="description"
 	content="Write some words to describe your html page">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
+>>>>>>> feature/graph
+=======
+	
+<!-- Progress bar -->
+<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 >>>>>>> feature/graph
 <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
@@ -34,7 +40,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.rtl.min.css" />
-<link rel="stylesheet" type="text/css" href="estilos.css">
+<link rel="stylesheet" type="text/css" href="css/estilos.css">
 <!-- Fuente -->
 <link href="https://fonts.googleapis.com/css?family=Bellefair"
 	rel="stylesheet">
@@ -51,9 +57,9 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="<%=request.getContextPath()%>/js/sweetalert2.min.js"></script>
-<script src="<%=request.getContextPath()%>/js/script.js"></script>
-<link rel="stylesheet" type="text/css" href="sweetalert2.min.css">
-<script src="<%=request.getContextPath()%>/js/llamadasServlet.js"></script>
+<script src="<%=request.getContextPath()%>/js/GestorGrafo.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css">
+<script src="<%=request.getContextPath()%>/js/GestorIndice.js"></script>
 
 <script>
 	$.post('ServGeneradorIndex', function(data) {
@@ -75,6 +81,7 @@
 		<div class="pageLeftMenu" id="pageLeftMenu"></div>
 		<div id="graph" class="pageContent">
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 			<!-- /input-group -->
 			<div id="result" class="result" align=center>	<div class="input-group custom-search-form" id="search"
@@ -90,13 +97,15 @@
 =======
 
 			<!-- /input-group -->
+=======
+>>>>>>> feature/graph
 			<div id="result" class="result" align=center>
 				<div class="input-group custom-search-form" id="search"
 					style="visibility: hidden">
 					<input type="text" class="form-control" id="busqueda"
 						placeholder="Introduce valor a buscar"> <span
 						class="input-group-btn">
-						<button class="btn btn-primary" type="button" onclick="growNode()">
+						<button class="btn btn-primary" type="button" onclick="destacarElemento()">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</span>
