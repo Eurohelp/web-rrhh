@@ -43,8 +43,8 @@ public class GeneradorIndex {
 	}
 
 	/**
-	 * Genera el index en el que el usuario tendr· como ˙nica opciÛn la
-	 * categorÌa
+	 * Genera el index en el que el usuario tendr√° como √∫nica opci√≥n la
+	 * categor√≠a
 	 * 
 	 * @param pCategoria
 	 * @return
@@ -62,7 +62,7 @@ public class GeneradorIndex {
 	}
 
 	/**
-	 * Genera el index en el que el usuario tendr· como opciones de filtrado la
+	 * Genera el index en el que el usuario tendr√° como opciones de filtrado la
 	 * categoria, las habilidades y las certificaciones.
 	 * 
 	 * @param pCategoria
@@ -88,7 +88,7 @@ public class GeneradorIndex {
 	}
 
 	/**
-	 * Genera el indice final donde el usuario tendr· todas las opciones de
+	 * Genera el indice final donde el usuario tendr√° todas las opciones de
 	 * filtrado
 	 * 
 	 * @param pCategoria

@@ -312,22 +312,12 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		System.out.println(result);
-		if(result==""){
-			result="json vacio";
-		}
-		else{
-		Json json = new Json(result);
-		result = json.parsearJSON();}
-=======
 		if (result == "") {
 			result = "json vacio";
 		} else {
 			Json json = new Json();
 			result = json.parsearJSON(result);
 		}
->>>>>>> develop
 		return result;
 	}
 
