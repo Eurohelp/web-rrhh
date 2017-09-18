@@ -1,6 +1,7 @@
 function crearGrafo(data) {
+	console.log(data);
     var links = getFormatoJson(data);
-    
+	console.log(links);
     var nodos = {};
     links.forEach(function(link) {
         link.source = nodos[link.source] || (nodos[link.source] = {
@@ -16,7 +17,9 @@ function crearGrafo(data) {
     var w = $("#graph").width(),
         h = 1000;
     var force = d3.layout.force().nodes(d3.values(nodos)).links(links).size(
-            [w, h]).linkDistance(180).charge(-500).theta(0.1).gravity(0.05)
+            [w, h]).linkDistance(function(d) { 
+            	return (getTamanoTexto(d.type, "Bellefair","10px") + 25);}
+            ).charge(-500).theta(0.1).gravity(0.05)
         .on("tick", tick).start();
     aux = {};
 
@@ -34,12 +37,12 @@ function crearGrafo(data) {
     }
 
     var svg = d3.select("#result").append("svg:svg").attr("width", w).attr(
-        "height", h).attr(  "align-items", "center");
+        "height", h).attr("align-items", "center");
 
     svg.append("svg:defs").selectAll("marker").data(
             ["end"]).enter().append("svg:marker")
         .attr("id", String).attr("viewBox", "0 -5 10 10").attr("refX", 15)
-        .attr("refY", -1.5).attr("markerWidth", 6).attr("markerHeight", 6)
+        .attr("refY", -1.5).attr("markerWidth", 6).attr("markerHeight", 1)
         .attr("orient", "auto").append("svg:path").attr("d",
             "M0,-5L10,0L0,5");
 
@@ -51,7 +54,13 @@ function crearGrafo(data) {
     }).attr("marker-end", function(d) {
         return "url(#" + d.type + ")";
     }).style("stroke", "#ccc").on("mouseover", function(d, i) {
-        onMouseOver(eliminarSimbolos(d.type));
+        console.log(force.linkDistance);
+        onMouseOver(d.type);
+        force.linkDistance(function (d) {
+            return getTamanoTexto(d.type, "Bellefair","10px");
+      })
+    	///force.start();
+        console.log(force.linkDistance);
     }).on("mouseout", function(d, i) {
         onMouseOut();
     });
@@ -75,7 +84,7 @@ function crearGrafo(data) {
             "r": 15,
             "fill": "#ccc",
             "stroke": "#000000"
-        });
+        }).call(force.drag);
 
     var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literales))
         .enter().append("svg:rect").attr("class", function(d) {
@@ -195,8 +204,8 @@ function crearGrafo(data) {
 }
 
 function onMouseOver(pNodo) {
-    $("[id=" + pNodo + "]").show();
-}
+    $("[id=" + eliminarSimbolos(pNodo) + "]").show();
+  }
 
 function onMouseOut() {
     $("[class^='path_label']").hide();

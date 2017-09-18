@@ -202,8 +202,11 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("los resultados\n" +result );
 		Json json = new Json();
 		result = json.parsearJSON(result);
+		System.out.println("el json\n" +result );
+
 		return result;
 	}
 
