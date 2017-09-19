@@ -13,7 +13,8 @@ function crearGrafo(data) {
     });
     literales = {};
     recursos = {};
-    
+    function redraw(){
+    $("svg").remove();
     var w = $("#graph").width(),
         h = 1000;
     var force = d3.layout.force().nodes(d3.values(nodos)).links(links).size(
@@ -59,7 +60,7 @@ function crearGrafo(data) {
         force.linkDistance(function (d) {
             return getTamanoTexto(d.type, "Bellefair","10px");
       })
-    	///force.start();
+    	// /force.start();
         console.log(force.linkDistance);
     }).on("mouseout", function(d, i) {
         onMouseOut();
@@ -201,6 +202,10 @@ function crearGrafo(data) {
             return "translate(" + d.x + "," + d.y + ")";
         });
     }
+    }
+    redraw();
+    
+    window.addEventListener("resize", redraw);
 }
 
 function onMouseOver(pNodo) {
