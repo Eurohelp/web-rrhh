@@ -52,7 +52,7 @@
 <script src="<%=request.getContextPath()%>/js/sweetalert2.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/GestorGrafo.js"></script>
 <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css">
-<script src="<%=request.getContextPath()%>/js/GestorIndice.js"></script>
+<script src="<%=request.getContextPath()%>/js/GestorWeb.js"></script>
 
 <script>
 	$.post('ServGeneradorIndex', function(data) {
