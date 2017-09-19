@@ -6,5 +6,28 @@ Esta web esta orientada a la selecciÃ³n de recursos humanos. En el ejemplo plant
 
 **EjecuciÃ³n**
 
-Para ejecutarlo es necesario un contenedor de servlets como Tomcat, un dataset con caracteristicas similares al que se plantea en este proyecto o el correspondiente a este que se puede encontrar en la carpeta data, por Ãºltimo una triple store donde almacenar ese dataset y sobre el que plantear las consultas.
+	• Proyecto Original
+	
+Para ejecutarlo es necesario publicar el RDF que se encuentra en la carpeta 'dataset' en una triple store, en este caso se usará Stardog. El repositorio que se elija es importante por el formato en el que se recibirán los resultados. 
 
+Por ultimo se deberá modificar los datos de conexion a la base de datos en la clase java 'Stardog.java' y ya se podrá ejecutar en un contenedor de Servlets como Tomcat. 
+
+	• Modificación del proyecto
+	
+La generación del grafo se hace a partir de resultados de consultas en forma de tripletas, es decir, sujeto, objeto y predicado. Además, para ello, se necesita un resultado en forma de Json concreto, por lo que tras la elección y conección a una triple store, en caso de no tratarse de Stardog, se necesita crear un "adaptador de resultados" ya que este proyecto creo un adaptador para los resultados generados por este en la clase 'Json.java'. El Json sigue el siguiente formato:
+
+[
+  {
+    "source": {
+      "name": "http://opendata.euskadi.eus/recurso/sector-publico/contrato/director-mendialdua"
+    },
+    "target": {
+      "name": "2012-12-19"
+    },
+    "type": "http://contsem.unizar.es/def/sector-publico/pproc#formalizedDate"
+  }}]. 
+  
+  La clase Javascript 'GestorIndice.js' que ejecuta la llamada al servlet que realizará la consulta a la triple store recibe unos resultados de la forma:
+  http://opendata.euskadi.eus/recurso/sector-publico/contrato/director-mendialdua,2012-12-19,http://contsem.unizar.es/def/sector-publico/pproc#formalizedDate;
+  
+  y es la encargada de generar un Json que siga el formato mencionado con anterioridad a partir de ellos. 
