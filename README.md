@@ -15,7 +15,7 @@ Por ultimo se deberán modificar los datos de conexión a la base de datos en la
 	• Modificación del proyecto
 	
 La generación del grafo se hace a partir de resultados de consultas en forma de tripletas, es decir, sujeto, objeto y predicado. Además, para hacerlo se necesita adaptar los resultados obtenidos de la consulta al repositorio a un formato concreto, por lo que tras la elección y conexión a una triple store, en caso de no tratarse de Stardog, se necesita crear un "adaptador de resultados" ya los resultados deben tener el siguiente formato: sujeto,objeto,predicado;. 
-A partir de esos resultados se generará el Json final que usará la herramienta para generar el grafico que será de la forma:
+A partir de esos resultados que se le devolverán a la clase 'GestorWeb.js' a través de la función 'obtenerJson()' se generará el Json final que usará la herramienta para generar el grafico que será de la forma:
 
 [
   {
