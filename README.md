@@ -1,4 +1,4 @@
-# Web para la gesti√≥n y seleccion de personal
+# Web para la gesti√≥n y seleccion de personal usando LinkedData.
 
 **Descripci√≥n de funcionalidad**
 
@@ -6,28 +6,24 @@ Esta web esta orientada a la selecci√≥n de recursos humanos. En el ejemplo plant
 
 **Ejecuci√≥n**
 
-	ï Proyecto Original
+	‚Ä¢ Proyecto Original
 	
-Para ejecutarlo es necesario publicar el RDF que se encuentra en la carpeta 'dataset' en una triple store, en este caso se usar· Stardog. El repositorio que se elija es importante por el formato en el que se recibir·n los resultados. 
+Para ejecutarlo es necesario publicar el RDF que se encuentra en la carpeta 'dataset' en una triple store, en este caso se usar√° Stardog. El repositorio que se elija es importante por el formato en el que se recibir√°n los resultados. 
 
-Por ultimo se deber· modificar los datos de conexion a la base de datos en la clase java 'Stardog.java' y ya se podr· ejecutar en un contenedor de Servlets como Tomcat. 
+Por ultimo se deber√°n modificar los datos de conexion a la base de datos en la clase java 'Stardog.java' y ya se podr√° desplegar en un contenedor de Servlets como Tomcat. 
 
-	ï ModificaciÛn del proyecto
+	‚Ä¢ Modificaci√≥n del proyecto
 	
-La generaciÛn del grafo se hace a partir de resultados de consultas en forma de tripletas, es decir, sujeto, objeto y predicado. Adem·s, para ello, se necesita un resultado en forma de Json concreto, por lo que tras la elecciÛn y conecciÛn a una triple store, en caso de no tratarse de Stardog, se necesita crear un "adaptador de resultados" ya que este proyecto creo un adaptador para los resultados generados por este en la clase 'Json.java'. El Json sigue el siguiente formato:
+La generaci√≥n del grafo se hace a partir de resultados de consultas en forma de tripletas, es decir, sujeto, objeto y predicado. Adem√°s, para hacerlo se necesita adaptar los resultados obtenidos de la consulta al repositorio a un formato concreto, por lo que tras la elecci√≥n y conecci√≥n a una triple store, en caso de no tratarse de Stardog, se necesita crear un "adaptador de resultados" ya los resultados deben tener el siguiente formato: sujeto,objeto,predicado;. 
+A partir de esos resultados se genera el Json final que usar√° la herramienta para generar el grafico que ser√° de la forma:
 
 [
   {
     "source": {
-      "name": "http://opendata.euskadi.eus/recurso/sector-publico/contrato/director-mendialdua"
+      "name": "sujeto"
     },
     "target": {
-      "name": "2012-12-19"
+      "name": "predicado"
     },
-    "type": "http://contsem.unizar.es/def/sector-publico/pproc#formalizedDate"
+    "type": "objeto"
   }}]. 
-  
-  La clase Javascript 'GestorIndice.js' que ejecuta la llamada al servlet que realizar· la consulta a la triple store recibe unos resultados de la forma:
-  http://opendata.euskadi.eus/recurso/sector-publico/contrato/director-mendialdua,2012-12-19,http://contsem.unizar.es/def/sector-publico/pproc#formalizedDate;
-  
-  y es la encargada de generar un Json que siga el formato mencionado con anterioridad a partir de ellos. 
