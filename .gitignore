@@ -33,3 +33,4 @@ hs_err_pid*
 ### Java-Web ###
 ## ignoring target file
 target/
+bin/
