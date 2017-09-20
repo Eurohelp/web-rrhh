@@ -39,7 +39,7 @@ public class Stardog {
 	public Stardog() throws RepositoryException {
 		serverURL = "http://ckan.eurohelp.es:5820";
 		Repository stardogRepository = new StardogRepository(
-				ConnectionConfiguration.to("LODgenAppTurismo").server(serverURL).credentials("admin", "ctxakurra"));
+				ConnectionConfiguration.to("LODgenAppTurismo").server(serverURL).credentials("", ""));
 		stardogRepository.initialize();
 		repository = stardogRepository.getConnection();
 	}
