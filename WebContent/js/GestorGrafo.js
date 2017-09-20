@@ -38,15 +38,7 @@ function crearGrafo(data) {
     }
 
     var svg = d3.select("#result").append("svg:svg").attr("width", w).attr(
-        "height", h).attr("align-items", "center");
-
-    svg.append("svg:defs").selectAll("marker").data(
-            ["end"]).enter().append("svg:marker")
-        .attr("id", String).attr("viewBox", "0 -5 10 10").attr("refX", 15)
-        .attr("refY", -1.5).attr("markerWidth", 6).attr("markerHeight", 1)
-        .attr("orient", "auto").append("svg:path").attr("d",
-            "M0,-5L10,0L0,5");
-
+            "height", h).attr("orient", "auto");
     var link = svg.append("svg:g").selectAll("g.link").data(force.links())
         .enter().append('g').attr('class', 'link');
 
@@ -80,7 +72,7 @@ function crearGrafo(data) {
         })
         .attr({
             "id":function(d) {
-            	return "b"+eliminarSimbolos(d.name);
+            	return "b"+eliminarSimbolos(d.name.toLowerCase());
             },
             "r": 15,
             "fill": "#ccc",
@@ -97,7 +89,7 @@ function crearGrafo(data) {
         })
         .attr({
         	"id":function(d) {
-            	return "b"+eliminarSimbolos(d.name);
+            	return "b"+eliminarSimbolos(d.name.toLowerCase());
             },
             "width": function(d) {
                 return getTamanoTexto(d.name, "Bellefair","10px")
@@ -124,7 +116,6 @@ function crearGrafo(data) {
     }).text(function(d) {
         return d.name;
     });
-
 
     var textCircles = svg.append("svg:g").selectAll("g").data(d3.values(recursos)).enter()
         .append("svg:g");
@@ -228,8 +219,15 @@ function eliminarSimbolos(pString) {
 }
 
 function destacarElemento() {
-    var userInput = eliminarSimbolos(document.getElementById("busqueda").value);
+    var userInput = eliminarSimbolos(document.getElementById("busqueda").value.toLowerCase());
     var theNode = d3.select("#b" + userInput);
+    	if(theNode==""){
+    		swal(
+    				  'Ops!',
+    				  'No se han obtenido resultados',
+    				  'warning'
+    				)
+    	}
     theNode.attr("fill", "#337ab7");
     setTimeout(function(){ ocultarElemento("#b" + userInput); }, 9000);
 }

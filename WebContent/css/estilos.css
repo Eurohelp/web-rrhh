@@ -43,6 +43,10 @@ body {
 	font-family: 'Bellefair', serif;
 }
 
+svg{
+	overflow: visible;
+}
+
 .pageContent {
 	float: right;
 	clear: none;
