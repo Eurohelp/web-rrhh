@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+<rdf:Description rdf:about="http://opendata.eurohelp.es/LeireBardaji">
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/ProjectManager"/>
+	<rdf:type rdf:resource="http://schema.org/Person"/>
+	<name xmlns="http://schema.org/">Leire Bardaji</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoGranEscala"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoID"/>
+	<experience xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eurohelp"/>
+	<education xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ehu"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/es"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/PMBOK"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/RQST"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/ProjectManager">
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/puesto"/>
+	<name xmlns="http://schema.org/">Jefe de proyecto</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoGranEscala"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoID"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPublicas"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPrivadas"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/PMBOK"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/RQST"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ITE"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral">
+	<name xmlns="http://schema.org/">Trabajo en proyectos desarrollo general</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/TrabajoProyectoGranEscala">
+	<name xmlns="http://schema.org/">Trabajo en proyectos de gran escala</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/TrabajoProyectoID">
+	<name xmlns="http://schema.org/">Trabajo en proyectos I+D</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/eurohelp">
+	<name xmlns="http://schema.org/">Eurohelp Consulting</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/ehu">
+	<name xmlns="http://schema.org/">UPV-EHU</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/es">
+	<rdf:type rdf:resource="http://schema.org/Language"/>
+	<name xmlns="http://schema.org/">Spanish</name>
+	<alternateName xmlns="http://schema.org/">es</alternateName>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/PMBOK">
+	<name xmlns="http://schema.org/">PMBOK</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/RQST">
+	<name xmlns="http://schema.org/">RQST</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/ITE">
+	<name xmlns="http://schema.org/">ITE</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/TrabajoEntidadesPublicas">
+	<name xmlns="http://schema.org/">Trabajo en proyectos de entidades publicas</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/TrabajoEntidadesPrivadas">
+	<name xmlns="http://schema.org/">Trabajo en proyectos de entidades privadas</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.eurohelp.es/AlexLara">
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/ProjectManager"/>
+	<rdf:type rdf:resource="http://schema.org/Person"/>
+	<name xmlns="http://schema.org/">Alex Lara</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoGranEscala"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPublicas"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPrivadas"/>
+	<experience xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eurohelp"/>
+	<education xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/university-of-manchester"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/es"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/en"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eus"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/PMBOK"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/RQST"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ITE"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/PMP">
+	<name xmlns="http://schema.org/">PMP</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/university-of-manchester">
+	<name xmlns="http://schema.org/">Manchester university</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/en">
+	<rdf:type rdf:resource="http://schema.org/Language"/>
+	<name xmlns="http://schema.org/">English</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/r">
+	<rdf:type rdf:resource="http://schema.org/ComputerLanguage"/>
+	<name xmlns="http://schema.org/">R</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/c++">
+	<rdf:type rdf:resource="http://schema.org/ComputerLanguage"/>
+	<name xmlns="http://schema.org/">C++</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/html">
+	<rdf:type rdf:resource="http://schema.org/ComputerLanguage"/>
+	<name xmlns="http://schema.org/">HTML</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.eurohelp.es/MikelEgana">
+	<rdf:type rdf:resource="http://schema.org/Person"/>
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/Analyst"/>
+	<name xmlns="http://schema.org/">Mikel Egaña</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoID"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/r"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/c++"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/html"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/java"/>
+	<experience xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ehu"/>
+	<education xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/university-of-manchester"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/en"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eus"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ISTQB"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/Analyst">
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/puesto"/>
+	<name xmlns="http://schema.org/">Analista</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoID"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPublicas"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoEntidadesPrivadas"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/r"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/c++"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/html"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/java"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/PMP"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ISTQB"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/UDA"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/java">
+	<rdf:type rdf:resource="http://schema.org/ComputerLanguage"/>
+	<name xmlns="http://schema.org/">Java</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/ISTQB">
+	<name xmlns="http://schema.org/">ISTQB</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/UDA">
+	<name xmlns="http://schema.org/">UDA</name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.eurohelp.es/ArkaitzCarbajo">
+	<rdf:type rdf:resource="http://schema.org/Person"/>
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/SeniorProgrammer"/>
+	<name xmlns="http://schema.org/">Arkaitz Carbajo</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/r"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/c++"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/html"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/java"/>
+	<experience xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eurohelp"/>
+	<education xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/university-of-manchester"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/es"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/en"/>
+	<idioma xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/eus"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ISTQB"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/UDA"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/SeniorProgrammer">
+	<rdf:type rdf:resource="http://opendata.euskadi.eus/puesto"/>
+	<name xmlns="http://schema.org/">Programador Senior</name>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoDesarrolloGeneral"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/TrabajoProyectoID"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/r"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/c++"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/html"/>
+	<skill xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/java"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/PMP"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/ISTQB"/>
+	<certification xmlns="http://opendata.euskadi.eus/" rdf:resource="http://opendata.euskadi.eus/UDA"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://opendata.euskadi.eus/eu">
+	<rdf:type rdf:resource="http://schema.org/Language"/>
+	<name xmlns="http://schema.org/">Basque</name>
+</rdf:Description>
+
+</rdf:RDF>
