@@ -1,3 +1,4 @@
+var visibles=true;
 function crearGrafo(data) {
 	console.log(data);
     var links = getFormatoJson(data);
@@ -13,7 +14,6 @@ function crearGrafo(data) {
     });
     literales = {};
     recursos = {};
-    function redraw(){
     $("svg").remove();
     var w = $("#graph").width(),
         h = 1000;
@@ -46,17 +46,7 @@ function crearGrafo(data) {
         return "link " + d.type;
     }).attr("marker-end", function(d) {
         return "url(#" + d.type + ")";
-    }).style("stroke", "#ccc").on("mouseover", function(d, i) {
-        console.log(force.linkDistance);
-        onMouseOver(d.type);
-        force.linkDistance(function (d) {
-            return getTamanoTexto(d.type, "Bellefair","10px");
-      })
-    	// /force.start();
-        console.log(force.linkDistance);
-    }).on("mouseout", function(d, i) {
-        onMouseOut();
-    });
+    }).style("stroke", "#ccc");
 
     var textPath = link.append("svg:path").attr("id", function(d) {
         return d.source.index + "_" + d.target.index;
@@ -77,7 +67,7 @@ function crearGrafo(data) {
             "r": 15,
             "fill": "#ccc",
             "stroke": "#000000"
-        }).call(force.drag);
+        });
 
     var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literales))
         .enter().append("svg:rect").attr("class", function(d) {
@@ -163,7 +153,7 @@ function crearGrafo(data) {
             sweep + " " + end.x + "," + end.y;
     }
     
-    $("[class^='path_label']").hide();
+  // $("[class^='path_label']").hide();
 
     function tick() {
         linkPath.attr("d", function(d) {
@@ -193,18 +183,26 @@ function crearGrafo(data) {
             return "translate(" + d.x + "," + d.y + ")";
         });
     }
-    }
-    redraw();
     
-    window.addEventListener("resize", redraw);
+    
 }
-
-function onMouseOver(pNodo) {
-    $("[id=" + eliminarSimbolos(pNodo) + "]").show();
-  }
+var cont=0;
+// function onMouseOver(pNodo) {
+// cont=cont+1;
+// console.log(cont);
+// $("[id=" + eliminarSimbolos(pNodo) + "]").show();
+// }
 
 function onMouseOut() {
+	if(visibles){
     $("[class^='path_label']").hide();
+    console.log(visibles);
+    visibles=false;
+}
+else{
+    $("[class^='path_label']").show();
+    visibles=true;
+}
 }
 
 function eliminarSimbolos(pString) {

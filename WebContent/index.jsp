@@ -82,6 +82,9 @@
 						<button class="btn btn-primary" type="button" onclick="destacarElemento()">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
+						<button class="btn btn-primary" type="button" onclick="onMouseOut()">
+							Show/Hide links
+						</button>
 					</span>
 				</div>
 			</div>
