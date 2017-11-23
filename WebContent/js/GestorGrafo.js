@@ -3,7 +3,7 @@ var links;
 var nodos;
 var circle;
 var textRectangles;
-
+var path_label;
 function crearGrafo(data) {
     links = getFormatoJson(data);
     nodos = {};
@@ -97,7 +97,9 @@ function crearGrafo(data) {
 
 
     textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literales)).enter()
-        .append("svg:g");
+        .append("svg:g").attr("id", function(d){
+        	return "text"+eliminarSimbolos(d.name);
+        });
 
     textRectangles.append("svg:text").attr({
         "font-size": "10"
@@ -112,7 +114,9 @@ function crearGrafo(data) {
     });
 
     var textCircles = svg.append("svg:g").selectAll("g").data(d3.values(recursos)).enter()
-        .append("svg:g");
+        .append("svg:g").attr("id", function(d){
+        	return "text"+eliminarSimbolos(d.name);
+        });
 
     textCircles.append("svg:text").attr("x", 8).attr("y", ".31em").attr({
         "font-size": "10",
@@ -129,14 +133,14 @@ function crearGrafo(data) {
         return d.name;
     });
 
-    var path_label = svg.append("svg:g").selectAll(".path_label").data(
+    path_label = svg.append("svg:g").selectAll(".path_label").data(
         force.links()).enter().append("svg:text").attr({
-        "class": "path_label",
-        "id": function(d, i) {
-            return eliminarSimbolos(d.type);
-        }
-    }).append("svg:textPath").attr("startOffset", "50%").attr("text-anchor",
-        "middle").attr("xlink:href", function(d) {
+        "class": "path_label"
+    }).append("svg:textPath").attr("startOffset", "50%").attr({"text-anchor":
+        "middle", "id": function(d) {
+        	var aux =eliminarSimbolos(d.source.name)+eliminarSimbolos(d.target.name);
+            return "r"+aux;
+        }}).attr("xlink:href", function(d) {
         return "#" + d.source.index + "_" + d.target.index;
     }).style("fill", "#000").style({
         "font-size": "10",
@@ -207,54 +211,59 @@ function crearGrafo(data) {
 
     function connectedNodes(elementIndex) {
         if (toggle == 0) {
-            
+          $("[id^=text").attr("opacity","0.04");
+          path_label[0].map(function(x){x.setAttribute("opacity","0.04")});
+        	var  textRecursos;
+        	var  textLiterales;
         	circle.style("opacity", function(o) {
                 var opacity = 0.04;
                 if (linkedByIndex[elementIndex.name + "," + o.name] == 1 || linkedByIndex[o.name + "," + elementIndex.name] == 1) {
                     opacity = 1;
+                    //Hace visibles el texto de los links adecuados
+                    var aux=eliminarSimbolos(o.name)+eliminarSimbolos(elementIndex.name);
+                    var aux2=eliminarSimbolos(elementIndex.name)+eliminarSimbolos(o.name);
+                    d3.select("#r"+aux).attr("opacity","1");
+                    d3.select("#r"+aux2).attr("opacity","1");
+                    //Hace visible los labeles de los nodos adecuados
+                    $("#text"+eliminarSimbolos(o.name)).attr("opacity","1");
                 }
                 return opacity;
             });
+        	
             rectangle.style("opacity", function(o) {
                 var opacity = 0.04;
                 if (linkedByIndex[elementIndex.name + "," + o.name] == 1 || linkedByIndex[o.name + "," + elementIndex.name] == 1) {
                     opacity = 1;
+                    //Hace visibles el texto de los links adecuados
+                    var aux=eliminarSimbolos(o.name)+eliminarSimbolos(elementIndex.name);
+                    var aux2=eliminarSimbolos(elementIndex.name)+eliminarSimbolos(o.name);
+                    d3.select("#r"+aux).attr("opacity","1");
+                    d3.select("#r"+aux2).attr("opacity","1");
+                    //Hace visible los labeles de los nodos adecuados
+                    $("#text"+eliminarSimbolos(o.name)).attr("opacity","1");
                 }
                 
                 return opacity;
             });
             link.style("opacity", function(o){
             	var opacity = 0.04;
-                if (linkedByIndex[elementIndex.name + "," + o.source.name] == 1 || linkedByIndex[o.source.name + "," + elementIndex.name] == 1) {
+            	console.log(this);
+
+            	console.log(elementIndex.name + "id;" + elementIndex.index + "---------------"  );
+            	console.log(o);
+                if (linkedByIndex[elementIndex.name + "," + o.source.name] == 1 && elementIndex.index==o.source.index) {
                     opacity = 1;
                 }
                 return opacity;
             });
-            var cont=0;
-            console.log(rectangle);
-            console.log("------");
-            console.log(textRectangles);
-            
-            // for (var e in textRectangles[0]){
-// var nodoTextoRecurso = d3.select(temp1[0][e]).node().__data__.name;
-// }
-            
-            
-            
-// textPath.style("opacity", function(o) {
-// var opacity = 0.04;
-// if (linkedByIndex[elementIndex.name + "," + o.name] == 1 ||
-// linkedByIndex[o.name + "," + elementIndex.name] == 1) {
-// opacity = 1;
-// }
-// return opacity;
-// });
             toggle = 1;
         } else {
             // Put them back to opacity=1
             circle.style("opacity", 1);
             rectangle.style("opacity", 1);
             link.style("opacity", 1);
+            path_label[0].map(function(x){x.setAttribute("opacity","1")});
+            $("[id^=text").attr("opacity","1");
             toggle = 0;
         }
     }
