@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.openrdf.repository.RepositoryException;
 
 import eurohelp.recursoshumanos.pagegenerator.Opciones;
-import eurohelp.recursoshumanos.stardog.Stardog;
+import eurohelp.recursoshumanos.stardog.utils.Stardog;
 import freemarker.template.TemplateException;
 
 /**
@@ -48,7 +48,7 @@ public class ServGeneradorIndex extends HttpServlet {
 			} else if (categoria != null && habilidades != null && certificaciones != null) {
 				datos = stardog.getIndexData(categoria, habilidades, certificaciones);
 			}
-		} catch (RepositoryException | TemplateException e) {
+		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
 		response.setContentType("text/html; charset=UTF-8");

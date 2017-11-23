@@ -1,4 +1,4 @@
-package eurohelp.recursoshumanos.stardog;
+package eurohelp.recursoshumanos.stardog.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,14 +34,22 @@ public class Stardog {
 
 	/**
 	 * @throws RepositoryException
+	 * @throws IOException
 	 * 
 	 */
-	public Stardog() throws RepositoryException {
+	public Stardog()  {
 		serverURL = "http://ckan.eurohelp.es:5820";
-		Repository stardogRepository = new StardogRepository(
-				ConnectionConfiguration.to("LODgenAppTurismo").server(serverURL).credentials("admin","ctxakurra"));
-		stardogRepository.initialize();
-		repository = stardogRepository.getConnection();
+		// Repository stardogRepository = new StardogRepository(
+		// ConnectionConfiguration.to("LODgenAppTurismo").server(serverURL).credentials(PropertiesManager.getINSTANCE().getProperty("user"),PropertiesManager.getINSTANCE().getProperty("password")));
+
+		Repository stardogRepository = new StardogRepository(ConnectionConfiguration.to("LODgenAppTurismo")
+				.server(serverURL).credentials("admin", "ctxakurra"));
+		try {
+			stardogRepository.initialize();
+			repository = stardogRepository.getConnection();
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -202,11 +210,34 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("los resultados\n" +result );
 		Json json = new Json();
 		result = json.parsearJSON(result);
-		System.out.println("el json\n" +result );
 
+		return result;
+	}
+	
+	public String getResourceJson(String pRecurso) {
+		String query = "construct{?nomRecurso ?p ?o} where{graph<http://opendata.eurohelp.es/dataset/recursos-humanos>{?nomRecurso ?p ?o}FILTER(?nomRecurso = <recursoPeticion>)}";
+		String result = "";
+		query=query.replace("recursoPeticion", pRecurso);
+		try {
+			GraphQuery tupleQuery = repository.prepareGraphQuery(QueryLanguage.SPARQL, query);
+			GraphQueryResult results = tupleQuery.evaluate();
+			while (results.hasNext()) {
+				Statement statement = results.next();
+				String e = statement.toString().replace(", ", ",");
+				if (!result.contains(e)) {
+					result = result + e;
+				}
+			}
+			results.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("los resultados\n" + result);
+		Json json = new Json();
+		result = json.parsearJSON(result);
+		System.out.println("el json\n" + result);
 		return result;
 	}
 

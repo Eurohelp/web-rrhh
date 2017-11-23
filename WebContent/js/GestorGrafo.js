@@ -1,12 +1,7 @@
-var visibles = true;
-var links;
-var nodos;
-var circle;
-var textRectangles;
-var path_label;
+var PATH_LABEL;
 function crearGrafo(data) {
-    links = getFormatoJson(data);
-    nodos = {};
+   var links = getFormatoJson(data);
+   var nodos = {};
     links.forEach(function(link) {
         link.source = nodos[link.source] || (nodos[link.source] = {
             name: link.source,
@@ -56,7 +51,7 @@ function crearGrafo(data) {
         return d.source.index + "_" + d.target.index;
     }).attr("class", "textpath");
     
-    circle = svg.append("svg:g").selectAll("circle").data(d3.values(recursos))
+    var circle = svg.append("svg:g").selectAll("circle").data(d3.values(recursos))
         .enter().append("svg:circle").attr("class", function(d) {
             if (d.name.includes("http")) {
                 return "recurso";
@@ -71,7 +66,7 @@ function crearGrafo(data) {
             "r": 15,
             "fill": "#ccc",
             "stroke": "#000000"
-        }).on('dblclick', connectedNodes).call(force.drag);
+        }).on("click",function (d){obtenerDatosRecurso(d.name)}).on("dblclick", connectedNodes).call(force.drag);
 
     var rectangle = svg.append("svg:g").selectAll("rectangle").data(d3.values(literales))
         .enter().append("svg:rect").attr("class", function(d) {
@@ -96,7 +91,7 @@ function crearGrafo(data) {
         }).on('dblclick', connectedNodes).call(force.drag);
 
 
-    textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literales)).enter()
+    var textRectangles = svg.append("svg:g").selectAll("g").data(d3.values(literales)).enter()
         .append("svg:g").attr("id", function(d){
         	return "text"+eliminarSimbolos(d.name);
         });
@@ -133,7 +128,7 @@ function crearGrafo(data) {
         return d.name;
     });
 
-    path_label = svg.append("svg:g").selectAll(".path_label").data(
+    PATH_LABEL = svg.append("svg:g").selectAll(".path_label").data(
         force.links()).enter().append("svg:text").attr({
         "class": "path_label"
     }).append("svg:textPath").attr("startOffset", "50%").attr({"text-anchor":
@@ -147,7 +142,9 @@ function crearGrafo(data) {
         "font-family": "Arial"
     }).text(function(d) {
         return d.type;
-    });
+    }).on("mouseover",function(d){
+    	onMouseOver(d);
+    }).on("mouseout", onMouseOut);
 
     function arcPath(leftHand, d) {
         var start = leftHand ? d.source : d.target,
@@ -161,8 +158,7 @@ function crearGrafo(data) {
         return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," +
             sweep + " " + end.x + "," + end.y;
     }
-
-    // $("[class^='path_label']").hide();
+    PATH_LABEL[0].map(function(x){x.setAttribute("opacity","0")});
 
     function tick() {
         linkPath.attr("d", function(d) {
@@ -212,19 +208,19 @@ function crearGrafo(data) {
     function connectedNodes(elementIndex) {
         if (toggle == 0) {
           $("[id^=text").attr("opacity","0.04");
-          path_label[0].map(function(x){x.setAttribute("opacity","0.04")});
+          PATH_LABEL[0].map(function(x){x.setAttribute("opacity","0.04")});
         	var  textRecursos;
         	var  textLiterales;
         	circle.style("opacity", function(o) {
                 var opacity = 0.04;
                 if (linkedByIndex[elementIndex.name + "," + o.name] == 1 || linkedByIndex[o.name + "," + elementIndex.name] == 1) {
                     opacity = 1;
-                    //Hace visibles el texto de los links adecuados
+                    // Hace visibles el texto de los links adecuados
                     var aux=eliminarSimbolos(o.name)+eliminarSimbolos(elementIndex.name);
                     var aux2=eliminarSimbolos(elementIndex.name)+eliminarSimbolos(o.name);
                     d3.select("#r"+aux).attr("opacity","1");
                     d3.select("#r"+aux2).attr("opacity","1");
-                    //Hace visible los labeles de los nodos adecuados
+                    // Hace visible los labeles de los nodos adecuados
                     $("#text"+eliminarSimbolos(o.name)).attr("opacity","1");
                 }
                 return opacity;
@@ -234,12 +230,12 @@ function crearGrafo(data) {
                 var opacity = 0.04;
                 if (linkedByIndex[elementIndex.name + "," + o.name] == 1 || linkedByIndex[o.name + "," + elementIndex.name] == 1) {
                     opacity = 1;
-                    //Hace visibles el texto de los links adecuados
+                    // Hace visibles el texto de los links adecuados
                     var aux=eliminarSimbolos(o.name)+eliminarSimbolos(elementIndex.name);
                     var aux2=eliminarSimbolos(elementIndex.name)+eliminarSimbolos(o.name);
                     d3.select("#r"+aux).attr("opacity","1");
                     d3.select("#r"+aux2).attr("opacity","1");
-                    //Hace visible los labeles de los nodos adecuados
+                    // Hace visible los labeles de los nodos adecuados
                     $("#text"+eliminarSimbolos(o.name)).attr("opacity","1");
                 }
                 
@@ -247,11 +243,7 @@ function crearGrafo(data) {
             });
             link.style("opacity", function(o){
             	var opacity = 0.04;
-            	console.log(this);
-
-            	console.log(elementIndex.name + "id;" + elementIndex.index + "---------------"  );
-            	console.log(o);
-                if (linkedByIndex[elementIndex.name + "," + o.source.name] == 1 && elementIndex.index==o.source.index) {
+                if (linkedByIndex[elementIndex.name + "," + o.source.name] == 1 && elementIndex.index==o.source.index || elementIndex.index==o.target.index) {
                     opacity = 1;
                 }
                 return opacity;
@@ -262,27 +254,23 @@ function crearGrafo(data) {
             circle.style("opacity", 1);
             rectangle.style("opacity", 1);
             link.style("opacity", 1);
-            path_label[0].map(function(x){x.setAttribute("opacity","1")});
+            PATH_LABEL[0].map(function(x){x.setAttribute("opacity","0")});
             $("[id^=text").attr("opacity","1");
             toggle = 0;
         }
     }
 }
 
-// function onMouseOver(pNodo) {
-// cont=cont+1;
-// console.log(cont);
-// $("[id=" + eliminarSimbolos(pNodo) + "]").show();
-// }
+ function onMouseOver(pElement) {
+	 console.log("#r"+eliminarSimbolos(pElement.source.name)+eliminarSimbolos(pElement.target.name));
+
+     d3.select("#r"+eliminarSimbolos(pElement.source.name)+eliminarSimbolos(pElement.target.name)).attr("opacity","1");
+	 
+ }
 
 function onMouseOut() {
-    if (visibles) {
-        $("[class^='path_label']").hide();
-        visibles = false;
-    } else {
-        $("[class^='path_label']").show();
-        visibles = true;
-    }
+    PATH_LABEL[0].map(function(x){x.setAttribute("opacity","0")});
+
 }
 
 function eliminarSimbolos(pString) {

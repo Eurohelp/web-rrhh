@@ -5,14 +5,23 @@ var boolIdi = false;
 var boolExp = false;
 var boolUniv = false;
 var fin = false;
-
+var cont = -1;
+var olderQuerys = [];
 /**
  * Metodo ejecuta la llamada al servlet que obtiene el json para la creacion del
  * grafo
  * 
  * @returns
  */
-function obtenerJson() {
+function obtenerJson(boolean) {
+	olderQuerys.push({"accion":"menu"});
+	if(boolean==null){
+		cont += 1;
+		}
+	$("#search").css("visibility", "visible");
+	if(cont==0){
+	$("#previousButton").removeClass("previous disabled").addClass("previous");
+}
 	var form = $("#form");
 	$
 			.ajax({
@@ -21,6 +30,7 @@ function obtenerJson() {
 				type : "post",
 				success : function(data) {
 					$("#search").css("visibility", "visible");
+					$("#olderResults").css("visibility", "visible");
 					$("svg").remove();
 					if (data.includes("vacio")) {
 						$("svg").remove();
@@ -39,13 +49,80 @@ function obtenerJson() {
 				}
 			});
 }
+
+/**
+ * Metodo obtiene los datos de un recurso concreto
+ */
+function obtenerDatosRecurso(pRecurso, boolean) {
+	olderQuerys.push({
+		"accion" : "recurso",
+		"recurso" : pRecurso
+	});
+	if(boolean==null){
+	cont += 1;
+	}
+	$("#search").css("visibility", "visible");
+	if(cont==0){
+	$("#previousButton").removeClass("previous disabled").addClass("previous");
+}
+	$.ajax({
+		url : "ServGetJson",
+		data : {
+			"accion" : "recurso",
+			"recurso" : pRecurso
+		},
+		type : "post",
+		success : function(data) {
+			$("#search").css("visibility", "visible");
+			$("svg").remove();
+			if (data.includes("vacio")) {
+				$("svg").remove();
+				swal("Oops...", "No hay datos para ese recurso concreto",
+						"info");
+			} else {
+				crearGrafo(data);
+				if (!fin) {
+					crearIndex();
+				} else {
+					fin = false;
+				}
+			}
+		}
+	});
+}
+
+/**
+ * Metodo obtiene los datos de un recurso anterior
+ */
+function obtenerDatosRecursoPrevio() {
+	var datos = olderQuerys[cont];
+	olderQuerys = olderQuerys.splice(cont, 1);
+	cont=cont-1;
+	console.log(datos);
+	if (datos.accion == "recurso") {
+		obtenerDatosRecurso(datos.recurso,false);
+	} else {
+		obtenerJson(boolean);
+	}
+	
+	if(cont==0){
+		$("#previousButton").removeClass("previous").addClass("previous  disabled");
+		if(cont<0){
+			cont=-1;
+		}
+	}
+
+}
+
 /**
  * Metodo ejecuta llamada al servlet que generará el index
  * 
- * @returns
+ * 
  */
 function crearIndex() {
 	var form = $("#form");
+	olderQuerys = [];
+	cont=-1;
 	$.ajax({
 		url : "ServGeneradorIndex",
 		data : form.serialize(),
@@ -58,6 +135,7 @@ function crearIndex() {
 		}
 	});
 }
+
 /**
  * Metodo comprueba las opciones del menú seleccionadas
  * 
@@ -177,9 +255,8 @@ function ponerSelecciones(arraySelect) {
 }
 
 /**
- * Marca como seleccionada una opción determinada
- * del menú
- *  
+ * Marca como seleccionada una opción determinada del menú
+ * 
  * @param element
  * @returns
  */
@@ -307,6 +384,7 @@ function validar(clase) {
 }
 /**
  * Elimina opciones del menú
+ * 
  * @param pCase
  * @returns
  */

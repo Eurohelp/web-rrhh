@@ -108,6 +108,18 @@ span {
 	font-size: large;
 	padding: 40px;
 }
+btn-default{
+		float: left;
+	
+}
+#olderResults {
+	float: left;
+	margin-top: 30px;
+	margin-right: 15px;
+	width: 45%;
+	font-size: large;
+	padding: 40px;
+}
 
 #busqueda {
 	font-size: large;

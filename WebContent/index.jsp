@@ -4,9 +4,10 @@
 <title>Eurohelp Consulting</title>
 <meta name="description"
 	content="Write some words to describe your html page">
-	
+
 <!-- Progress bar -->
-<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+<script
+	src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
 <!-- CSS -->
@@ -48,7 +49,8 @@
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script
+	src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="<%=request.getContextPath()%>/js/sweetalert2.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/GestorGrafo.js"></script>
 <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css">
@@ -79,13 +81,18 @@
 					<input type="text" class="form-control" id="busqueda"
 						placeholder="Introduce valor a buscar"> <span
 						class="input-group-btn">
-						<button class="btn btn-primary" type="button" onclick="destacarElemento()">
+						<button class="btn btn-primary" type="button"
+							onclick="destacarElemento()">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
-						<button class="btn btn-primary" type="button" onclick="onMouseOut()">
-							Show/Hide links
-						</button>
 					</span>
+				</div>
+				<div id="olderResults" style="visibility: hidden">
+					<ul class="pager">
+						<li class="previous disabled" id="previousButton"><a href="javascript:obtenerDatosRecursoPrevio()"><span
+								aria-hidden="true">&larr;</span>Atrás</a></li>
+
+					</ul>
 				</div>
 			</div>
 		</div>
