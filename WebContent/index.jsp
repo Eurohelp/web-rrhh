@@ -89,14 +89,13 @@
 				</div>
 				<div id="olderResults" style="visibility: hidden">
 					<ul class="pager">
-						<li class="previous disabled" id="previousButton"><a href="javascript:obtenerDatosRecursoPrevio()"><span
+						<li class="previous disabled" id="previousButton"><a href="javascript:obtenerDatosRecursoPrevio(true)"><span
 								aria-hidden="true">&larr;</span>Atrás</a></li>
 
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="pageFooter"></div>
 	</div>
 </body>
 </html>

@@ -234,10 +234,12 @@ public class Stardog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("los resultados\n" + result);
-		Json json = new Json();
-		result = json.parsearJSON(result);
-		System.out.println("el json\n" + result);
+		if (result == "") {
+			result = "json vacio";
+		} else {
+			Json json = new Json();
+			result = json.parsearJSON(result);
+		}
 		return result;
 	}
 
@@ -373,5 +375,4 @@ public class Stardog {
 		}
 		return pQuery;
 	}
-
 }
