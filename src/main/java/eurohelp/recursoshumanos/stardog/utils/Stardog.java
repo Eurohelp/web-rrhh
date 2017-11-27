@@ -37,13 +37,11 @@ public class Stardog {
 	 * @throws IOException
 	 * 
 	 */
-	public Stardog()  {
+	public Stardog() throws IOException  {
 		serverURL = "http://ckan.eurohelp.es:5820";
-		// Repository stardogRepository = new StardogRepository(
-		// ConnectionConfiguration.to("LODgenAppTurismo").server(serverURL).credentials(PropertiesManager.getINSTANCE().getProperty("user"),PropertiesManager.getINSTANCE().getProperty("password")));
-
 		Repository stardogRepository = new StardogRepository(ConnectionConfiguration.to("LODgenAppTurismo")
-				.server(serverURL).credentials("admin", "ctxakurra"));
+				.server(serverURL).credentials(PropertiesManager.getINSTANCE().getProperty("user"),
+						PropertiesManager.getINSTANCE().getProperty("password")));
 		try {
 			stardogRepository.initialize();
 			repository = stardogRepository.getConnection();

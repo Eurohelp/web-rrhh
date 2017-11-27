@@ -4,7 +4,6 @@
 <title>Eurohelp Consulting</title>
 <meta name="description"
 	content="Página orientada a la seleccion de personal">
-
 <!-- Progress bar -->
 <script
 	src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
@@ -91,7 +90,6 @@
 					<ul class="pager">
 						<li class="previous disabled" id="previousButton"><a href="javascript:obtenerDatosRecursoPrevio(true)"><span
 								aria-hidden="true">&larr;</span>Atrás</a></li>
-
 					</ul>
 				</div>
 			</div>

@@ -22,10 +22,10 @@ public class PropertiesManager {
 
 	private PropertiesManager() throws IOException {
 		properties = new Properties();
-		System.out.println(Stardog.class.getResourceAsStream("stardog-conf.properties").toString());
-		InputStream input = new FileInputStream(PropertiesManager.class.getResourceAsStream("stardog-conf.properties").toString());
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("stardog-conf.properties");
+		properties = new Properties();
 		properties.load(input);
-
 	}
 
 	public String getProperty(String pPropertyName) {

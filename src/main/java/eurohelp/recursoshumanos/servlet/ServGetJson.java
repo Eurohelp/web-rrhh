@@ -36,6 +36,7 @@ public class ServGetJson extends HttpServlet {
 			throws ServletException, IOException {
 		Stardog stardog = new Stardog();
 		String json = "";
+		//Si la peticion se basa en los datos del formulario y no en un recurso concreto
 		if (request.getParameter("accion") == null) {
 			String[] categoria = request.getParameterValues("Categoria");
 			String[] habilidades = request.getParameterValues("Habilidades");
@@ -51,7 +52,7 @@ public class ServGetJson extends HttpServlet {
 			} else if (categoria != null) {
 				json = stardog.getJson(categoria);
 			}
-			
+			// Si la peticion es de tipo obtener recurso concreto
 		} else {
 			String nombreRecurso = request.getParameter("recurso");
 			json = stardog.getResourceJson(nombreRecurso);
