@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>Eurohelp Consulting</title>
 <meta name="description"
-	content="Write some words to describe your html page">
+	content="Página orientada a la seleccion de personal">
 
 <!-- Progress bar -->
 <script

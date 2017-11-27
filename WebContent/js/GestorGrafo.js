@@ -197,11 +197,11 @@ function crearGrafo(data) {
   });
  }
  /**
-  * el codigp a partir de aqui es para lo de destacar los nodos a los que
-  * esta ligado un nodo
-  * 
-  * @returns
-  */
+	 * el codigp a partir de aqui es para lo de destacar los nodos a los que
+	 * esta ligado un nodo
+	 * 
+	 * @returns
+	 */
 
 
  // Create an array logging what is connected to what
@@ -281,7 +281,14 @@ function onMouseOut() {
 
 }
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 function eliminarSimbolos(pString) {
+ pString = pString.replaceAll("%", "");
+ pString = pString.replaceAll("/", "");
  pString = pString.replace(":", "");
  pString = pString.replace(/\s/g, "");
  pString = pString.replace("+", "");
