@@ -11,7 +11,13 @@ Para ver el valor de los predicados basta con posar el ratón sobre el enlace qu
 
 ![Picture](/img/grafoPredicados.png)
 
+Si entre todos los datos presentados nos interesa uno en concreto más que los otros, podremos resaltarlo posando el ratón sobre él para ver sólo sus datos asociados.
 
+![Picture](/img/grafoFocalizado.png)
+
+Por último, si queremos obtener toda la información existente en nuestro repositorio de datos sobre un recurso concreto y limitar el grafo a esa información, haremos doble click encima del nodo correspondiente al recurso que nos interesa.
+
+![Picture](/img/grafoRecursoConcreto.png)
 
 ## Ejecución ##
 
@@ -19,7 +25,7 @@ Para ver el valor de los predicados basta con posar el ratón sobre el enlace qu
 	
 Para ejecutarlo es necesario publicar el RDF que se encuentra en la carpeta [dataset](/dataset/dataset.rdf) en una triple store, en este caso se usará Stardog. El repositorio que se elija es importante por el formato en el que se recibirán los resultados, al hacerlo con Stardog en este caso no se deberán alterar los datos recibidos. 
 
-Por ultimo se deberán modificar los datos de conexión a la base de datos en la clase java [Stardog.java](/src/main/java/eurohelp/recursoshumanos/stardog/Stardog.java) y ya se podrá desplegar en un contenedor de Servlets como Tomcat. 
+Por ultimo se deberán modificar los datos de conexión a la base de datos en la clase java [Stardog.java](/src/main/java/eurohelp/recursoshumanos/stardog/Stardog.java) y ya se podrá desplegar en un contenedor de Servlets como Tomcat, en este caso se está utilizando Tomcat v8.0. 
 
 ##### Modificación del proyecto 
 	
