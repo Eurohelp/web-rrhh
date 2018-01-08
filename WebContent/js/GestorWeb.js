@@ -52,7 +52,6 @@ function deleteProgressBar() {
 function obtenerJson(boolean) {
     // $("#search").css("visibility", "visible");
     initProgressBar();
-    console.log("me vacilas" + boolean);
     if (boolean == true) {
     	olderQuerys=[];
         cont=0;
@@ -104,7 +103,6 @@ function controladorBotonRecursosAnteriores(){
 function obtenerDatosRecurso(pRecurso, boolean) {
     initProgressBar();
     if (boolean == true) {
-    	console.log("entro??????");
         cont = cont + 1;
         olderQuerys.push({
             "accion": "recurso",
@@ -143,7 +141,6 @@ function obtenerDatosRecursoPrevio() {
         var datos = olderQuerys[cont - 1];
         olderQuerys.splice(cont, 1);
         cont = cont - 1;
-        console.log(datos);
         controladorBotonRecursosAnteriores();
         if (datos.accion == "recurso") {
             obtenerDatosRecurso(datos.recurso, false);
