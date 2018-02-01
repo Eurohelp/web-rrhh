@@ -216,7 +216,7 @@ function crearGrafo(data) {
  }
  
  // Variable que hace referencia a los enlaces que se crean entre los
-	// recursos/literales
+ // recursos/literales
  var linkedByIndex = {};
  links.forEach(function(d) {
   linkedByIndex[d.source.name + "," + d.source.name] = 1;
