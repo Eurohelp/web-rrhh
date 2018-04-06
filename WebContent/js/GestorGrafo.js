@@ -292,7 +292,6 @@ function onMouseOut() {
  PATH_LABEL[0].map(function(x) {
   x.setAttribute("opacity", "0")
  });
-
 }
 
 String.prototype.replaceAll = function(search, replacement) {

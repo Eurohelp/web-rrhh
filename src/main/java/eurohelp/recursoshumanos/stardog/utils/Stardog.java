@@ -119,16 +119,19 @@ public class Stardog {
 			TemplateException {
 		String queryCat = "select distinct ?Categoria { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> "
 				+ "{?s rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria}}";
+		
 		String queryHabil = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Habilidad { GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s "
 						+ "rdf:type <http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/skill> ?habilidad. ?habilidad <http://schema.org/name> ?Habilidad.  "
 						+ "FILTER(?Categoria IN ())}}");
+		
 		String queryCert = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Certificacion{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?s <http://schema.org/name> ?Categoria. ?s "
 						+ "<http://opendata.euskadi.eus/certification> ?certificacion. ?certificacion <http://schema.org/name> "
 						+ "?Certificacion FILTER(?Categoria IN ())}}");
+		
 		String queryIdioma = fillQuery("?Categoria IN (", pCategoria,
 				"select distinct ?Idioma{ GRAPH <http://opendata.eurohelp.es/dataset/recursos-humanos> {?s rdf:type "
 						+ "<http://opendata.euskadi.eus/puesto>. ?person rdf:type ?s. ?s <http://schema.org/name> ?Categoria."
@@ -147,6 +150,7 @@ public class Stardog {
 						+ "?person rdf:type ?s."
 						+ "?person <http://opendata.euskadi.eus/experience> ?experiencia.?experiencia <http://schema.org/name>"
 						+ "?Experiencia FILTER(?Categoria IN ())}}");
+		
 		String result = new GeneradorIndex().generarIndex(getListByData(queryCat), getListByData(queryHabil),
 				getListByData(queryCert), getListByData(queryIdioma), getListByData(queryUniversidad),
 				getListByData(queryExperiencia));
